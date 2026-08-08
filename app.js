@@ -37,8 +37,12 @@ const vids=[
 function teamCard(t){return `<article class="quick-card" data-route="${t.id==="a-milli"?"milli-takimlar":"milli-takimlar"}"><div class="quick-img" style="background-image:url('${t.img}')"><div class="quick-badge">C★</div></div><div class="quick-info"><b>${t.name}</b><small>${t.sub}</small><span>${t.count}</span></div></article>`}
 function stats(){return panel("Genel İstatistikler",`<div class="stat-grid">${[["İzlenen Maç","18","↗ %12",""],["İzlenen Oyuncu","42","↗ %15",""],["Oluşturulan Rapor","23","↗ %8",""],["Yetenek Başvurusu","7","↘ %5","down"]].map(x=>`<div class="stat"><small>${x[0]}</small><strong>${x[1]}</strong><div class="trend ${x[3]}">${x[2]}</div></div>`).join("")}</div>`,`<span style="font-size:10px;color:#9da9b7">Bu Ay⌄</span>`)}
 function upcoming(){
- const m=(D.matches||[["Türkiye","İspanya","21 May 2026","-","Dünya Kupası Elemeleri"],["Türkiye","İtalya","25 May 2026","-","Hazırlık Maçı"],["Macaristan","Türkiye","12 Haz 2026","-","UEFA Nations League"]]).slice(0,3);
- return panel("Yaklaşan Maçlar",m.map(x=>`<div class="row"><div><div class="rmain">${x[0]} &nbsp; vs &nbsp; ${x[1]}</div><div class="rsub">${x[4]}</div></div><div class="rside">${x[2]}</div></div>`).join(""),`<span style="color:#d71920;font-size:10px">Tümünü Gör ›</span>`)
+ const matches=[
+  {a:"Türkiye",fa:"assets/flag-tr.png",b:"İspanya",fb:"assets/flag-es.png",date:"21 May 2026",time:"21:45",comp:"Dünya Kupası Elemeleri",stad:"Atatürk Olimpiyat Stadyumu"},
+  {a:"Türkiye",fa:"assets/flag-tr.png",b:"İtalya",fb:"assets/flag-it.png",date:"25 May 2026",time:"20:00",comp:"Hazırlık Maçı",stad:"Konya Büyükşehir Stadyumu"},
+  {a:"Macaristan",fa:"assets/flag-hu.png",b:"Türkiye",fb:"assets/flag-tr.png",date:"12 Haz 2026",time:"21:45",comp:"UEFA Nations League",stad:"Puskás Arena"}
+ ];
+ return panel("Yaklaşan Maçlar",matches.map(x=>`<div class="match-line"><div><div class="match-teams"><img class="flag-img" src="${x.fa}"><b>${x.a}</b><span class="match-vs">vs</span><img class="flag-img" src="${x.fb}"><b>${x.b}</b></div><div class="match-meta">${x.comp}</div></div><div class="match-right">${x.date}<br>${x.time}<br>${x.stad}</div></div>`).join(""),`<span style="color:#d71920;font-size:10px">Tümünü Gör ›</span>`)
 }
 function reports(){
  const r=(D.reports||[["Arda Güler","Real Madrid","Gözlem Raporu","",84],["Yusuf Akçiçek","Fenerbahçe","Maç Raporu","",79],["Kenan Yıldız","Juventus","Gözlem Raporu","",78]]).slice(0,3);
