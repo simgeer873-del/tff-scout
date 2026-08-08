@@ -17,7 +17,7 @@ function side(){return `<aside class="sidebar">
 <button class="nav ${active("home")?"active":""}" data-route="home"><span class="ico">⌂</span>Ana Sayfa</button>
 ${groups.map(([g,it])=>`<div class="nav-group">${g}</div>${it.map(x=>`<button class="nav ${active(x[0])?"active":""}" data-route="${x[0]}"><span class="ico">${x[1]}</span>${x[2]}</button>`).join("")}`).join("")}
 <div class="side-foot">‹ Menüyü Daralt<br><br>Simge Er • Scout</div></aside>`}
-function top(){return `<header class="top"><div class="search">⌕<input id="gsearch" placeholder="Futbolcu, takım, maç, rapor ara..."><span>⌘ K</span></div><div class="top-right">
+function topbar(){return `<header class="top"><div class="search">⌕<input id="gsearch" placeholder="Futbolcu, takım, maç, rapor ara..."><span>⌘ K</span></div><div class="top-right">
 <button class="icon" id="theme">${S.theme==="dark"?"☀":"☾"}</button><button class="icon">♧</button><button class="icon">✉</button>
 <div class="user"><div class="avatar">SE</div><div><b>Simge Er ★</b><small>Scout</small></div></div></div></header>`}
 function panel(title,body,extra=""){return `<section class="panel"><div class="ph"><b>${title}</b>${extra}</div><div class="pb">${body}</div></section>`}
@@ -77,7 +77,7 @@ case"kullanici":return simpleTablePage("Kullanıcı Yönetimi","Sistem kullanıc
 case"mesaj":return page("Mesajlar","Scout ve analiz ekipleri arası iletişim.",`<div class="g2 grid">${panel("Gelen Kutusu",`<div class="row"><div><b>Analiz Departmanı</b><div class="muted">İtalya maçı videosu yüklendi.</div></div><span class="muted">10:42</span></div><div class="row"><div><b>Mehmet Yılmaz</b><div class="muted">U21 raporu hazır.</div></div><span class="muted">09:15</span></div>`)}${panel("Yeni Mesaj",`<input class="input" style="width:100%" placeholder="Alıcı"><textarea class="textarea" placeholder="Mesaj..."></textarea><button class="btn red" style="margin-top:10px">Gönder</button>`)}</div>`);
 default:return page("Modül","Bu ekran prototipe eklenecek.",panel("Bilgi",`<div class="empty">Hazırlanıyor</div>`));
 }}
-function render(){document.getElementById("app").innerHTML=`<div class="app">${side()}<main class="main">${top()}${routePage()}</main></div>`;bind()}
+function render(){document.getElementById("app").innerHTML=`<div class="app">${side()}<main class="main">${topbar()}${routePage()}</main></div>`;bind()}
 function bind(){
 document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
 document.querySelectorAll("[data-team]").forEach(e=>e.addEventListener("click",()=>{if(e.dataset.team==="a-milli")go("a-milli")}));
