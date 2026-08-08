@@ -22,11 +22,33 @@ function topbar(){return `<header class="top"><div class="search">⌕<input id="
 <div class="user"><div class="avatar">SE</div><div><b>Simge Er ★</b><small>Scout</small></div></div></div></header>`}
 function panel(title,body,extra=""){return `<section class="panel"><div class="ph"><b>${title}</b>${extra}</div><div class="pb">${body}</div></section>`}
 function page(title,sub,body,actions=""){return `<div class="content"><div class="head"><div><h1>${title}</h1><div class="sub">${sub}</div></div><div class="toolbar">${actions}</div></div>${body}</div>`}
-function teamCard(t){return `<article class="panel team" data-team="${t.id}"><div class="team-img"><div class="flag">C★</div></div><div class="team-body"><b>${t.name}</b><small>${t.meta}</small><small>${t.players} Oyuncu</small></div></article>`}
-function quickRail(){return `<div class="grid">${panel("Genel İstatistikler",`<div class="g2 grid">${[["İzlenen Maç",18],["İzlenen Oyuncu",42],["Oluşturulan Rapor",23],["Yetenek Başvurusu",7]].map(x=>`<div class="metric"><small>${x[0]}</small><strong>${x[1]}</strong><span class="muted">↗ bu ay</span></div>`).join("")}</div>`)}
-${panel("Yaklaşan Maçlar",D.matches.slice(0,3).map(x=>`<div class="row"><div><b>${x[0]} vs ${x[1]}</b><div class="muted">${x[4]}</div></div><span class="muted">${x[2]}</span></div>`).join(""))}
+
+function teamCard(t){
+return `<article class="panel team" data-team="${t.id}">
+<div class="team-img"><div class="flag">C★</div></div>
+<div class="team-body"><b>${t.name}</b><small>${t.meta}</small><small>${t.players} Oyuncu</small></div>
+</article>`}
+
+function milliCard(t){
+return `<article class="panel milli-card" data-team="${t.id}">
+<div class="milli-photo"><div class="milli-flag">C★</div></div>
+<div class="milli-content">
+<div class="milli-name">${t.name}</div>
+<div class="milli-meta">${t.meta}</div>
+<div class="milli-count">${t.players} Oyuncu</div>
+</div>
+</article>`}
+
+function milliRail(){
+return `<div class="milli-rail">
+${panel("Genel İstatistikler",`<div class="metrics">${[["İzlenen Maç",18,"%12"],["İzlenen Oyuncu",42,"%15"],["Oluşturulan Rapor",23,"%8"],["Yetenek Başvurusu",7,"%5"]].map(x=>`<div class="metric"><small>${x[0]}</small><strong>${x[1]}</strong><div class="trend">↗ ${x[2]}</div></div>`).join("")}</div>`)}
+${panel("Yaklaşan Maçlar",D.matches.slice(0,3).map(x=>`<div class="row"><div><b>${x[0]} vs ${x[1]}</b><div class="muted">${x[4]}</div></div><div class="muted">${x[2]}</div></div>`).join(""),`<button class="link">Tümünü Gör</button>`)}
 ${panel("Son Eklenen Raporlar",D.reports.slice(0,3).map(x=>`<div class="row"><div><b>${x[0]}</b><div class="muted">${x[1]} · ${x[2]} · Simge Er</div></div><span class="score">${x[4]}</span></div>`).join(""))}
-${panel("Hızlı İşlemler",`<div class="g2 grid"><button class="btn blue" data-route="video">▷ Maç Analizi</button><button class="btn green" data-route="futbolcularim">⌕ Oyuncu Ara</button><button class="btn amber" data-route="raporlar">▤ Yeni Rapor</button><button class="btn purple" data-route="yetenek">☆ Yetenek</button></div>`)}</div>`}
+${panel("Hızlı İşlemler",`<div class="quick-grid"><button class="quick-action" data-route="video">▷ Maç Analizine Başla</button><button class="quick-action" data-route="futbolcularim">⌕ Oyuncu Ara</button><button class="quick-action" data-route="raporlar">▤ Yeni Rapor Oluştur</button><button class="quick-action" data-route="yetenek">☆ Yetenek Başvuruları</button></div>`)}
+</div>`}
+
+function quickRail(){return milliRail()}
+
 function home(){return page("Hoş Geldiniz, Simge Er 👋","TFF Video Analiz ve Gözlem Sistemi",`<div style="display:grid;grid-template-columns:minmax(0,2.2fr) minmax(300px,.8fr);gap:18px"><div>
 <section class="hero"><div class="quote">“Daha güçlü bir gelecek için veri, analiz ve gözlem.”</div></section>
 <div class="section"><h2>Hızlı Erişim</h2><button class="link" data-route="milli-takimlar">Tümünü Gör →</button></div>
@@ -34,21 +56,33 @@ function home(){return page("Hoş Geldiniz, Simge Er 👋","TFF Video Analiz ve 
 <div class="section"><h2>Son Videolar</h2><button class="link" data-route="videolar">Tümünü Gör →</button></div>
 <div class="g3 grid">${D.matches.slice(0,3).map(x=>`<div class="panel"><div class="pb"><b>${x[0]} ${x[3]} ${x[1]}</b><div class="sub">${x[4]} · ${x[2]}</div><div style="height:115px;background:#183821;border-radius:10px;margin-top:12px;display:grid;place-items:center">▶ Video</div></div></div>`).join("")}</div>
 </div>${quickRail()}</div>`)}
-function milli(){return page("Milli Takımlar ☆","Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.",`<div class="grid team-grid">${D.teams.map(x=>teamCard({id:x[0],name:x[1],meta:x[2],players:x[3]})).join("")}</div>`,`<input class="input" placeholder="Milli takım ara...">`)}
+
+function milli(){
+const teams=D.teams.map(x=>({id:x[0],name:x[1],meta:x[2],players:x[3]}));
+return page("Milli Takımlar ☆","Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.",`
+<div class="milli-layout">
+<div class="milli-main"><div class="milli-grid">${teams.map(milliCard).join("")}</div></div>
+${milliRail()}
+</div>
+`,`<input class="input milli-search" placeholder="Milli takım ara..."> <button class="btn">Filtrele</button>`)}
+
 function aMilli(){
 const tabs={genel:"Genel Bakış",kadro:"Kadro",maclar:"Maçlar",videolar:"Videolar",istatistik:"İstatistikler",raporlar:"Raporlar"};
 return `<div class="content"><div class="team-head"><div class="thtop"><div class="circle">C★</div><div><h1>A Milli Takım ✓</h1><div class="sub">Erkek Milli Takım</div></div></div><div class="tabs">${Object.entries(tabs).map(([id,tx])=>`<button class="tab ${S.teamTab===id?"active":""}" data-tab="${id}">${tx}</button>`).join("")}</div></div>${S.teamTab==="genel"?aOverview():S.teamTab==="kadro"?playersTable("A Milli Takım Kadrosu",D.players):S.teamTab==="maclar"?matchList():S.teamTab==="videolar"?videosPage(true):S.teamTab==="istatistik"?statsPage(true):reportList(true)}</div>`}
+
 function aOverview(){return `<div class="g3 grid">${panel("Son Maç",`<div style="text-align:center;font-size:28px;font-weight:900;margin:25px 0">Türkiye 2 - 2 İspanya</div><div class="muted">21 May 2026 · Dünya Kupası Elemeleri</div>`)}${panel("Sıradaki Maç",`<div style="text-align:center;font-size:28px;font-weight:900;margin:25px 0">Türkiye vs İtalya</div><div class="muted">25 May 2026 · Hazırlık Maçı</div>`)}${panel("Takım Bilgileri",`<div class="row"><span>Kuruluş</span><b>1923</b></div><div class="row"><span>Teknik Direktör</span><b>Vincenzo Montella</b></div><div class="row"><span>Kaptan</span><b>Hakan Çalhanoğlu</b></div><div class="row"><span>FIFA</span><b>36</b></div>`)}</div>
 <div class="g3 grid" style="margin-top:14px">${panel("Kadro Özeti",`<div class="g2 grid">${[["Kaleci",3],["Defans",11],["Orta Saha",11],["Forvet",8]].map(x=>`<div class="metric"><small>${x[0]}</small><strong>${x[1]}</strong></div>`).join("")}</div>`)}${panel("Son Maç Performansı",`<div class="g2 grid">${[["Topla Oynama","%56"],["Şut","15"],["Pas Başarı","%87"],["Korner","6"]].map(x=>`<div class="metric"><small>${x[0]}</small><strong>${x[1]}</strong></div>`).join("")}</div>`)}${panel("Hızlı İşlemler",`<div class="g2 grid"><button class="btn blue" data-route="video">Maç Analizi</button><button class="btn green">Oyuncu Ara</button><button class="btn amber">Yeni Rapor</button><button class="btn purple">Video Yükle</button></div>`)}</div>`}
+
 function playersTable(title,arr){return panel(title,`<div class="table-wrap"><table><thead><tr><th>Oyuncu</th><th>Yaş</th><th>Kulüp</th><th>Mevki</th><th>Puan</th><th>Maç</th><th>Gol</th><th>Asist</th><th>Piyasa</th></tr></thead><tbody>${arr.map(p=>`<tr><td><div class="player"><span class="face"></span><b>${p[0]}</b></div></td><td>${p[1]}</td><td>${p[2]}</td><td>${p[3]}</td><td><span class="score">${p[4]}</span></td><td>${p[5]}</td><td>${p[6]}</td><td>${p[7]}</td><td>${p[8]}</td></tr>`).join("")}</tbody></table></div>`)}
+
 function matchList(){return panel("Maçlar",`<div class="toolbar" style="margin-bottom:12px"><select class="select"><option>2025/2026</option></select><select class="select"><option>Tüm Organizasyonlar</option></select></div>${D.matches.map(x=>`<div class="row"><div><b>${x[0]} ${x[3]} ${x[1]}</b><div class="muted">${x[4]}</div></div><div><span class="muted">${x[2]}</span> <button class="btn">Detay</button></div></div>`).join("")}`)}
 function videosPage(inTeam=false){return panel(inTeam?"A Milli Takım Videoları":"Güncel Videolar",`<div class="toolbar" style="margin-bottom:14px"><input class="input" placeholder="Video ara..."><select class="select"><option>Tüm Takımlar</option></select><button class="btn red">+ Yeni Video</button></div><div class="g3 grid">${D.matches.concat(D.matches.slice(0,2)).map((x,i)=>`<div class="panel"><div class="pb"><div style="height:140px;background:#183821;border-radius:11px;display:grid;place-items:center;font-size:28px">▶</div><b style="display:block;margin-top:10px">${x[0]} ${x[3]} ${x[1]}</b><div class="muted">${x[4]} · ${x[2]}</div></div></div>`).join("")}</div>`)}
-function statsPage(inTeam=false){return panel(inTeam?"A Milli Takım İstatistikleri":"Oyuncu İstatistikleri",`<div class="toolbar" style="margin-bottom:14px"><select class="select"><option>Süper Lig</option><option>Premier League</option></select><select class="select"><option>Tüm Takımlar</option></select><select class="select"><option>Position</option></select><select class="select"><option>Nationality</option></select><select class="select"><option>Season 2025/26</option></select><input class="input" value="15 - 35 Yaş"><select class="select"><option>Foot</option></select><button class="btn red">Ara</button></div>
-<div class="tabs"><button class="tab active">GENERAL</button><button class="tab">ATTACKING</button><button class="tab">DISTRIBUTION</button><button class="tab">DEF-DUELS</button><button class="tab">SET PIECES</button><button class="tab">GOALKEEPING</button><button class="tab">RUN</button></div>${playersTable("",D.players)}`)}
+function statsPage(inTeam=false){return panel(inTeam?"A Milli Takım İstatistikleri":"Oyuncu İstatistikleri",`<div class="toolbar" style="margin-bottom:14px"><select class="select"><option>Süper Lig</option><option>Premier League</option></select><select class="select"><option>Tüm Takımlar</option></select><select class="select"><option>Position</option></select><select class="select"><option>Nationality</option></select><select class="select"><option>Season 2025/26</option></select><input class="input" value="15 - 35 Yaş"><select class="select"><option>Foot</option></select><button class="btn red">Ara</button></div><div class="tabs"><button class="tab active">GENERAL</button><button class="tab">ATTACKING</button><button class="tab">DISTRIBUTION</button><button class="tab">DEF-DUELS</button><button class="tab">SET PIECES</button><button class="tab">GOALKEEPING</button><button class="tab">RUN</button></div>${playersTable("",D.players)}`)}
 function reportList(inTeam=false){return panel(inTeam?"A Milli Takım Raporları":"Oyuncu Raporları",`<div class="toolbar" style="margin-bottom:14px"><input class="input" placeholder="Oyuncu ara..."><select class="select"><option>Tüm Rapor Türleri</option></select><button class="btn red" id="newReport">+ Yeni Rapor</button></div>${D.reports.map(x=>`<div class="row"><div><b>${x[0]} - ${x[2]}</b><div class="muted">${x[1]} · ${x[3]} · Simge Er</div></div><div><span class="score">${x[4]}</span> <button class="btn">Aç</button></div></div>`).join("")}<div id="reportForm"></div>`)}
 function videoAnalysis(){return page("Maç & Video Analiz","Video, oyuncu, timeline ve scout notlarını tek çalışma alanında birleştirir.",`<div style="display:grid;grid-template-columns:240px 1fr 300px;gap:14px">${panel("Maç Listesi",D.matches.map(x=>`<div class="row"><div><b>${x[0]} ${x[3]} ${x[1]}</b><div class="muted">${x[2]}</div></div></div>`).join(""))}<div>${panel("Türkiye 2 - 2 İspanya",`<div class="video-player"><div class="bigplay">▶</div></div><div class="timeline">${[12,28,48,67,82].map((n,i)=>`<i class="event" style="left:${n}%"></i>`).join("")}</div>`)}<div class="g2 grid" style="margin-top:14px">${panel("Scout Notları",`<textarea class="textarea" placeholder="Dakikaya bağlı scout notu..."></textarea><div style="margin-top:10px"><button class="btn red">Notu Kaydet</button></div>`)}${panel("Olay Ekle",`<div class="g2 grid"><button class="btn">⚽ Gol</button><button class="btn">🎯 Şut</button><button class="btn">🟨 Kart</button><button class="btn">🔄 Değişiklik</button></div>`)}</div></div>${panel("Öne Çıkan Oyuncular",D.players.slice(0,5).map(p=>`<div class="row"><div class="player"><span class="face round"></span><div><b>${p[0]}</b><div class="muted">${p[3]} · ${p[2]}</div></div></div><span class="score">${p[4]}</span></div>`).join("")+`<div class="g2 grid" style="margin-top:12px"><button class="btn">Pozisyon Ekle</button><button class="btn">Klip Kaydet</button><button class="btn red" id="newReport2">Rapor Oluştur</button></div>`)}</div>`)}
 function reportForm(){return `<div class="panel" style="margin-top:15px"><div class="ph"><b>Yeni Oyuncu Raporu</b></div><div class="pb"><div class="form-steps"><span class="step active">1 Teknik</span><span class="step">2 Yetenek</span><span class="step">3 Taktik</span><span class="step">4 Fizik</span><span class="step">5 Rapor Özeti</span></div>${["Genel teknik becerileri yeterli mi?","Mevkinin ihtiyaçlarını karşılıyor mu?","Baskı altında tekniğini uygulayabiliyor mu?","1v1 oyununda duruş ve becerisi nasıl?"].map(q=>`<div class="question"><b>${q}</b><div class="radio-row">${["Çok İyi","İyi","Orta","Kötü"].map(x=>`<label><input type="radio" name="${q}"> ${x}</label>`).join("")}</div></div>`).join("")}<div style="margin-top:14px"><textarea class="textarea" placeholder="Genel değerlendirme..."></textarea><button class="btn red" style="margin-top:10px">Raporu Kaydet</button></div></div></div>`}
 function simpleTablePage(title,sub,headers,rows,actions=""){return page(title,sub,panel(title,`<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`),actions)}
+
 function routePage(){
 switch(S.route){
 case"home":return home();case"milli-takimlar":return milli();case"a-milli":return aMilli();
@@ -77,7 +111,11 @@ case"kullanici":return simpleTablePage("Kullanıcı Yönetimi","Sistem kullanıc
 case"mesaj":return page("Mesajlar","Scout ve analiz ekipleri arası iletişim.",`<div class="g2 grid">${panel("Gelen Kutusu",`<div class="row"><div><b>Analiz Departmanı</b><div class="muted">İtalya maçı videosu yüklendi.</div></div><span class="muted">10:42</span></div><div class="row"><div><b>Mehmet Yılmaz</b><div class="muted">U21 raporu hazır.</div></div><span class="muted">09:15</span></div>`)}${panel("Yeni Mesaj",`<input class="input" style="width:100%" placeholder="Alıcı"><textarea class="textarea" placeholder="Mesaj..."></textarea><button class="btn red" style="margin-top:10px">Gönder</button>`)}</div>`);
 default:return page("Modül","Bu ekran prototipe eklenecek.",panel("Bilgi",`<div class="empty">Hazırlanıyor</div>`));
 }}
-function render(){document.getElementById("app").innerHTML=`<div class="app">${side()}<main class="main">${topbar()}${routePage()}</main></div>`;bind()}
+
+function render(){
+document.getElementById("app").innerHTML=`<div class="app">${side()}<main class="main">${topbar()}${routePage()}</main></div>`;
+bind()
+}
 function bind(){
 document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
 document.querySelectorAll("[data-team]").forEach(e=>e.addEventListener("click",()=>{if(e.dataset.team==="a-milli")go("a-milli")}));
