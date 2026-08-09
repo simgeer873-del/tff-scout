@@ -175,3 +175,120 @@ footer{text-align:center;color:#708095;font-size:10px;padding:18px 0 0}
 .q3 .qa-icon{color:#ffb83c;background:#69400f}
 .q4{background:linear-gradient(135deg,#472151,#351941)}
 .q4 .qa-icon{color:#f06cff;background:#5a2867}
+
+
+/* ===== UI DETAIL V4: Quick Access + Latest Videos only ===== */
+/* Reference-aligned, more compact and less glowy */
+.quick-grid{
+  gap:10px;
+}
+.quick-card{
+  border:1px solid #1d2a3a;
+  border-radius:11px;
+  background:#0a1420;
+  box-shadow:none;
+  overflow:hidden;
+}
+.quick-card:hover{
+  transform:none;
+  border-color:#2a3b50;
+}
+.quick-img{
+  height:138px;
+  background-position:center;
+  position:relative;
+}
+.quick-img::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(2,7,12,.08) 0%,rgba(2,7,12,.10) 45%,rgba(2,7,12,.48) 100%);
+  z-index:1;
+}
+.quick-img::after{
+  content:none;
+}
+.quick-badge{
+  width:30px;
+  height:30px;
+  bottom:-15px;
+  z-index:3;
+}
+.quick-badge img{
+  width:30px;
+  height:30px;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
+}
+.quick-info{
+  padding:22px 8px 10px;
+  min-height:84px;
+}
+.quick-info b{
+  font-size:12.5px;
+  line-height:1.2;
+}
+.quick-info small{
+  font-size:9.5px;
+  margin-top:4px;
+  line-height:1.25;
+}
+.quick-info span{
+  font-size:9.5px;
+  margin-top:7px;
+  color:#c3ccd7;
+}
+
+/* Latest videos */
+.video-grid{
+  gap:10px;
+}
+.video-card{
+  min-width:0;
+}
+.video-thumb{
+  height:132px;
+  border-radius:10px;
+  border:1px solid #213247;
+  box-shadow:none;
+}
+.video-thumb::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.16));
+  pointer-events:none;
+}
+.play{
+  width:34px;
+  height:34px;
+  font-size:11px;
+  border:1px solid rgba(255,255,255,.9);
+  background:rgba(4,10,15,.34);
+  z-index:2;
+}
+.duration{
+  left:6px;
+  bottom:6px;
+  z-index:2;
+  font-size:9px;
+  padding:3px 5px;
+  border-radius:4px;
+}
+.video-title{
+  font-size:10.5px;
+  line-height:1.25;
+  margin:7px 0 2px;
+}
+.video-sub{
+  font-size:8.8px;
+  line-height:1.4;
+  color:#8d9aa9;
+}
+.section-head{
+  margin-top:20px;
+  margin-bottom:10px;
+}
+.section-title{
+  font-size:18px;
+  border-left-width:3px;
+}
