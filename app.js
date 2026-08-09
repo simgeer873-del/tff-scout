@@ -66,7 +66,7 @@ const vids=[
 ["assets/video-4.jpg","04:45","Türkiye 1–1 ABD","Hazırlık Maçı","01.06.2026"],
 ["assets/video-5.jpg","05:32","A Milli Antrenman Özeti","Antalya Kampı","30.05.2026"]
 ];
-function teamCard(t){return `<article class="quick-card" data-route="${t.id==="a-milli"?"milli-takimlar":"milli-takimlar"}"><div class="quick-img" style="background-image:url('${t.img}')"><div class="quick-badge"><img src="assets/turkey-badge.png" alt=""></div></div><div class="quick-info"><b>${t.name}</b><small>${t.sub}</small><span>${t.count}</span></div></article>`}
+function teamCard(t){return `<article class="quick-card" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}"><div class="quick-img" style="background-image:url('${t.img}')"><div class="quick-badge"><img src="assets/turkey-badge.png" alt=""></div></div><div class="quick-info"><b>${t.name}</b><small>${t.sub}</small><span>${t.count}</span></div></article>`}
 function stats(){return panel("Genel İstatistikler",`<div class="stat-grid">${[["İzlenen Maç","18","↗ %12",""],["İzlenen Oyuncu","42","↗ %15",""],["Oluşturulan Rapor","23","↗ %8",""],["Yetenek Başvurusu","7","↘ %5","down"]].map(x=>`<div class="stat"><small>${x[0]}</small><strong>${x[1]}</strong><div class="trend ${x[3]}">${x[2]}</div></div>`).join("")}</div>`,`<span style="font-size:10px;color:#9da9b7">Bu Ay⌄</span>`)}
 function upcoming(){
  const matches=[
@@ -93,8 +93,30 @@ function home(){return `<div class="content"><div class="layout"><section class=
 <aside class="rail">${stats()}${upcoming()}${reports()}${quickActions()}</aside></div><footer>© 2026 Türkiye Futbol Federasyonu &nbsp; | &nbsp; Video Analiz ve Gözlem Sistemi</footer></div>`}
 function milli(){const teams=Array.isArray(D.teams)?D.teams:[]; const fallback=[["a-milli","A Milli","Erkek Milli Takım",42],["u21","U21 Milli","21 Yaş Altı",40],["u19","U19 Milli","19 Yaş Altı",36],["kadin-a","Kadınlar A Milli","Kadın Milli Takım",28],["futsal","Futsal Milli","Futsal",24],["plaj","Plaj Milli","Plaj Futbolu",20]]; const src=teams.length?teams:fallback;
  return `<div class="content"><div class="page-head"><div><h1>Milli Takımlar</h1><p>Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.</p></div><input class="input" placeholder="Milli takım ara..."></div><div class="milli-layout"><div class="milli-grid">${src.map(x=>{let id=x[0], match=homeTeams.find(t=>t.id===id)||homeTeams[0]; return teamCard({id,name:x[1],sub:x[2],count:(x[3]??"")+" Oyuncu",img:match.img})}).join("")}</div><aside class="rail">${stats()}${upcoming()}${reports()}${quickActions()}</aside></div></div>`}
+
+function teamDetail(){
+ const players=(D.players||[]).slice(0,7);
+ const matches=(D.matches||[]).slice(0,4);
+ return `<div class="content team-page">
+  <section class="team-hero"><div class="team-hero-shade"></div><div class="team-head-copy"><button class="backbtn" data-route="milli-takimlar">←</button><img src="assets/turkey-badge.png" class="team-badge"><div><h1>A Milli Takım <span class="verified">✓</span></h1><p>Erkek Milli Takım</p></div></div><button class="profile-btn">♙ &nbsp; Takım Profili</button></section>
+  <nav class="team-tabs"><button class="active">Genel Bakış</button><button>Kadro</button><button>Maçlar</button><button>Videolar</button><button>İstatistikler</button><button>Raporlar</button></nav>
+  <div class="team-overview-grid">
+   <section class="team-maincol">
+    <div class="overview-kpis">${[["FIFA Sıralaması","27","▲ 2"],["Toplam Oyuncu","42","2025/26"],["Son 10 Maç","7G 2B 1M","%70 galibiyet"],["Ort. Yaş","25.8","yıl"]].map((x,i)=>`<div class="overview-kpi k${i}"><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></div>`).join("")}</div>
+    <section class="detail-card"><div class="detail-title"><b>Kadro Özeti</b><button>Kadroyu Gör →</button></div><div class="position-grid">${[["Kaleciler","4"],["Defans","12"],["Orta Saha","14"],["Forvet","12"]].map(x=>`<div><span>${x[0]}</span><strong>${x[1]}</strong><small>Oyuncu</small></div>`).join("")}</div><div class="mini-player-list">${players.slice(0,4).map((x,i)=>`<div class="mini-player"><span class="shirt-no">${[10,6,11,4][i]}</span><div><b>${x[0]}</b><small>${x[2]} · ${x[3]}</small></div><strong>${x[4]}</strong></div>`).join("")}</div></section>
+    <section class="detail-card"><div class="detail-title"><b>Son Maçlar</b><button>Tüm Maçlar →</button></div>${matches.map((x,i)=>`<div class="team-match"><span>${x[2]}</span><div><b>${x[0]}</b> <em>${x[3]}</em> <b>${x[1]}</b><small>${x[4]}</small></div><span class="${i===1?'pending':'win'}">${i===1?'Yaklaşan':'Tamamlandı'}</span></div>`).join("")}</section>
+   </section>
+   <aside class="team-sidecol">
+    <section class="detail-card"><div class="detail-title"><b>Takım Bilgileri</b></div><div class="info-row"><span>Teknik Direktör</span><b>Vincenzo Montella</b></div><div class="info-row"><span>Kaptan</span><b>Hakan Çalhanoğlu</b></div><div class="info-row"><span>Federasyon</span><b>TFF</b></div><div class="info-row"><span>Konfederasyon</span><b>UEFA</b></div><div class="info-row"><span>Stadyum</span><b>Atatürk Olimpiyat</b></div></section>
+    <section class="detail-card"><div class="detail-title"><b>Son Videolar</b><button>→</button></div>${vids.slice(0,3).map(v=>`<div class="side-video"><div style="background-image:url('${v[0]}')"><span>▶</span></div><p><b>${v[2]}</b><small>${v[1]} · ${v[4]}</small></p></div>`).join("")}</section>
+    <section class="detail-card"><div class="detail-title"><b>Hızlı İşlemler</b></div><div class="team-actions"><button>▷ Maç Analizi</button><button>▤ Rapor Oluştur</button><button>☆ Oyuncu İzle</button><button>↗ İstatistikler</button></div></section>
+   </aside>
+  </div>
+ </div>`
+}
+
 function generic(){return `<div class="content"><div class="page-head"><div><h1>${S.route.replaceAll("-"," ")}</h1><p>Bu ekran aynı ana tema ile geliştirilecek.</p></div></div><div class="panel"><div class="panel-body" style="padding:55px;text-align:center;color:#91a0b2">Hazırlanıyor</div></div></div>`}
-function page(){if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();return generic()}
+function page(){if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();return generic()}
 function render(){document.getElementById("app").innerHTML=`<div class="shell">${sidebar()}<main class="main">${topbar()}${page()}</main></div>`;bind()}
 function bind(){document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));const t=document.getElementById("theme");if(t)t.addEventListener("click",()=>{S.theme=S.theme==="dark"?"light":"dark";localStorage.setItem("tff-theme",S.theme);document.body.classList.toggle("light",S.theme==="light");render()})}
 render();
