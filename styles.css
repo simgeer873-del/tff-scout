@@ -303,3 +303,45 @@ overlays so only the reference artwork remains visible.
 .quick-badge{display:none !important;}
 .play{display:none !important;}
 .duration{display:none !important;}
+
+
+/* ===== UI DETAIL V6: uniform crescent-star badge ===== */
+/* Clean quick-access images no longer contain baked-in badges.
+   Re-enable ONE shared HTML badge and place it above the image/text boundary. */
+.quick-badge{
+  display:grid !important;
+  width:31px !important;
+  height:31px !important;
+  bottom:-15px !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  z-index:8 !important;
+  background:transparent !important;
+  border:0 !important;
+  overflow:visible !important;
+}
+.quick-badge img{
+  width:31px !important;
+  height:31px !important;
+  display:block !important;
+  position:relative !important;
+  z-index:9 !important;
+  object-fit:contain !important;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.35)) !important;
+}
+.quick-img{
+  overflow:visible !important;
+  position:relative !important;
+}
+.quick-card{
+  overflow:hidden !important;
+}
+.quick-info{
+  position:relative !important;
+  z-index:2 !important;
+  padding-top:22px !important;
+}
+
+/* Keep the duplicate video overlays hidden because those are baked into the reference video images. */
+.play{display:none !important;}
+.duration{display:none !important;}
