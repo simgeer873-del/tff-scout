@@ -7,7 +7,13 @@ const navGroups=[
 ["GELİŞİM",[["antrenman","≋","Antrenman Planları"],["kulup-gelisim","◍","Kulüp Gelişim"],["eslestirme","◎","Oyuncu Eşleştirme"],["teknik","⚒","Teknik Testler"],["sakatlik","♧","Sakatlıklar"]]],
 ["YÖNETİM",[["scout","♙","Scout Profilleri"],["yetenek","✪","Yetenek Başvuruları"],["dokuman","▤","Doküman Yönetimi"],["izleyici","♧","İzleyici Atama"],["kullanici","♧","Kullanıcı Yönetimi"],["mesaj","✉","Mesajlar"]]]
 ];
-let S={route:location.hash.replace("#/","")||"home",theme:localStorage.getItem("tff-theme")||"dark",teamTab:"overview"};
+let S={
+ route:location.hash.replace("#/","")||"home",
+ theme:localStorage.getItem("tff-theme")||"dark",
+ teamTab:"overview",
+ sidebarCollapsed:localStorage.getItem("tff-sidebar-collapsed")==="1",
+ openMenuGroup:localStorage.getItem("tff-sidebar-group")||"ANALİZ & RAPORLAR"
+};
 document.body.classList.toggle("light",S.theme==="light");
 function go(r){location.hash="#/"+r}
 window.addEventListener("hashchange",()=>{S.route=location.hash.replace("#/","")||"home";render()});
@@ -44,12 +50,55 @@ function uiIcon(name){
  return `<span class="ui-svg">${icons[name]||icons.home}</span>`;
 }
 
-function sidebar(){return `<aside class="sidebar">
-<div class="brand"><img src="assets/tff-logo.png"><div><div class="brand-title">TFF</div><div class="brand-sub1">Türkiye Futbol Federasyonu</div><div class="brand-sub2">Video Analiz ve Gözlem Sistemi</div></div></div>
-<button class="nav ${active("home")?"active":""}" data-route="home">${uiIcon("home")}Ana Sayfa</button>
-${navGroups.map(([g,it])=>`<div class="nav-label">${g}</div>${it.map(([id,ic,tx])=>`<button class="nav ${active(id)?"active":""}" data-route="${id}">${uiIcon(id)}${tx}</button>`).join("")}`).join("")}
-<div class="side-bottom">‹ &nbsp; Menüyü Daralt</div></aside>`}
-function topbar(){return `<header class="topbar"><div class="search">⌕<input placeholder="Futbolcu, takım, maç, rapor ara..."><span>⌘ K</span></div><div class="top-actions"><button class="iconbtn" id="theme">${S.theme==="dark"?"☀":"☾"}</button><button class="iconbtn">♧</button><button class="iconbtn">✉</button><div class="userbox"><img src="assets/avatar.jpg"><div><div class="username">Simge Er ★</div><div class="role">Scout</div></div></div></div></header>`}
+
+function groupForRoute(route){
+ for(const [group,items] of navGroups){
+  if(items.some(([id])=>id===route)) return group;
+ }
+ return "";
+}
+function sidebarGroupIcon(group){
+ const icons={
+  "MİLLİ TAKIMLAR":'<svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="m8 7 4-3 4 3"/><circle cx="12" cy="12" r="2.5"/></svg>',
+  "OYUNCU & KULÜP":'<svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="3"/><path d="M4 20c.6-4 2.5-6 6-6 2.8 0 4.7 1.2 5.6 3.7"/><path d="M17 6h3v5h-3z"/></svg>',
+  "ANALİZ & RAPORLAR":'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 16v-4M12 16V8M16 16v-6"/></svg>',
+  "GELİŞİM":'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="m9 13 2 2 4-5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+  "YÖNETİM":'<svg viewBox="0 0 24 24"><path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7z"/><path d="M9 12h6M12 9v6"/></svg>'
+ };
+ return `<span class="side-group-icon">${icons[group]||icons["ANALİZ & RAPORLAR"]}</span>`;
+}
+function sidebar(){
+ const currentGroup=groupForRoute(S.route);
+ if(currentGroup && currentGroup!==S.openMenuGroup) S.openMenuGroup=currentGroup;
+ const groups=navGroups.map(([group,items])=>{
+  const cleanItems=items.filter(([id])=>id!=="mesaj");
+  const open=S.openMenuGroup===group;
+  const groupActive=currentGroup===group;
+  return `<div class="side-accordion ${open?"open":""} ${groupActive?"contains-active":""}">
+    <button class="side-group-btn" data-group-toggle="${group}" title="${group}">
+      ${sidebarGroupIcon(group)}
+      <span class="side-group-label">${group.replace("MİLLİ TAKIMLAR","Milli Takımlar").replace("OYUNCU & KULÜP","Oyuncu & Kulüp").replace("ANALİZ & RAPORLAR","Analiz & Raporlar").replace("GELİŞİM","Gelişim").replace("YÖNETİM","Yönetim")}</span>
+      <span class="side-chevron">⌄</span>
+    </button>
+    <div class="side-submenu">${cleanItems.map(([id,ic,tx])=>`<button class="nav side-subnav ${active(id)?"active":""}" data-route="${id}" title="${tx}">${uiIcon(id)}<span>${tx}</span></button>`).join("")}</div>
+  </div>`;
+ }).join("");
+ return `<aside class="sidebar ${S.sidebarCollapsed?"is-collapsed":""}">
+   <button class="nav side-home ${active("home")?"active":""}" data-route="home" title="Ana Sayfa">${uiIcon("home")}<span>Ana Sayfa</span></button>
+   <div class="side-groups">${groups}</div>
+   <button class="nav side-message ${active("mesaj")?"active":""}" data-route="mesaj" title="Mesajlar">${uiIcon("mesaj")}<span>Mesajlar</span><b class="side-badge">3</b></button>
+   <div class="side-spacer"></div>
+   <button class="side-collapse" id="sideCollapse" title="${S.sidebarCollapsed?"Menüyü Genişlet":"Menüyü Daralt"}">
+     <span class="collapse-arrow">${S.sidebarCollapsed?"›":"‹"}</span><span class="collapse-label">${S.sidebarCollapsed?"":"Menüyü Daralt"}</span>
+   </button>
+  </aside>`;
+}
+
+function topbar(){return `<header class="topbar">
+ <div class="top-brand"><img src="assets/tff-logo.png"><div><div class="top-brand-title">TFF</div><div class="top-brand-sub1">Türkiye Futbol Federasyonu</div><div class="top-brand-sub2">Video Analiz ve Gözlem Sistemi</div></div></div>
+ <div class="search">⌕<input placeholder="Futbolcu, takım, maç, rapor ara..."><span>⌘ K</span></div>
+ <div class="top-actions"><button class="iconbtn" id="theme">${S.theme==="dark"?"☀":"☾"}</button><button class="iconbtn notification">♧<b>5</b></button><button class="iconbtn notification">✉<b>2</b></button><div class="userbox"><img src="assets/avatar.jpg"><div><div class="username">Simge Er ★</div><div class="role">Scout</div></div><span class="user-chevron">⌄</span></div></div>
+ </header>`}
 function panel(title,body,extra=""){return `<section class="panel"><div class="panel-head"><span>${title}</span>${extra}</div><div class="panel-body">${body}</div></section>`}
 const homeTeams=[
 {id:"a-milli",name:"A Milli",sub:"Erkek Milli Takım",count:"42 Oyuncu",img:"assets/quick-a-milli.jpg"},
@@ -195,6 +244,32 @@ function teamDetail(){
 
 function generic(){return `<div class="content"><div class="page-head"><div><h1>${S.route.replaceAll("-"," ")}</h1><p>Bu ekran aynı ana tema ile geliştirilecek.</p></div></div><div class="panel"><div class="panel-body" style="padding:55px;text-align:center;color:#91a0b2">Hazırlanıyor</div></div></div>`}
 function page(){if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();return generic()}
-function render(){document.getElementById("app").innerHTML=`<div class="shell">${sidebar()}<main class="main">${topbar()}${page()}</main></div>`;bind()}
-function bind(){document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));document.querySelectorAll("[data-teamtab]").forEach(e=>e.addEventListener("click",()=>{S.teamTab=e.dataset.teamtab;render()}));const t=document.getElementById("theme");if(t)t.addEventListener("click",()=>{S.theme=S.theme==="dark"?"light":"dark";localStorage.setItem("tff-theme",S.theme);document.body.classList.toggle("light",S.theme==="light");render()})}
+function render(){document.getElementById("app").innerHTML=`<div class="app-frame">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`;bind()}
+function bind(){
+ document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
+ document.querySelectorAll("[data-teamtab]").forEach(e=>e.addEventListener("click",()=>{S.teamTab=e.dataset.teamtab;render()}));
+ document.querySelectorAll("[data-group-toggle]").forEach(e=>e.addEventListener("click",()=>{
+   const g=e.dataset.groupToggle;
+   S.openMenuGroup=S.openMenuGroup===g?"":g;
+   localStorage.setItem("tff-sidebar-group",S.openMenuGroup);
+   if(S.sidebarCollapsed && S.openMenuGroup){
+     S.sidebarCollapsed=false;
+     localStorage.setItem("tff-sidebar-collapsed","0");
+   }
+   render();
+ }));
+ const c=document.getElementById("sideCollapse");
+ if(c)c.addEventListener("click",()=>{
+   S.sidebarCollapsed=!S.sidebarCollapsed;
+   localStorage.setItem("tff-sidebar-collapsed",S.sidebarCollapsed?"1":"0");
+   render();
+ });
+ const t=document.getElementById("theme");
+ if(t)t.addEventListener("click",()=>{
+   S.theme=S.theme==="dark"?"light":"dark";
+   localStorage.setItem("tff-theme",S.theme);
+   document.body.classList.toggle("light",S.theme==="light");
+   render();
+ });
+}
 render();
