@@ -404,19 +404,58 @@ body.light .team-hero{border-color:#dce4ec}.light .overview-kpi,.light .detail-c
 .report-table{margin-top:15px}.rt-head,.rt-row{display:grid;grid-template-columns:1.4fr 1.8fr 1.2fr 1fr .5fr;gap:10px;padding:12px 10px;border-bottom:1px solid #172a3c;font-size:9px}.rt-head{color:#82909e}.rt-row strong{color:#8ce7b5;background:#0d5238;padding:5px 7px;border-radius:5px;text-align:center}
 @media(max-width:1200px){.ref-top-grid{grid-template-columns:1fr 1fr}.team-info-card{grid-column:1/-1}.ref-mid-grid,.ref-bottom-grid{grid-template-columns:1fr 1fr}.ref-mid-grid>section:last-child,.ref-bottom-grid>section:last-child{grid-column:1/-1}.stats-kpis{grid-template-columns:repeat(3,1fr)}}
 
-/* ===== Welcome alignment fix ===== */
-.welcome{
-  text-align:left !important;
-  margin-left:0 !important;
-  padding-left:0 !important;
-  width:100% !important;
+
+/* ===== TOP BAR COMPACT UPDATE =====
+   Reference: compact single-piece header.
+   No extra separator line is added.
+*/
+.topbar{
+  min-height:72px !important;
+  height:72px !important;
+  padding:0 24px !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:22px !important;
+  background:#07111d !important;
+  border-bottom:0 !important;
+  box-shadow:none !important;
 }
-.welcome h1,
-.welcome p{
-  text-align:left !important;
-  margin-left:0 !important;
-  padding-left:0 !important;
+.topbar::before,
+.topbar::after{
+  display:none !important;
 }
-.hero{
-  margin-left:0 !important;
+.topbar .brand,
+.topbar .logo,
+.topbar .brand-area{
+  flex:0 0 auto !important;
+  margin:0 !important;
+}
+.topbar .search,
+.topbar .search-box,
+.topbar .global-search{
+  flex:0 1 520px !important;
+  max-width:520px !important;
+  min-width:280px !important;
+  margin:0 auto !important;
+}
+.topbar .actions,
+.topbar .top-actions,
+.topbar .profile,
+.topbar .user-area{
+  flex:0 0 auto !important;
+  margin-left:auto !important;
+}
+.topbar img{
+  max-height:48px;
+}
+@media (max-width:900px){
+  .topbar{
+    padding:0 14px !important;
+    gap:12px !important;
+  }
+  .topbar .search,
+  .topbar .search-box,
+  .topbar .global-search{
+    min-width:180px !important;
+  }
 }
