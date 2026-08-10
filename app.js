@@ -8,7 +8,7 @@ const navGroups=[
 ["YÖNETİM",[["scout","♙","Scout Profilleri"],["yetenek","✪","Yetenek Başvuruları"],["dokuman","▤","Doküman Yönetimi"],["izleyici","♧","İzleyici Atama"],["kullanici","♧","Kullanıcı Yönetimi"],["mesaj","✉","Mesajlar"]]]
 ];
 let S={
- route:location.hash.replace("#/","")||"home",
+ route:location.hash.replace("#/","")||(localStorage.getItem("tff-demo-auth")==="1"?"home":"login"),
  theme:localStorage.getItem("tff-theme")||"dark",
  teamTab:"overview",
  sidebarCollapsed:localStorage.getItem("tff-sidebar-collapsed")==="1",
@@ -16,7 +16,7 @@ let S={
 };
 document.body.classList.toggle("light",S.theme==="light");
 function go(r){location.hash="#/"+r}
-window.addEventListener("hashchange",()=>{S.route=location.hash.replace("#/","")||"home";render()});
+window.addEventListener("hashchange",()=>{const r=location.hash.replace("#/","")||"login";if(r!=="login"&&localStorage.getItem("tff-demo-auth")!=="1"){location.hash="#/login";return}S.route=r;render()});
 function active(id){if(S.route==="home")return id==="home";if(S.route==="team-a-milli")return id==="milli-takimlar";return S.route===id}
 
 function uiIcon(name){
@@ -243,8 +243,37 @@ function teamDetail(){
 
 
 function generic(){return `<div class="content"><div class="page-head"><div><h1>${S.route.replaceAll("-"," ")}</h1><p>Bu ekran aynı ana tema ile geliştirilecek.</p></div></div><div class="panel"><div class="panel-body" style="padding:55px;text-align:center;color:#91a0b2">Hazırlanıyor</div></div></div>`}
-function page(){if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();return generic()}
-function render(){document.getElementById("app").innerHTML=`<div class="app-frame">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`;bind()}
+
+function loginPage(){
+ const light=S.theme==="light";
+ return `<div class="login-page">
+   <div class="login-bg-mark"></div>
+   <div class="login-red-lines login-red-lines-left"></div>
+   <div class="login-red-lines login-red-lines-right"></div>
+   <button class="login-theme" id="theme"><span class="${!light?"active":""}">☾ Dark</span><span class="${light?"active":""}">☀ Light</span></button>
+   <section class="login-brand">
+     <img src="assets/tff-logo.png" alt="TFF">
+     <div class="login-tff">TFF</div>
+     <h1>TÜRKİYE FUTBOL FEDERASYONU</h1>
+     <div class="login-subtitle"><i></i>VİDEO ANALİZ VE GÖZLEM SİSTEMİ<i></i></div>
+   </section>
+   <section class="login-card">
+     <h2>Hoş Geldiniz</h2>
+     <p>Sisteme giriş yapmak için kullanıcı bilgilerinizi giriniz.</p>
+     <label class="login-field"><span class="login-field-icon">♙</span><input id="loginUser" autocomplete="username" placeholder="Kullanıcı adı"></label>
+     <label class="login-field"><span class="login-field-icon">▢</span><input id="loginPass" type="password" autocomplete="current-password" placeholder="Şifre"><button type="button" class="password-toggle" id="passwordToggle">◉</button></label>
+     <div class="login-options"><label class="remember"><input id="rememberMe" type="checkbox"><span></span>Beni Hatırla</label><button type="button" class="forgot-btn">Şifremi Unuttum?</button></div>
+     <button class="login-submit" id="loginSubmit">⇥ &nbsp; GİRİŞ YAP</button>
+     <div class="login-error" id="loginError"></div>
+     <div class="login-divider"><span></span><em>veya</em><span></span></div>
+     <button class="demo-login" id="demoLogin"><span class="demo-shield">✧</span><span><b>Demo Giriş</b><small>Kullanıcı adı: <strong>demo</strong> &nbsp;•&nbsp; Şifre: <strong>demo</strong></small></span></button>
+     <div class="login-copy">© 2026 Türkiye Futbol Federasyonu<br>Tüm hakları saklıdır.</div>
+   </section>
+ </div>`;
+}
+
+function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();return generic()}
+function render(){if(S.route==="login"){document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}bind()}
 function bind(){
  document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
  document.querySelectorAll("[data-teamtab]").forEach(e=>e.addEventListener("click",()=>{S.teamTab=e.dataset.teamtab;render()}));
@@ -271,5 +300,11 @@ function bind(){
    document.body.classList.toggle("light",S.theme==="light");
    render();
  });
+ const pw=document.getElementById("passwordToggle");
+ if(pw)pw.addEventListener("click",()=>{const input=document.getElementById("loginPass");input.type=input.type==="password"?"text":"password";pw.textContent=input.type==="password"?"◉":"⊘"});
+ const doLogin=(demo=false)=>{const u=document.getElementById("loginUser");const p=document.getElementById("loginPass");const err=document.getElementById("loginError");const user=demo?"demo":(u?.value||"").trim();const pass=demo?"demo":(p?.value||"");if(user==="demo"&&pass==="demo"){localStorage.setItem("tff-demo-auth","1");location.hash="#/home";return}if(err)err.textContent="Demo erişim için kullanıcı adı ve şifre: demo"};
+ const submit=document.getElementById("loginSubmit");if(submit)submit.addEventListener("click",()=>doLogin(false));
+ const demo=document.getElementById("demoLogin");if(demo)demo.addEventListener("click",()=>doLogin(true));
+ const passInput=document.getElementById("loginPass");if(passInput)passInput.addEventListener("keydown",e=>{if(e.key==="Enter")doLogin(false)});
 }
 render();
