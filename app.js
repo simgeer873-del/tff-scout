@@ -8,7 +8,7 @@ const navGroups=[
 ["YÖNETİM",[["scout","♙","Scout Profilleri"],["yetenek","✪","Yetenek Başvuruları"],["dokuman","▤","Doküman Yönetimi"],["izleyici","♧","İzleyici Atama"],["kullanici","♧","Kullanıcı Yönetimi"],["mesaj","✉","Mesajlar"]]]
 ];
 let S={
- route:location.hash.replace("#/","")||(localStorage.getItem("tff-demo-auth")==="1"?"home":"login"),
+ route:sessionStorage.getItem("tff-demo-auth")==="1"?(location.hash.replace("#/","")||"home"):"login",
  theme:localStorage.getItem("tff-theme")||"dark",
  teamTab:"overview",
  sidebarCollapsed:localStorage.getItem("tff-sidebar-collapsed")==="1",
@@ -16,7 +16,7 @@ let S={
 };
 document.body.classList.toggle("light",S.theme==="light");
 function go(r){location.hash="#/"+r}
-window.addEventListener("hashchange",()=>{const r=location.hash.replace("#/","")||"login";if(r!=="login"&&localStorage.getItem("tff-demo-auth")!=="1"){location.hash="#/login";return}S.route=r;render()});
+window.addEventListener("hashchange",()=>{const r=location.hash.replace("#/","")||"login";if(r!=="login"&&sessionStorage.getItem("tff-demo-auth")!=="1"){location.hash="#/login";return}S.route=r;render()});
 function active(id){if(S.route==="home")return id==="home";if(S.route==="team-a-milli")return id==="milli-takimlar";return S.route===id}
 
 function uiIcon(name){
@@ -273,7 +273,7 @@ function loginPage(){
 }
 
 function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();return generic()}
-function render(){if(S.route==="login"){document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}bind()}
+function render(){if(S.route==="login"){if(location.hash!=="#/login")history.replaceState(null,"","#/login");document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}bind()}
 function bind(){
  document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
  document.querySelectorAll("[data-teamtab]").forEach(e=>e.addEventListener("click",()=>{S.teamTab=e.dataset.teamtab;render()}));
@@ -302,7 +302,7 @@ function bind(){
  });
  const pw=document.getElementById("passwordToggle");
  if(pw)pw.addEventListener("click",()=>{const input=document.getElementById("loginPass");input.type=input.type==="password"?"text":"password";pw.textContent=input.type==="password"?"◉":"⊘"});
- const doLogin=(demo=false)=>{const u=document.getElementById("loginUser");const p=document.getElementById("loginPass");const err=document.getElementById("loginError");const user=demo?"demo":(u?.value||"").trim();const pass=demo?"demo":(p?.value||"");if(user==="demo"&&pass==="demo"){localStorage.setItem("tff-demo-auth","1");location.hash="#/home";return}if(err)err.textContent="Demo erişim için kullanıcı adı ve şifre: demo"};
+ const doLogin=(demo=false)=>{const u=document.getElementById("loginUser");const p=document.getElementById("loginPass");const err=document.getElementById("loginError");const user=demo?"demo":(u?.value||"").trim();const pass=demo?"demo":(p?.value||"");if(user==="demo"&&pass==="demo"){sessionStorage.setItem("tff-demo-auth","1");location.hash="#/home";return}if(err)err.textContent="Demo erişim için kullanıcı adı ve şifre: demo"};
  const submit=document.getElementById("loginSubmit");if(submit)submit.addEventListener("click",()=>doLogin(false));
  const demo=document.getElementById("demoLogin");if(demo)demo.addEventListener("click",()=>doLogin(true));
  const passInput=document.getElementById("loginPass");if(passInput)passInput.addEventListener("keydown",e=>{if(e.key==="Enter")doLogin(false)});
