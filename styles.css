@@ -459,3 +459,162 @@ body.light .team-hero{border-color:#dce4ec}.light .overview-kpi,.light .detail-c
     min-width:180px !important;
   }
 }
+
+
+/* =========================================================
+   HOME HEADER / UPPER AREA — APPROVED REFERENCE FIX
+   Scope:
+   - left TFF brand block
+   - main top bar/search/user controls
+   - Welcome text + hero + right rail top alignment
+   Nothing below Hızlı Erişim is structurally changed.
+   ========================================================= */
+
+/* LEFT TFF BRAND — reference proportions */
+.sidebar .brand{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  height:70px !important;
+  min-height:70px !important;
+  margin:0 0 8px 0 !important;
+  padding:0 !important;
+}
+.sidebar .brand img{
+  width:54px !important;
+  height:58px !important;
+  max-width:54px !important;
+  max-height:58px !important;
+  object-fit:contain !important;
+  flex:0 0 54px !important;
+}
+.sidebar .brand > div{
+  min-width:0 !important;
+  display:block !important;
+}
+.sidebar .brand-title{
+  font-size:18px !important;
+  line-height:1 !important;
+  font-weight:800 !important;
+  margin:0 !important;
+  text-align:left !important;
+}
+.sidebar .brand-sub1{
+  font-size:12px !important;
+  line-height:1.15 !important;
+  font-weight:600 !important;
+  margin:4px 0 0 !important;
+  text-align:left !important;
+}
+.sidebar .brand-sub2{
+  font-size:11px !important;
+  line-height:1.15 !important;
+  color:#b6c0cd !important;
+  margin:3px 0 0 !important;
+  text-align:left !important;
+}
+
+/* MAIN TOP BAR — same geometry as approved reference */
+.main > .topbar{
+  height:78px !important;
+  min-height:78px !important;
+  padding:0 18px 0 116px !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:0 !important;
+  background:rgba(6,16,27,.96) !important;
+  border-bottom:1px solid var(--line) !important;
+  box-shadow:none !important;
+}
+.main > .topbar .search{
+  width:408px !important;
+  max-width:408px !important;
+  min-width:0 !important;
+  height:43px !important;
+  flex:0 0 408px !important;
+  margin:0 !important;
+}
+.main > .topbar .top-actions{
+  margin-left:auto !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+}
+.main > .topbar .iconbtn{
+  width:38px !important;
+  height:38px !important;
+}
+.main > .topbar .userbox{
+  margin-left:4px !important;
+}
+
+/* HOME CONTENT — reference upper alignment */
+.main > .content{
+  max-width:none !important;
+  margin:0 !important;
+  padding:18px 17px 20px 18px !important;
+}
+.main > .content > .layout{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) 340px !important;
+  gap:18px !important;
+  align-items:start !important;
+}
+.main > .content > .layout > .center{
+  min-width:0 !important;
+}
+
+/* Welcome must begin from the LEFT, never centered */
+.main > .content .welcome{
+  display:block !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  text-align:left !important;
+  transform:none !important;
+}
+.main > .content .welcome h1{
+  display:block !important;
+  width:auto !important;
+  margin:6px 0 3px 0 !important;
+  padding:0 !important;
+  font-size:27px !important;
+  line-height:1.15 !important;
+  text-align:left !important;
+  transform:none !important;
+}
+.main > .content .welcome p{
+  display:block !important;
+  margin:0 0 16px 0 !important;
+  padding:0 !important;
+  font-size:13px !important;
+  line-height:1.3 !important;
+  text-align:left !important;
+  transform:none !important;
+}
+
+/* Hero sits immediately under welcome, same left/right boundaries */
+.main > .content .hero{
+  width:100% !important;
+  height:180px !important;
+  margin:0 !important;
+  border-radius:13px !important;
+  transform:none !important;
+}
+
+/* Right statistics rail begins from the top of this content row */
+.main > .content .rail{
+  align-self:start !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+/* Restore normal desktop behavior only; do not disturb mobile rules */
+@media(max-width:1280px){
+  .main > .content > .layout{
+    grid-template-columns:1fr !important;
+  }
+  .main > .topbar{
+    padding-left:18px !important;
+  }
+}
