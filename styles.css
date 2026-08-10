@@ -1081,3 +1081,359 @@ body.light .side-collapse{background:#fff;border-color:#dfe6ef;color:#687688}
     display:none !important;
   }
 }
+
+
+/* =========================================================
+   REFINED DARK / LIGHT THEME SYSTEM
+   Dark mode remains the master visual.
+   Light mode is a dedicated corporate alternative.
+   ========================================================= */
+
+/* Smooth transition: colors only, no layout animation */
+html,
+body,
+.sidebar,
+.topbar,
+.main,
+.panel,
+.stat,
+.quick-card,
+.quick-info,
+.video-card,
+.video-thumb,
+.ref-card,
+.overview-kpi,
+.detail-card,
+.team-ref-page,
+.team-ref-header,
+.team-actions button,
+.side-group-btn,
+.side-subnav,
+.side-collapse,
+.search,
+.iconbtn,
+.input,
+.ref-select,
+.filter-pills button,
+.ref-wide-btn,
+.upload-btn,
+.qbtn{
+  transition:
+    background-color .28s ease,
+    border-color .28s ease,
+    color .28s ease,
+    box-shadow .28s ease;
+}
+
+/* --- Dark mode: preserve current approved look --- */
+body:not(.light){
+  --bg:#06101b;
+  --sidebar:#07111c;
+  --panel:#0b1724;
+  --panel2:#0f1d2d;
+  --line:#1c2d40;
+  --text:#f5f7fa;
+  --muted:#9aa7b7;
+  --shadow:0 12px 28px rgba(0,0,0,.22);
+}
+
+/* --- Light mode: dedicated corporate palette --- */
+body.light{
+  --bg:#f4f6f8;
+  --sidebar:#f7f8fa;
+  --panel:#ffffff;
+  --panel2:#f7f9fb;
+  --line:#dce3ea;
+  --text:#172230;
+  --muted:#6f7d8c;
+  --shadow:0 8px 22px rgba(17,37,58,.07);
+
+  background:#f4f6f8 !important;
+  color:#172230 !important;
+}
+
+/* Global surfaces */
+body.light .main,
+body.light .team-ref-page{
+  background:#f4f6f8 !important;
+}
+
+body.light .topbar{
+  background:#ffffff !important;
+  border-bottom:1px solid #dfe5eb !important;
+  box-shadow:0 2px 10px rgba(19,36,55,.035) !important;
+}
+
+/* Brand area */
+body.light .top-brand-title,
+body.light .top-brand-sub1{
+  color:#172230 !important;
+}
+body.light .top-brand-sub2{
+  color:#758292 !important;
+}
+
+/* Sidebar */
+body.light .sidebar{
+  background:#f8f9fb !important;
+  border-right:1px solid #dde4eb !important;
+}
+body.light .side-home{
+  color:#283647 !important;
+}
+body.light .side-home.active{
+  color:#fff !important;
+  background:linear-gradient(90deg,#df111b,#bd0e16) !important;
+}
+body.light .side-group-btn{
+  color:#273547 !important;
+}
+body.light .side-group-btn:hover{
+  background:#edf1f5 !important;
+}
+body.light .side-group-icon{
+  color:#697787 !important;
+}
+body.light .side-subnav{
+  color:#5d6b7b !important;
+}
+body.light .side-subnav:hover{
+  background:#edf1f5 !important;
+  color:#15202e !important;
+}
+body.light .side-subnav.active{
+  background:#eef2f6 !important;
+  color:#182432 !important;
+}
+body.light .side-subnav.active:before{
+  background:#d71920 !important;
+}
+body.light .side-message{
+  color:#394858 !important;
+}
+body.light .side-collapse{
+  background:#ffffff !important;
+  color:#697787 !important;
+  border-color:#dce3ea !important;
+}
+body.light .side-collapse:hover{
+  background:#eef2f6 !important;
+  color:#182432 !important;
+}
+
+/* Search + top controls */
+body.light .search{
+  background:#f6f8fa !important;
+  border-color:#dce3ea !important;
+  color:#738091 !important;
+}
+body.light .search input{
+  color:#172230 !important;
+}
+body.light .iconbtn{
+  background:#f7f9fb !important;
+  border-color:#dce3ea !important;
+  color:#233243 !important;
+}
+body.light .iconbtn:hover{
+  background:#edf2f6 !important;
+}
+body.light .username{
+  color:#172230 !important;
+}
+body.light .role,
+body.light .user-chevron{
+  color:#778495 !important;
+}
+
+/* Welcome */
+body.light .welcome h1{
+  color:#14202d !important;
+}
+body.light .welcome p{
+  color:#748191 !important;
+}
+
+/* Panels and cards */
+body.light .panel,
+body.light .ref-card,
+body.light .overview-kpi,
+body.light .detail-card,
+body.light .quick-card{
+  background:#ffffff !important;
+  border-color:#dfe5ec !important;
+  box-shadow:0 6px 18px rgba(21,39,58,.055) !important;
+}
+body.light .panel-head{
+  border-bottom-color:#e7ebf0 !important;
+}
+body.light .stat{
+  background:#f7f9fb !important;
+  border-color:#e2e7ed !important;
+}
+body.light .stat small,
+body.light .ref-muted,
+body.light .rsub,
+body.light .match-meta,
+body.light .match-right,
+body.light .quick-info small,
+body.light .quick-info span,
+body.light .video-sub{
+  color:#718091 !important;
+}
+
+/* Quick access: preserve image cards, only text surface becomes light */
+body.light .quick-info{
+  background:#ffffff !important;
+}
+body.light .quick-info b,
+body.light .video-title{
+  color:#182432 !important;
+}
+
+/* Videos */
+body.light .video-card{
+  color:#182432 !important;
+}
+body.light .video-thumb{
+  border-color:#dce3ea !important;
+}
+
+/* Match / report lines */
+body.light .match-line,
+body.light .report-row,
+body.light .row{
+  border-bottom-color:#e8ecf0 !important;
+}
+body.light .report-title{
+  color:#172230 !important;
+}
+body.light .report-title span,
+body.light .report-sub{
+  color:#738091 !important;
+}
+body.light .report-score{
+  background:#e8f7ef !important;
+  color:#177645 !important;
+}
+
+/* Quick action cards keep their identity colors but soften for light mode */
+body.light .q1{
+  background:linear-gradient(135deg,#e9f5fd,#dceef9) !important;
+  color:#185f8f !important;
+  border-color:#c9e5f6 !important;
+}
+body.light .q2{
+  background:linear-gradient(135deg,#e9f8f1,#ddf1e7) !important;
+  color:#1e7552 !important;
+  border-color:#c7e8d7 !important;
+}
+body.light .q3{
+  background:linear-gradient(135deg,#fff4e4,#fae9cf) !important;
+  color:#95621e !important;
+  border-color:#f1d7ad !important;
+}
+body.light .q4{
+  background:linear-gradient(135deg,#f7ebfb,#eeddf5) !important;
+  color:#7a3b94 !important;
+  border-color:#e5c9ef !important;
+}
+
+/* A Milli header keeps photographic identity, but text/cards below switch cleanly */
+body.light .team-ref-header{
+  background:#ffffff !important;
+  border-bottom-color:#dce3ea !important;
+}
+body.light .team-ref-header:after{
+  background:linear-gradient(
+    90deg,
+    rgba(255,255,255,.98) 0%,
+    rgba(255,255,255,.92) 43%,
+    rgba(255,255,255,.35) 76%,
+    rgba(255,255,255,.75) 100%
+  ) !important;
+}
+body.light .team-ref-head-left h1{
+  color:#14202d !important;
+}
+body.light .team-ref-head-left p{
+  color:#758292 !important;
+}
+body.light .team-ref-tabs button{
+  color:#6c7989 !important;
+}
+body.light .team-ref-tabs button.active{
+  color:#172230 !important;
+}
+body.light .team-profile-btn{
+  background:#ffffff !important;
+  border-color:#dce3ea !important;
+  color:#233243 !important;
+}
+
+/* Form controls */
+body.light .input,
+body.light .ref-select,
+body.light .filter-pills button,
+body.light .ref-wide-btn{
+  background:#ffffff !important;
+  color:#233243 !important;
+  border-color:#dce3ea !important;
+}
+body.light .filter-pills button.active,
+body.light .upload-btn{
+  background:#d71920 !important;
+  color:#fff !important;
+  border-color:#d71920 !important;
+}
+
+/* Secondary dark surfaces in detail screens */
+body.light .position-grid>div,
+body.light .team-actions button,
+body.light .squad-summary>button,
+body.light .perf-box{
+  background:#f7f9fb !important;
+  border-color:#dfe5ec !important;
+  color:#172230 !important;
+}
+body.light .info-row,
+body.light .side-video,
+body.light .team-match,
+body.light .recent-match-list>div,
+body.light .pt-head,
+body.light .pt-row,
+body.light .rt-head,
+body.light .rt-row{
+  border-color:#e6ebf0 !important;
+}
+
+/* Theme toggle gets a subtle emphasized state */
+body.light #theme{
+  background:#fff5dc !important;
+  border-color:#f0d99a !important;
+  color:#9a6a00 !important;
+}
+body:not(.light) #theme{
+  background:#101c2a !important;
+  border-color:#24364a !important;
+  color:#ffd96a !important;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  html,
+  body,
+  .sidebar,
+  .topbar,
+  .main,
+  .panel,
+  .stat,
+  .quick-card,
+  .quick-info,
+  .ref-card,
+  .detail-card,
+  .search,
+  .iconbtn{
+    transition:none !important;
+  }
+}
