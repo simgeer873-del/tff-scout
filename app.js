@@ -12,7 +12,7 @@ let S={
  theme:localStorage.getItem("tff-theme")||"dark",
  teamTab:"overview",
  sidebarCollapsed:localStorage.getItem("tff-sidebar-collapsed")==="1",
- openMenuGroup:localStorage.getItem("tff-sidebar-group")||"ANALİZ & RAPORLAR"
+ openMenuGroup:localStorage.getItem("tff-sidebar-group")||"ANALİZ & RAPORLAR",profileMenu:false
 };
 document.body.classList.toggle("light",S.theme==="light");
 function go(r){location.hash="#/"+r}
@@ -97,7 +97,19 @@ function sidebar(){
 function topbar(){return `<header class="topbar">
  <div class="top-brand"><img src="assets/tff-logo.png"><div><div class="top-brand-title">TFF</div><div class="top-brand-sub1">Türkiye Futbol Federasyonu</div><div class="top-brand-sub2">Video Analiz ve Gözlem Sistemi</div></div></div>
  <div class="search">⌕<input placeholder="Futbolcu, takım, maç, rapor ara..."><span>⌘ K</span></div>
- <div class="top-actions"><button class="iconbtn" id="theme">${S.theme==="dark"?"☀":"☾"}</button><button class="iconbtn notification">♧<b>5</b></button><button class="iconbtn notification">✉<b>2</b></button><div class="userbox"><img src="assets/avatar.jpg"><div><div class="username">Simge Er ★</div><div class="role">Scout</div></div><span class="user-chevron">⌄</span></div></div>
+ <div class="top-actions"><button class="iconbtn" id="theme">${S.theme==="dark"?"☀":"☾"}</button><button class="iconbtn notification">♧<b>5</b></button><button class="iconbtn notification">✉<b>2</b></button><div class="profile-wrap">
+   <button class="userbox" id="profileToggle" type="button">
+     <img src="assets/avatar.jpg">
+     <div><div class="username">Simge Er ★</div><div class="role">Scout</div></div>
+     <span class="user-chevron">${S.profileMenu?"⌃":"⌄"}</span>
+   </button>
+   ${S.profileMenu?`<div class="profile-menu">
+      <button type="button" class="profile-menu-item">♙ <span>Profilim</span></button>
+      <button type="button" class="profile-menu-item">⚙ <span>Ayarlar</span></button>
+      <div class="profile-menu-sep"></div>
+      <button type="button" class="profile-menu-item logout" id="logoutBtn">⇥ <span>Çıkış Yap</span></button>
+   </div>`:""}
+ </div></div>
  </header>`}
 function panel(title,body,extra=""){return `<section class="panel"><div class="panel-head"><span>${title}</span>${extra}</div><div class="panel-body">${body}</div></section>`}
 const homeTeams=[
@@ -306,5 +318,31 @@ function bind(){
  const submit=document.getElementById("loginSubmit");if(submit)submit.addEventListener("click",()=>doLogin(false));
  const demo=document.getElementById("demoLogin");if(demo)demo.addEventListener("click",()=>doLogin(true));
  const passInput=document.getElementById("loginPass");if(passInput)passInput.addEventListener("keydown",e=>{if(e.key==="Enter")doLogin(false)});
+
+ const profileToggle=document.getElementById("profileToggle");
+ if(profileToggle)profileToggle.addEventListener("click",e=>{
+   e.stopPropagation();
+   S.profileMenu=!S.profileMenu;
+   render();
+ });
+
+ const logoutBtn=document.getElementById("logoutBtn");
+ if(logoutBtn)logoutBtn.addEventListener("click",()=>{
+   sessionStorage.removeItem("tff-demo-auth");
+   localStorage.removeItem("tff-remember-demo");
+   S.profileMenu=false;
+   S.route="login";
+   history.replaceState(null,"","#/login");
+   render();
+ });
+
+ if(S.profileMenu){
+   document.addEventListener("click",e=>{
+     if(!e.target.closest(".profile-wrap")){
+       S.profileMenu=false;
+       render();
+     }
+   },{once:true});
+ }
 }
 render();
