@@ -320,16 +320,29 @@ function radarPolygon(p){
  const vals=[p.attack,p.tech,p.pas,p.fiz,p.def,p.mental];
  return vals.map((v,i)=>{const a=(-90+i*60)*Math.PI/180,r=42*(v/100);return `${50+Math.cos(a)*r},${50+Math.sin(a)*r}`}).join(" ");
 }
+
 function playerCardV4(p){
  const selected=S.selectedPlayers.includes(p._i), active=S.activePlayer===p._i;
- return `<article class="psv4-player ${selected?"selected":""} ${active?"active":""}" data-player-card="${p._i}">
-   <button class="psv5-card-main" data-open-player="${p._i}">
-    <div class="psv4-photo"><img src="${p.img}" alt="${p.name}"><span class="psv4-star">☆</span></div>
-    <div class="psv4-cardcopy"><div class="psv4-name">${p.name}</div><div class="psv4-meta"><b>${p.pos}</b><span>${p.age} Yaş</span></div><div class="psv4-club">${p.club}</div><div class="psv4-country">🇹🇷 Türkiye</div></div>
-    <div class="psv4-score"><strong>${p.score}</strong><span>Genel Puan</span></div>
-    <div class="psv4-mini">${[["PAS",p.pas],["ŞUT",p.sut],["DRB",p.drb],["HIZ",p.hiz],["DEF",p.def],["FİZ",p.fiz]].map(x=>`<span>${x[0]}<b>${x[1]}</b></span>`).join("")}</div>
+ return `<article class="psx-card ${selected?"selected":""} ${active?"active":""}">
+   <button class="psx-card-main" data-open-player="${p._i}">
+     <div class="psx-card-head">
+       <div><h3>${p.name}</h3><p>${p.pos} · ${p.age} Yaş</p></div>
+       <span class="psx-fav">★</span>
+     </div>
+     <div class="psx-card-hero">
+       <img src="${p.img}" alt="${p.name}">
+       <div class="psx-card-score"><b>${p.score}</b><span>Genel Puan</span></div>
+     </div>
+     <div class="psx-card-meta">
+       <span>${p.club}</span><span>🇹🇷 Türkiye</span>
+     </div>
+     <div class="psx-card-mini">
+       ${[["PAS",p.pas],["ŞUT",p.sut],["DRB",p.drb],["HIZ",p.hiz],["DEF",p.def],["FİZ",p.fiz]].map(x=>`<span>${x[0]}<b>${x[1]}</b></span>`).join("")}
+     </div>
    </button>
-   <button class="psv5-compare-add ${selected?"added":""}" data-compare-player="${p._i}">${selected?"✓ Karşılaştırmada":"＋ Karşılaştır"}</button>
+   <button class="psx-compare ${selected?"added":""}" data-compare-player="${p._i}">
+     ${selected?"✓ Karşılaştırıldı":"Karşılaştır  ＋"}
+   </button>
  </article>`;
 }
 
@@ -342,46 +355,108 @@ function playerDetailV4(p){
    const vals=[obj.attack,obj.tech,obj.pas,obj.fiz,obj.def,obj.mental];
    return vals.map((v,i)=>{const a=(-90+i*60)*Math.PI/180;const r=44*(v/100);return `${50+Math.cos(a)*r},${50+Math.sin(a)*r}`}).join(" ");
  };
- return `<section class="psv4-detail">
-  <nav class="psv4-tabs"><button class="active">Genel Bakış</button><button>İstatistikler</button><button>Performans Grafiği</button><button>Maçlar</button><button>Video</button><button>Raporlar</button></nav>
-  <div class="psv4-detailgrid">
-   <div class="psv4-profile">
-    <div class="psv4-profiletop"><img src="${p.img}" alt=""><div><h2>${p.name} <span>☆</span></h2><p>⚽ ${p.club}</p><p>${p.pos} · ${p.age} Yaş · 🇹🇷 Türkiye</p></div></div>
-    <dl><dt>Boy / Kilo</dt><dd>${p.height} / ${p.weight}</dd><dt>Ayak Tercihi</dt><dd>${p.foot}</dd><dt>Sözleşme Bitiş</dt><dd>${p.contract}</dd><dt>Piyasa Değeri</dt><dd>${p.value}</dd><dt>Maç Sayısı</dt><dd>${p.matches}</dd><dt>İlk 11</dt><dd>18</dd><dt>Gol</dt><dd>${p.goals}</dd><dt>Asist</dt><dd>${p.assists}</dd></dl>
+ return `<section class="psx-analysis">
+   <div class="psx-profile-pane">
+     <div class="psx-profile-image"><img src="${p.img}" alt="${p.name}"></div>
+     <div class="psx-profile-title"><h2>${p.name} <span>★</span></h2><p>${p.club}</p><strong>${p.pos}</strong></div>
+     <dl>
+       <dt>Yaş</dt><dd>${p.age}</dd>
+       <dt>Boy / Kilo</dt><dd>${p.height} / ${p.weight}</dd>
+       <dt>Ayak</dt><dd>${p.foot}</dd>
+       <dt>Piyasa Değeri</dt><dd>${p.value}</dd>
+       <dt>Sözleşme Bitiş</dt><dd>${p.contract}</dd>
+       <dt>Maç Sayısı</dt><dd>${p.matches}</dd>
+       <dt>Gol / Asist</dt><dd>${p.goals} / ${p.assists}</dd>
+     </dl>
    </div>
-   <div class="psv4-radar psv6-radar">
-    <div class="psv6-radar-head"><h3>YETENEK ANALİZİ</h3><div class="psv6-radar-select"><span>${p.name}</span><b>vs</b><span>${cp.name}</span></div></div>
-    <svg viewBox="0 0 100 100">
-      <polygon class="g" points="50,6 88,28 88,72 50,94 12,72 12,28"/>
-      <polygon class="g inner" points="50,19 77,34 77,66 50,81 23,66 23,34"/>
-      <line x1="50" y1="6" x2="50" y2="94"/><line x1="12" y1="28" x2="88" y2="72"/><line x1="88" y1="28" x2="12" y2="72"/>
-      <polygon class="shape league" points="${radarPts(league)}"/>
-      <polygon class="shape compare" points="${radarPts(cp)}"/>
-      <polygon class="shape active-player" points="${radarPts(p)}"/>
-    </svg>
-    <span class="r r1">Hücum<br><b>${p.attack}</b><small>${cp.attack}</small></span>
-    <span class="r r2">Teknik<br><b>${p.tech}</b><small>${cp.tech}</small></span>
-    <span class="r r3">Pas<br><b>${p.pas}</b><small>${cp.pas}</small></span>
-    <span class="r r4">Fiziksel<br><b>${p.fiz}</b><small>${cp.fiz}</small></span>
-    <span class="r r5">Savunma<br><b>${p.def}</b><small>${cp.def}</small></span>
-    <span class="r r6">Zihinsel<br><b>${p.mental}</b><small>${cp.mental}</small></span>
-    <div class="psv6-radarlegend">
-      <span><i class="red"></i>${p.name}</span>
-      <span><i class="blue"></i>${cp.name}</span>
-      <span><i class="gray"></i>Lig Ortalaması</span>
-    </div>
+
+   <div class="psx-radar-pane">
+     <div class="psx-pane-head">
+       <h3>YETENEK ANALİZİ (KARŞILAŞTIRMA)</h3>
+       <div class="psx-legend">
+         <span><i class="r"></i>${p.name}</span>
+         <span><i class="b"></i>${cp.name}</span>
+         <span><i class="g"></i>Lig Ortalaması</span>
+       </div>
+     </div>
+     <div class="psx-radar-wrap">
+       <svg viewBox="0 0 100 100">
+         <polygon class="grid" points="50,6 88,28 88,72 50,94 12,72 12,28"/>
+         <polygon class="grid inner" points="50,19 77,34 77,66 50,81 23,66 23,34"/>
+         <line x1="50" y1="6" x2="50" y2="94"/><line x1="12" y1="28" x2="88" y2="72"/><line x1="88" y1="28" x2="12" y2="72"/>
+         <polygon class="poly league" points="${radarPts(league)}"/>
+         <polygon class="poly compare" points="${radarPts(cp)}"/>
+         <polygon class="poly active" points="${radarPts(p)}"/>
+       </svg>
+       <span class="lab l1">Pas<br><b>${p.pas}</b><em>${cp.pas}</em></span>
+       <span class="lab l2">Şut<br><b>${p.sut}</b><em>${cp.sut}</em></span>
+       <span class="lab l3">Dribbling<br><b>${p.drb}</b><em>${cp.drb}</em></span>
+       <span class="lab l4">Savunma<br><b>${p.def}</b><em>${cp.def}</em></span>
+       <span class="lab l5">Fiziksel<br><b>${p.fiz}</b><em>${cp.fiz}</em></span>
+       <span class="lab l6">Teknik<br><b>${p.tech}</b><em>${cp.tech}</em></span>
+     </div>
+     <button class="psx-detail-btn">⌁ Detaylı Analiz</button>
    </div>
-   <div class="psv4-perf"><div class="psv4-subhead"><h3>PERFORMANS ÖZETİ</h3><select><option>Sezonluk</option></select></div>${[["Pas",p.pas],["Şut",p.sut],["Dripling",p.drb],["Hız",p.hiz],["Defansif",p.def],["Fiziksel",p.fiz]].map(([n,v],i)=>`<div class="psv4-prow"><span>${n}</span><i><b class="${i===5?"red":""}" style="width:${v}%"></b></i><strong>${v}</strong></div>`).join("")}<div class="psv4-perfnums"><b>8.3<small>Maç Başına Puan</small></b><span>${p.matches}<small>Maçlar</small></span><span>${p.goals}<small>Goller</small></span><span>${p.assists}<small>Asistler</small></span></div></div>
-   <div class="psv4-heat"><h3>BÖLGESEL ISI HARİTASI</h3><div class="psv4-pitchheat"><div class="mid"></div><div class="box l"></div><div class="box r"></div>${[[18,50],[28,43],[38,55],[48,49],[58,58],[67,43],[76,54],[84,38],[88,62]].map(([x,y])=>`<i style="left:${x}%;top:${y}%"></i>`).join("")}</div><h4>Pozisyon Dağılımı</h4><div class="psv4-pos"><span>${p.pos}<b>%62</b></span><span>CM<b>%25</b></span><span>RW<b>%8</b></span><span>LW<b>%5</b></span></div></div>
-  </div>
+
+   <div class="psx-perf-pane">
+     <div class="psx-pane-head"><h3>PERFORMANS ÖZETİ</h3></div>
+     <div class="psx-perf-labels"><span>${p.name}</span><span>${cp.name}</span></div>
+     ${[
+       ["Maç Sayısı",p.matches,cp.matches,40],
+       ["İlk 11",21,24,30],
+       ["Dakika",1842,2296,2500],
+       ["Goller",p.goals,cp.goals,12],
+       ["Asistler",p.assists,cp.assists,12],
+       ["Şut / Maç",2.1,2.3,3],
+       ["Pas Başarısı %",89,85,100],
+       ["Anahtar Pas / Maç",1.8,1.6,3],
+       ["Dribbling Başarısı %",63,61,100],
+       ["Top Kazanma / Maç",4.1,4.7,6]
+     ].map(([n,a,b,max])=>`<div class="psx-perf-row"><span>${n}</span><b>${a}</b><i><em style="width:${Math.min(100,a/max*100)}%"></em></i><i><em class="blue" style="width:${Math.min(100,b/max*100)}%"></em></i><strong>${b}</strong></div>`).join("")}
+     <button class="psx-detail-btn">Tüm İstatistikler</button>
+   </div>
+
+   <div class="psx-heat-pane">
+     <div class="psx-pane-head"><h3>POZİSYON ISI HARİTASI</h3></div>
+     <div class="psx-heat-tabs"><button class="active">${p.name}</button><button>${cp.name}</button></div>
+     <div class="psx-heatmap">
+       <div class="line mid"></div><div class="box left"></div><div class="box right"></div>
+       ${[[18,45],[28,54],[39,42],[48,52],[58,47],[67,58],[76,41],[83,54],[87,31],[89,67]].map(([x,y])=>`<i style="left:${x}%;top:${y}%"></i>`).join("")}
+     </div>
+     <button class="psx-detail-btn">▣ Son 10 Maç</button>
+   </div>
  </section>`;
 }
+
 function compareBlockV4(){
  const ids=S.selectedPlayers.slice(0,2),a=PLAYER_DATA[ids[0]??0],b=PLAYER_DATA[ids[1]??4];
- const rows=[["Genel Puan","score"],["Pas","pas"],["Şut","sut"],["Dripling","drb"],["Hız","hiz"],["Defansif","def"],["Fiziksel","fiz"]];
- return `<section class="psv4-compare"><div class="psv4-comparetop"><div><h3>OYUNCU KARŞILAŞTIRMA</h3><p>${ids.length} oyuncu seçildi</p></div><div class="psv4-chips"><button>${a.name} ×</button><button>${b.name} ×</button><button class="add">＋ Oyuncu Ekle</button></div><select><option>Radar</option><option>Bar</option></select></div><div class="psv4-comparegrid"><div class="psv4-table"><div class="head"><span>İstatistik</span><b>${a.name}</b><b>${b.name}</b><strong>Fark</strong><i></i></div>${rows.map(([n,k])=>{const d=a[k]-b[k];return `<div><span>${n}</span><b>${a[k]}</b><b>${b[k]}</b><strong>${d>=0?"+":""}${d}</strong><i><em style="width:${Math.min(100,Math.abs(d)*3)}%"></em></i></div>`}).join("")}</div><div class="psv4-chart"><div class="psv4-charthead"><h3>İSTATİSTİK KARŞILAŞTIRMA GRAFİĞİ</h3><span><i class="red"></i>${a.name}<i class="blue"></i>${b.name}</span></div><div class="psv4-bars">${[["Pas","pas"],["Şut","sut"],["Dripling","drb"],["Hız","hiz"],["Defansif","def"],["Fiziksel","fiz"]].map(([n,k])=>`<div><section><b style="height:${a[k]}%"></b><em style="height:${b[k]}%"></em></section><span>${n}</span></div>`).join("")}</div></div></div></section>`;
+ const rows=[
+   ["Genel Puan",a.score,b.score,63],
+   ["Yaş",a.age,b.age,"21.6"],
+   ["Boy (cm)",parseInt(a.height),parseInt(b.height),182],
+   ["Piyasa Değeri",a.value,b.value,"8.20M €"],
+   ["Maç Sayısı",a.matches,b.matches,28],
+   ["Goller",a.goals,b.goals,4],
+   ["Asistler",a.assists,b.assists,5],
+   ["Pas Başarısı %",a.pas+"%",b.pas+"%","78%"]
+ ];
+ return `<section class="psx-compare-section" id="compareSection">
+   <div class="psx-compare-table">
+     <h3>OYUNCU KARŞILAŞTIRMA</h3>
+     <div class="psx-table-head"><span>Özellik</span><b>${a.name}</b><b>${b.name}</b><b>Lig Ortalaması</b></div>
+     ${rows.map(r=>`<div class="psx-table-row"><span>${r[0]}</span><b>${r[1]}</b><b>${r[2]}</b><b>${r[3]}</b></div>`).join("")}
+   </div>
+   <div class="psx-chart-panel">
+     <div class="psx-pane-head">
+       <h3>İSTATİSTİK KARŞILAŞTIRMASI</h3>
+       <div class="psx-legend"><span><i class="r"></i>${a.name}</span><span><i class="b"></i>${b.name}</span><span><i class="g"></i>Lig Ortalaması</span></div>
+     </div>
+     <div class="psx-bars">
+       ${[["Pas","pas",72],["Şut","sut",64],["Dribbling","drb",66],["Hız","hiz",71],["Savunma","def",49],["Fiziksel","fiz",58]].map(([n,k,avg])=>`<div class="psx-bar-col"><div class="psx-bar-wrap"><b style="height:${a[k]}%"></b><em style="height:${b[k]}%"></em><i style="height:${avg}%"></i></div><span>${n}</span><small>${a[k]} &nbsp; ${b[k]} &nbsp; ${avg}</small></div>`).join("")}
+     </div>
+   </div>
+ </section>`;
 }
-
 function activeFilterChips(){
  const f=S.playerFilters;
  const chips=[];
@@ -403,28 +478,38 @@ function reportModalV5(){
    <div class="psv5-modal-actions"><button id="reportCancel">Vazgeç</button><button class="primary" id="reportSave">Raporu Oluştur</button></div>
  </section></div>`;
 }
+
 function playerSearchPage(){
  const f=S.playerFilters,list=playerFiltered(),active=PLAYER_DATA[S.activePlayer]||PLAYER_DATA[0];
- return `<div class="psv4-page"><div class="psv4-layout">
- <aside class="psv4-filters">
-   <div class="psv4-filterhead"><b>⚙ FİLTRELER</b><button id="psClear">Temizle</button></div>
-   <label><b>1. Ülke</b><select id="psCountry"><option>🇹🇷 Türkiye</option></select></label>
-   <label><b>2. Lig</b><select id="psLeague"><option ${f.league==="Tümü"?"selected":""}>Tümü</option><option ${f.league==="Trendyol Süper Lig"?"selected":""}>Trendyol Süper Lig</option><option ${f.league==="La Liga"?"selected":""}>La Liga</option><option ${f.league==="Serie A"?"selected":""}>Serie A</option><option ${f.league==="Primeira Liga"?"selected":""}>Primeira Liga</option></select></label>
-   <label><b>3. Sezon</b><select id="psSeason"><option>2025/2026</option></select></label>
-   <div class="psv4-field"><b>4. Mevki</b><div class="psv4-fieldpitch">${["ST","LW","CAM","RW","LM","CM","RM","CDM","LB","CB","RB","GK"].map(pos=>`<button data-pos="${pos}" class="${f.position===pos?"active":""} ${pos.toLowerCase()}">${pos}</button>`).join("")}</div></div>
-   <div class="psv4-field"><b>5. Yaş Aralığı</b><div class="psv4-age"><span>${f.ageMin}</span><input id="ageMin" type="range" min="18" max="22" value="${f.ageMin}"><input id="ageMax" type="range" min="18" max="22" value="${f.ageMax}"><span>${f.ageMax}</span></div></div>
-   <div class="psv4-field"><b>6. Ayak</b><div class="psv4-feet">${["Sol","Sağ","İki Ayak"].map(x=>`<button data-foot="${x}" class="${f.foot===x?"active":""}">${x}</button>`).join("")}</div></div>
-   <label><b>7. İstatistik Kategorisi</b><select id="psCategory"><option ${f.category==="Tümü"?"selected":""}>Tümü</option><option ${f.category==="Hücum"?"selected":""}>Hücum</option><option ${f.category==="Pas"?"selected":""}>Pas</option><option ${f.category==="Defans"?"selected":""}>Defans</option></select></label>
-   <button class="psv4-filterbtn" id="psFilter">Filtrele</button>
- </aside>
- <main class="psv4-main">
-   <section class="psv4-resultbox"><div class="psv4-resulttop"><div><h2>Oyuncu Sonuçları</h2><p><b>${list.length}</b> oyuncu bulundu</p></div><div class="psv4-actions"><button id="scrollCompare">⇄ Karşılaştır (${S.selectedPlayers.length})</button><button>⇩ Dışa Aktar⌄</button><button class="report" id="reportOpen">▤ Rapor Oluştur</button></div></div><div class="psv4-kpis"><span>♙<b>${list.length}</b><small>Oyuncu</small></span><span>▣<b>${list.reduce((a,p)=>a+p.matches,0)}</b><small>Toplam Maç</small></span><span>⚽<b>${list.reduce((a,p)=>a+p.goals,0)}</b><small>Toplam Gol</small></span><span>◎<b>${list.length?(list.reduce((a,p)=>a+p.goals,0)/list.length).toFixed(2):"0.00"}</b><small>Gol Ortalaması</small></span><span>◉<b>${list.reduce((a,p)=>a+p.sut,0)}</b><small>Toplam Şut</small></span><span>♧<b>%${list.length?Math.round(list.reduce((a,p)=>a+p.pas,0)/list.length):0}</b><small>Pas İsabeti Ort.</small></span></div></section>
-   ${activeFilterChips()}
-   <div class="psv4-cardbar"><div class="psv4-search"><span>⌕</span><input id="psSearch" placeholder="Oyuncu, kulüp veya lig ara..."></div><select id="psSort"><option value="score-desc" ${S.playerSort==="score-desc"?"selected":""}>Genel Puan (Yüksek)</option><option value="age-asc" ${S.playerSort==="age-asc"?"selected":""}>Yaş (Küçükten Büyüğe)</option><option value="value-desc" ${S.playerSort==="value-desc"?"selected":""}>Piyasa Değeri (Yüksek)</option><option value="matches-desc" ${S.playerSort==="matches-desc"?"selected":""}>Maç Sayısı (Yüksek)</option></select></div>
-   <div class="psv4-cards">${list.length?list.slice(0,5).map(playerCardV4).join(""):`<div class="psv4-empty">Bu filtrelerle eşleşen oyuncu bulunamadı.</div>`}</div>
-   ${playerDetailV4(active)}
-   <div id="compareSection">${compareBlockV4()}</div>
- </main></div>${reportModalV5()}</div>`;
+ return `<div class="psx-page">
+   <div class="psx-titlebar">
+     <div><h1>Futbolcu Ara</h1>${activeFilterChips()}</div>
+     <div class="psx-title-actions"><button class="report" id="reportOpen">▤ Rapor Oluştur</button><span>Sırala:</span><select id="psSort"><option value="score-desc" ${S.playerSort==="score-desc"?"selected":""}>Genel Puan</option><option value="age-asc" ${S.playerSort==="age-asc"?"selected":""}>Yaş</option><option value="value-desc" ${S.playerSort==="value-desc"?"selected":""}>Piyasa Değeri</option><option value="matches-desc" ${S.playerSort==="matches-desc"?"selected":""}>Maç Sayısı</option></select></div>
+   </div>
+   <div class="psx-layout">
+     <aside class="psx-filters">
+       <div class="psx-filter-head"><b>FİLTRELER</b><button id="psClear">Temizle</button></div>
+       <label><span>Ülke</span><select id="psCountry"><option>🇹🇷 Türkiye</option></select></label>
+       <label><span>Lig</span><select id="psLeague"><option ${f.league==="Tümü"?"selected":""}>Tümü</option><option ${f.league==="Trendyol Süper Lig"?"selected":""}>Trendyol Süper Lig</option><option ${f.league==="La Liga"?"selected":""}>La Liga</option><option ${f.league==="Serie A"?"selected":""}>Serie A</option><option ${f.league==="Primeira Liga"?"selected":""}>Primeira Liga</option></select></label>
+       <div class="psx-range-block"><span>Yaş</span><div><b>${f.ageMin}</b><b>${f.ageMax}</b></div><input id="ageMin" type="range" min="18" max="23" value="${f.ageMin}"><input id="ageMax" type="range" min="18" max="23" value="${f.ageMax}"></div>
+       <label><span>Pozisyon</span><select id="psPosition"><option ${f.position==="Tümü"?"selected":""}>Tümü</option><option ${f.position==="CM"?"selected":""}>CM</option><option ${f.position==="AMC"?"selected":""}>AMC</option><option ${f.position==="LW"?"selected":""}>LW</option><option ${f.position==="CB"?"selected":""}>CB</option><option ${f.position==="ST"?"selected":""}>ST</option></select></label>
+       <div class="psx-feet"><span>Ayak</span><div>${["Sol","Sağ","İki Ayak"].map(x=>`<button data-foot="${x}" class="${f.foot===x?"active":""}">${x}</button>`).join("")}</div></div>
+       <div class="psx-range-block"><span>Boy (cm)</span><div><b>160</b><b>200</b></div><input type="range" min="160" max="200" value="160"><input type="range" min="160" max="200" value="200"></div>
+       <div class="psx-range-block"><span>Piyasa Değeri</span><div><b>0 €</b><b>20M €</b></div><input type="range" min="0" max="20" value="0"><input type="range" min="0" max="20" value="20"></div>
+       <label><span>Maç Sayısı</span><select><option>Tümü</option></select></label>
+       <label><span>Sözleşme Bitiş</span><select><option>Tümü</option></select></label>
+       <label><span>Kulüp</span><select><option>Tüm Kulüpler</option></select></label>
+       <button class="psx-search-btn" id="psFilter">⌕ Ara</button>
+     </aside>
+     <main class="psx-main">
+       <div class="psx-cardbar"><div class="psx-search"><span>⌕</span><input id="psSearch" placeholder="Oyuncu, kulüp veya lig ara..."></div><span>${list.length} oyuncu</span></div>
+       <div class="psx-cards">${list.length?list.slice(0,5).map(playerCardV4).join(""):`<div class="psx-empty">Bu filtrelerle eşleşen oyuncu bulunamadı.</div>`}</div>
+       ${playerDetailV4(active)}
+       ${compareBlockV4()}
+     </main>
+   </div>
+   ${reportModalV5()}
+ </div>`;
 }
 function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();if(S.route==="futbolcu-ara")return playerSearchPage();return generic()}
 function render(){if(S.route==="login"){if(location.hash!=="#/login")history.replaceState(null,"","#/login");document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}bind()}
@@ -462,7 +547,7 @@ function bind(){
  const passInput=document.getElementById("loginPass");if(passInput)passInput.addEventListener("keydown",e=>{if(e.key==="Enter")doLogin(false)});
 
 
- const psLeague=document.getElementById("psLeague"),psSeason=document.getElementById("psSeason"),psCountry=document.getElementById("psCountry"),psCategory=document.getElementById("psCategory");
+ const psLeague=document.getElementById("psLeague"),psSeason=document.getElementById("psSeason"),psCountry=document.getElementById("psCountry"),psCategory=document.getElementById("psCategory"),psPosition=document.getElementById("psPosition");
  const ageMin=document.getElementById("ageMin"),ageMax=document.getElementById("ageMax");
  const resetFilters=()=>{S.playerFilters={country:"Türkiye",league:"Tümü",season:"2025/2026",position:"Tümü",ageMin:18,ageMax:22,foot:"İki Ayak",category:"Tümü"};render()};
  document.querySelectorAll("[data-pos]").forEach(b=>b.addEventListener("click",()=>{S.playerFilters.position=S.playerFilters.position===b.dataset.pos?"Tümü":b.dataset.pos;render()}));
@@ -471,6 +556,7 @@ function bind(){
  if(psSeason)psSeason.addEventListener("change",()=>{S.playerFilters.season=psSeason.value;render()});
  if(psCountry)psCountry.addEventListener("change",()=>{S.playerFilters.country="Türkiye";render()});
  if(psCategory)psCategory.addEventListener("change",()=>{S.playerFilters.category=psCategory.value;render()});
+ if(psPosition)psPosition.addEventListener("change",()=>{S.playerFilters.position=psPosition.value;render()});
  if(ageMin)ageMin.addEventListener("change",()=>{S.playerFilters.ageMin=Math.min(+ageMin.value,+ageMax.value);render()});
  if(ageMax)ageMax.addEventListener("change",()=>{S.playerFilters.ageMax=Math.max(+ageMax.value,+ageMin.value);render()});
  const psFilter=document.getElementById("psFilter");if(psFilter)psFilter.addEventListener("click",()=>render());
