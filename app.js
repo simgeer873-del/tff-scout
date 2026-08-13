@@ -12,7 +12,10 @@ let S={
  theme:localStorage.getItem("tff-theme")||"dark",
  teamTab:"overview",
  sidebarCollapsed:localStorage.getItem("tff-sidebar-collapsed")==="1",
- openMenuGroup:localStorage.getItem("tff-sidebar-group")||"ANALİZ & RAPORLAR",profileMenu:false
+ openMenuGroup:localStorage.getItem("tff-sidebar-group")||"ANALİZ & RAPORLAR",profileMenu:false,
+ playerFilters:{country:"Türkiye",league:"Trendyol Süper Lig",season:"2025/2026",position:"CM",ageMin:18,ageMax:22,foot:"Sağ",category:"Tümü"},
+ selectedPlayers:[0,4],
+ activePlayer:0
 };
 document.body.classList.toggle("light",S.theme==="light");
 function go(r){location.hash="#/"+r}
@@ -285,50 +288,138 @@ function loginPage(){
 }
 
 
+
+const PLAYER_DATA=[
+ {name:"Arda Güler",pos:"AMC",age:20,club:"Real Madrid",country:"Türkiye",league:"La Liga",season:"2025/2026",foot:"Sol",score:84,pas:91,sut:86,drb:88,hiz:83,def:55,fiz:70,mental:83,attack:86,tech:88,matches:34,goals:6,assists:7,value:"€45.00M",height:"176 cm",weight:"68 kg",contract:"30.06.2029",img:"assets/report-arda.jpg"},
+ {name:"Orkun Kökçü",pos:"CM",age:22,club:"Benfica",country:"Türkiye",league:"Primeira Liga",season:"2025/2026",foot:"Sağ",score:82,pas:87,sut:78,drb:83,hiz:77,def:67,fiz:76,mental:84,attack:79,tech:87,matches:31,goals:8,assists:9,value:"€28.00M",height:"175 cm",weight:"70 kg",contract:"30.06.2028",img:"assets/avatar.jpg"},
+ {name:"Demir Ege Tıknaz",pos:"CM",age:20,club:"Beşiktaş",country:"Türkiye",league:"Trendyol Süper Lig",season:"2025/2026",foot:"Sağ",score:78,pas:82,sut:69,drb:76,hiz:71,def:72,fiz:78,mental:78,attack:72,tech:80,matches:29,goals:3,assists:5,value:"€8.50M",height:"193 cm",weight:"78 kg",contract:"30.06.2029",img:"assets/avatar.jpg"},
+ {name:"Yusuf Akçiçek",pos:"CB",age:19,club:"Fenerbahçe",country:"Türkiye",league:"Trendyol Süper Lig",season:"2025/2026",foot:"Sol",score:76,pas:68,sut:52,drb:60,hiz:74,def:78,fiz:81,mental:76,attack:55,tech:69,matches:25,goals:2,assists:1,value:"€12.00M",height:"193 cm",weight:"80 kg",contract:"30.06.2030",img:"assets/report-yusuf.jpg"},
+ {name:"Kenan Yıldız",pos:"LW",age:20,club:"Juventus",country:"Türkiye",league:"Serie A",season:"2025/2026",foot:"Sağ",score:75,pas:84,sut:71,drb:85,hiz:82,def:32,fiz:68,mental:77,attack:82,tech:84,matches:36,goals:9,assists:6,value:"€40.00M",height:"185 cm",weight:"77 kg",contract:"30.06.2029",img:"assets/report-kenan.jpg"},
+ {name:"Semih Kılıçsoy",pos:"ST",age:20,club:"Beşiktaş",country:"Türkiye",league:"Trendyol Süper Lig",season:"2025/2026",foot:"Sağ",score:74,pas:72,sut:81,drb:79,hiz:80,def:28,fiz:73,mental:74,attack:83,tech:77,matches:30,goals:11,assists:4,value:"€16.00M",height:"178 cm",weight:"72 kg",contract:"30.06.2028",img:"assets/avatar.jpg"}
+];
+
+function playerFiltered(){
+ const f=S.playerFilters;
+ return PLAYER_DATA.map((p,i)=>({...p,_i:i})).filter(p=>{
+   const country=!f.country||p.country===f.country;
+   const league=!f.league||f.league==="Tümü"||p.league===f.league;
+   const season=!f.season||p.season===f.season;
+   const pos=!f.position||f.position==="Tümü"||p.pos===f.position;
+   const age=p.age>=Number(f.ageMin)&&p.age<=Number(f.ageMax);
+   const foot=!f.foot||f.foot==="İki Ayak"||p.foot===f.foot;
+   return country&&league&&season&&pos&&age&&foot;
+ });
+}
+function radarPolygon(p){
+ const vals=[p.attack,p.tech,p.pas,p.fiz,p.def,p.mental];
+ const pts=vals.map((v,i)=>{const a=(-90+i*60)*Math.PI/180;const r=44*(v/100);return `${50+Math.cos(a)*r},${50+Math.sin(a)*r}`}).join(" ");
+ return pts;
+}
+function playerCard(p){
+ const selected=S.selectedPlayers.includes(p._i);
+ const active=S.activePlayer===p._i;
+ return `<button class="ps-player-card ${selected?"selected":""} ${active?"active-player":""}" data-player-card="${p._i}">
+   <div class="ps-card-top">
+    <img src="${p.img}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+    <div class="ps-photo-fallback">${p.name.split(" ").map(x=>x[0]).join("").slice(0,2)}</div>
+    <span class="ps-star">☆</span>
+   </div>
+   <div class="ps-card-info">
+    <div class="ps-player-name">${p.name}</div>
+    <div class="ps-player-line"><b>${p.pos}</b><span>${p.age} Yaş</span></div>
+    <div class="ps-player-club">${p.club}</div>
+    <div class="ps-player-country">🇹🇷 ${p.country}</div>
+   </div>
+   <div class="ps-score"><b>${p.score}</b><span>Genel Puan</span></div>
+   <div class="ps-mini-stats">
+     ${[["PAS",p.pas],["ŞUT",p.sut],["DRB",p.drb],["HIZ",p.hiz],["DEF",p.def],["FİZ",p.fiz]].map(x=>`<span>${x[0]}<b>${x[1]}</b></span>`).join("")}
+   </div>
+ </button>`;
+}
+function compareBlock(){
+ const ids=S.selectedPlayers.slice(0,2);
+ const a=PLAYER_DATA[ids[0]??0], b=PLAYER_DATA[ids[1]??4];
+ const rows=[["Genel Puan","score"],["Pas","pas"],["Şut","sut"],["Dripling","drb"],["Hız","hiz"],["Defansif","def"],["Fiziksel","fiz"]];
+ return `<div class="ps-compare">
+   <div class="ps-compare-top">
+    <div><b>OYUNCU KARŞILAŞTIRMA</b><span>${ids.length} oyuncu seçildi</span></div>
+    <div class="ps-compare-chips">
+      <button>${a.name} ×</button><button>${b.name} ×</button><button class="add">＋ Oyuncu Ekle</button>
+    </div>
+    <select><option>Radar</option><option>Bar</option></select>
+   </div>
+   <div class="ps-compare-body">
+    <div class="ps-compare-table">
+      <div class="head"><span>İstatistik</span><b>${a.name}</b><b>${b.name}</b><strong>Fark</strong></div>
+      ${rows.map(([n,k])=>{const d=a[k]-b[k];return `<div><span>${n}</span><b>${a[k]}</b><b>${b[k]}</b><strong>${d>=0?"+":""}${d}</strong><i><em style="width:${Math.min(100,Math.abs(d)*2)}%"></em></i></div>`}).join("")}
+    </div>
+    <div class="ps-compare-chart">
+      <div class="chart-title"><b>İSTATİSTİK KARŞILAŞTIRMA GRAFİĞİ</b><span><i class="red"></i>${a.name}<i class="blue"></i>${b.name}</span></div>
+      <div class="chart-grid">
+        ${[["Pas","pas"],["Şut","sut"],["Dripling","drb"],["Hız","hiz"],["Defansif","def"],["Fiziksel","fiz"]].map(([n,k])=>`<div class="chart-col"><div class="chart-bars"><b style="height:${a[k]}%"></b><em style="height:${b[k]}%"></em></div><span>${n}</span></div>`).join("")}
+      </div>
+    </div>
+   </div>
+ </div>`;
+}
+function playerDetail(p){
+ return `<div class="ps-detail">
+   <div class="ps-tabs"><b>Genel Bakış</b><span>İstatistikler</span><span>Performans Grafiği</span><span>Maçlar</span><span>Video</span><span>Raporlar</span></div>
+   <div class="ps-detail-grid">
+    <div class="ps-profile">
+      <div class="ps-profile-head"><img src="${p.img}"><div><h2>${p.name} ☆</h2><p>${p.club}</p><p>${p.pos} · ${p.age} Yaş · 🇹🇷 ${p.country}</p></div></div>
+      <dl><dt>Boy / Kilo</dt><dd>${p.height} / ${p.weight}</dd><dt>Ayak Tercihi</dt><dd>${p.foot}</dd><dt>Sözleşme Bitiş</dt><dd>${p.contract}</dd><dt>Piyasa Değeri</dt><dd>${p.value}</dd><dt>Maç Sayısı</dt><dd>${p.matches}</dd><dt>Gol / Asist</dt><dd>${p.goals} / ${p.assists}</dd></dl>
+    </div>
+    <div class="ps-radar">
+      <h3>YETENEK ANALİZİ</h3>
+      <svg viewBox="0 0 100 100" class="radar-svg">
+        <polygon points="50,6 88,28 88,72 50,94 12,72 12,28" class="radar-bg"/>
+        <polygon points="50,18 77,34 77,66 50,82 23,66 23,34" class="radar-bg inner"/>
+        <polygon points="${radarPolygon(p)}" class="radar-player"/>
+      </svg>
+      <span class="rl r1">Hücum<br><b>${p.attack}</b></span><span class="rl r2">Teknik<br><b>${p.tech}</b></span><span class="rl r3">Pas<br><b>${p.pas}</b></span><span class="rl r4">Fiziksel<br><b>${p.fiz}</b></span><span class="rl r5">Savunma<br><b>${p.def}</b></span><span class="rl r6">Zihinsel<br><b>${p.mental}</b></span>
+    </div>
+    <div class="ps-performance">
+      <div class="ps-perf-head"><h3>PERFORMANS ÖZETİ</h3><select><option>Sezonluk</option></select></div>
+      ${[["Pas",p.pas],["Şut",p.sut],["Dripling",p.drb],["Hız",p.hiz],["Defansif",p.def],["Fiziksel",p.fiz]].map(([n,v])=>`<div class="perf-row"><span>${n}</span><i><b style="width:${v}%"></b></i><strong>${v}</strong></div>`).join("")}
+      <div class="ps-performance-bottom"><b>8.3<small>Maç Başına Puan</small></b><span>${p.matches}<small>Maçlar</small></span><span>${p.goals}<small>Goller</small></span><span>${p.assists}<small>Asistler</small></span></div>
+    </div>
+    <div class="ps-heat">
+      <h3>BÖLGESEL ISI HARİTASI</h3>
+      <div class="heat-pitch"><div class="pitch-box"></div>${[14,24,37,48,58,69,78,84].map((x,i)=>`<i style="left:${x}%;top:${28+(i%3)*20}%"></i>`).join("")}</div>
+      <p><b>Pozisyon Dağılımı</b></p>
+      <div class="ps-pos"><span>${p.pos}<b>%62</b></span><span>CM<b>%25</b></span><span>RW<b>%8</b></span><span>LW<b>%5</b></span></div>
+    </div>
+   </div>
+ </div>`;
+}
 function playerSearchPage(){
- const players=[
-  ["Arda Güler","AMC","20 Yaş","Real Madrid","84","91","86","88","83","55","70","assets/arda.png"],
-  ["Orkun Kökçü","CM","22 Yaş","Benfica","82","87","78","83","77","67","76","assets/kenan.png"],
-  ["Demir Ege Tıknaz","CM","20 Yaş","Beşiktaş","78","82","69","76","71","72","78","assets/arda.png"],
-  ["Yusuf Akçiçek","CB","19 Yaş","Fenerbahçe","76","68","52","60","74","78","81","assets/kenan.png"],
-  ["Kenan Yıldız","LW","20 Yaş","Juventus","75","84","71","85","32","32","68","assets/kenan.png"]
- ];
- const cards=players.map((p,i)=>`<button class="ps-player-card ${i===0?"selected":""}" data-player="${i}">
-   <div class="ps-player-photo"><div class="ps-avatar-fallback">${p[0].split(" ").map(x=>x[0]).join("").slice(0,2)}</div></div>
-   <div class="ps-player-name">${p[0]} <span>☆</span></div><div class="ps-player-meta">${p[1]} · ${p[2]}</div>
-   <div class="ps-player-club">${p[3]} · 🇹🇷 Türkiye</div>
-   <div class="ps-score"><b>${p[4]}</b><span>Genel Puan</span></div>
-   <div class="ps-mini-stats"><span>PAS<b>${p[5]}</b></span><span>ŞUT<b>${p[6]}</b></span><span>DRB<b>${p[7]}</b></span><span>HIZ<b>${p[8]}</b></span><span>DEF<b>${p[9]}</b></span><span>FİZ<b>${p[10]}</b></span></div>
- </button>`).join("");
+ const f=S.playerFilters;
+ const list=playerFiltered();
+ const active=PLAYER_DATA[S.activePlayer]||PLAYER_DATA[0];
  return `<section class="ps-page">
   <div class="ps-head">
    <div><h1>Futbolcu Ara</h1><p>Oyuncu arama, filtreleme ve performans karşılaştırma ekranı</p></div>
-   <div class="ps-head-actions"><button>⇄ Karşılaştır (2)</button><button>⇩ Dışa Aktar</button><button class="primary">▤ Rapor Oluştur</button></div>
+   <div class="ps-head-actions"><button>⇄ Karşılaştır (${S.selectedPlayers.length})</button><button>⇩ Dışa Aktar⌄</button><button class="primary">▤ Rapor Oluştur</button></div>
   </div>
   <div class="ps-layout">
    <aside class="ps-filters">
-    <div class="ps-filter-title"><b>⚙ FİLTRELER</b><button>Temizle</button></div>
-    ${[["1. Ülke","🇹🇷 Türkiye"],["2. Lig","Trendyol Süper Lig"],["3. Sezon","2025/2026"]].map(x=>`<label class="ps-field"><b>${x[0]}</b><span>${x[1]}⌄</span></label>`).join("")}
-    <div class="ps-field"><b>4. Mevki</b><div class="ps-pitch"><i class="st">ST</i><i class="lw">LW</i><i class="cam">CAM</i><i class="rw">RW</i><i class="lm">LM</i><i class="cm active">CM</i><i class="rm">RM</i><i class="cdm">CDM</i><i class="lb">LB</i><i class="cb1">CB</i><i class="cb2">CB</i><i class="rb">RB</i><i class="gk">GK</i></div></div>
-    <div class="ps-field"><b>5. Yaş Aralığı</b><div class="ps-range"><span>18</span><div><i></i></div><span>22</span></div></div>
-    <div class="ps-field"><b>6. Ayak</b><div class="ps-segment"><button>Sol</button><button class="active">Sağ</button><button>İki Ayak</button></div></div>
-    <label class="ps-field"><b>7. İstatistik Kategorisi</b><span>Tümü⌄</span></label>
-    <button class="ps-filter-btn">Filtrele</button>
+    <div class="ps-filter-title"><b>⚙ FİLTRELER</b><button id="psClear">Temizle</button></div>
+    <label class="ps-field"><b>1. Ülke</b><select id="psCountry"><option>Türkiye</option></select></label>
+    <label class="ps-field"><b>2. Lig</b><select id="psLeague"><option ${f.league==="Tümü"?"selected":""}>Tümü</option><option ${f.league==="Trendyol Süper Lig"?"selected":""}>Trendyol Süper Lig</option><option ${f.league==="La Liga"?"selected":""}>La Liga</option><option ${f.league==="Serie A"?"selected":""}>Serie A</option><option ${f.league==="Primeira Liga"?"selected":""}>Primeira Liga</option></select></label>
+    <label class="ps-field"><b>3. Sezon</b><select id="psSeason"><option>2025/2026</option></select></label>
+    <div class="ps-field"><b>4. Mevki</b><div class="ps-pitch">${["ST","LW","CAM","RW","LM","CM","RM","CDM","LB","CB","RB","GK"].map(pos=>`<button data-pos="${pos}" class="${f.position===pos?"active":""} ${pos.toLowerCase()}">${pos}</button>`).join("")}</div></div>
+    <div class="ps-field"><b>5. Yaş Aralığı</b><div class="ps-age-values"><span>${f.ageMin}</span><span>${f.ageMax}</span></div><div class="ps-age-sliders"><input id="ageMin" type="range" min="18" max="22" value="${f.ageMin}"><input id="ageMax" type="range" min="18" max="22" value="${f.ageMax}"></div></div>
+    <div class="ps-field"><b>6. Ayak</b><div class="ps-segment">${["Sol","Sağ","İki Ayak"].map(x=>`<button data-foot="${x}" class="${f.foot===x?"active":""}">${x}</button>`).join("")}</div></div>
+    <label class="ps-field"><b>7. İstatistik Kategorisi</b><select id="psCategory"><option>Tümü</option><option>Hücum</option><option>Pas</option><option>Defans</option></select></label>
+    <button class="ps-filter-btn" id="psFilter">Filtrele</button>
    </aside>
    <div class="ps-content">
-    <div class="ps-results-head"><div><h2>Oyuncu Sonuçları</h2><strong>28 oyuncu bulundu</strong></div><div class="ps-search">⌕ Oyuncu, kulüp veya lig ara...</div></div>
-    <div class="ps-kpis"><span>♙ <b>28</b><small>Oyuncu</small></span><span>▣ <b>843</b><small>Toplam Maç</small></span><span>⚽ <b>312</b><small>Toplam Gol</small></span><span>◎ <b>2.87</b><small>Gol Ortalaması</small></span><span>◉ <b>12.458</b><small>Toplam Şut</small></span><span>♧ <b>%84.7</b><small>Pas İsabeti Ort.</small></span></div>
-    <div class="ps-cards">${cards}</div>
-    <div class="ps-detail">
-      <div class="ps-tabs"><b>Genel Bakış</b><span>İstatistikler</span><span>Performans Grafiği</span><span>Maçlar</span><span>Video</span><span>Raporlar</span></div>
-      <div class="ps-detail-grid">
-       <div class="ps-profile"><div class="ps-big-avatar">AG</div><div><h2>Arda Güler ☆</h2><p>⚽ Real Madrid</p><p>AMC · 20 Yaş · 🇹🇷 Türkiye</p></div><dl><dt>Boy / Kilo</dt><dd>176 cm / 68 kg</dd><dt>Ayak Tercihi</dt><dd>Sağ</dd><dt>Sözleşme Bitiş</dt><dd>30.06.2029</dd><dt>Piyasa Değeri</dt><dd>€45.00M</dd></dl></div>
-       <div class="ps-radar"><h3>YETENEK ANALİZİ</h3><div class="radar-shape"><i></i></div><div class="radar-labels"><span>Hücum 86</span><span>Teknik 88</span><span>Pas 91</span><span>Fiziksel 70</span><span>Savunma 55</span><span>Zihinsel 83</span></div></div>
-       <div class="ps-performance"><h3>PERFORMANS ÖZETİ</h3>${[["Pas",91],["Şut",86],["Dripling",88],["Hız",83],["Defansif",55],["Fiziksel",70]].map(x=>`<div><span>${x[0]}</span><i><b style="width:${x[1]}%"></b></i><strong>${x[1]}</strong></div>`).join("")}<div class="ps-performance-bottom"><b>8.3<small>Maç Başına Puan</small></b><span>34<small>Maç</small></span><span>6<small>Gol</small></span><span>7<small>Asist</small></span></div></div>
-       <div class="ps-heat"><h3>BÖLGESEL ISI HARİTASI</h3><div class="heat-pitch">${Array.from({length:11},(_,i)=>`<i style="left:${8+i*8}%;top:${30+(i%3)*18}%"></i>`).join("")}</div><p><b>Pozisyon Dağılımı</b></p><div class="ps-pos"><span>AMC<b>%62</b></span><span>CM<b>%25</b></span><span>RW<b>%8</b></span><span>LW<b>%5</b></span></div></div>
-      </div>
-    </div>
-    <div class="ps-compare"><div class="ps-compare-title"><b>OYUNCU KARŞILAŞTIRMA</b><span>2 oyuncu seçildi</span></div><div class="ps-compare-body"><div class="ps-compare-table">${[["Genel Puan","84","75","+9"],["Pas","91","84","+7"],["Şut","86","71","+15"],["Dripling","88","85","+3"],["Hız","83","32","+51"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b><b>${x[2]}</b><strong>${x[3]}</strong></div>`).join("")}</div><div class="ps-bars"><h3>İSTATİSTİK KARŞILAŞTIRMA GRAFİĞİ</h3>${[84,91,86,88,83,55].map((n,i)=>`<i><b style="height:${n*.7}%"></b><em style="height:${[75,84,71,85,32,68][i]*.7}%"></em></i>`).join("")}</div></div></div>
+    <div class="ps-results-head"><div><h2>Oyuncu Sonuçları</h2><strong>${list.length} oyuncu bulundu</strong></div><div class="ps-search"><span>⌕</span><input id="psSearch" placeholder="Oyuncu, kulüp veya lig ara..."></div></div>
+    <div class="ps-kpis"><span>♙ <b>${list.length}</b><small>Oyuncu</small></span><span>▣ <b>${list.reduce((a,p)=>a+p.matches,0)}</b><small>Toplam Maç</small></span><span>⚽ <b>${list.reduce((a,p)=>a+p.goals,0)}</b><small>Toplam Gol</small></span><span>◎ <b>${list.length?(list.reduce((a,p)=>a+p.goals,0)/list.length).toFixed(2):"0.00"}</b><small>Gol Ortalaması</small></span><span>◉ <b>${list.reduce((a,p)=>a+p.sut,0)}</b><small>Toplam Şut Puanı</small></span><span>♧ <b>%${list.length?Math.round(list.reduce((a,p)=>a+p.pas,0)/list.length):0}</b><small>Pas İsabeti Ort.</small></span></div>
+    <div class="ps-cards">${list.length?list.map(playerCard).join(""):`<div class="ps-empty">Bu filtrelerle eşleşen oyuncu bulunamadı.</div>`}</div>
+    ${playerDetail(active)}
+    ${compareBlock()}
    </div>
   </div>
  </section>`;
@@ -368,6 +459,36 @@ function bind(){
  const submit=document.getElementById("loginSubmit");if(submit)submit.addEventListener("click",()=>doLogin(false));
  const demo=document.getElementById("demoLogin");if(demo)demo.addEventListener("click",()=>doLogin(true));
  const passInput=document.getElementById("loginPass");if(passInput)passInput.addEventListener("keydown",e=>{if(e.key==="Enter")doLogin(false)});
+
+
+ const psLeague=document.getElementById("psLeague");
+ const psSeason=document.getElementById("psSeason");
+ const psCountry=document.getElementById("psCountry");
+ const psCategory=document.getElementById("psCategory");
+ const ageMin=document.getElementById("ageMin"),ageMax=document.getElementById("ageMax");
+ document.querySelectorAll("[data-pos]").forEach(b=>b.addEventListener("click",()=>{S.playerFilters.position=b.dataset.pos;render()}));
+ document.querySelectorAll("[data-foot]").forEach(b=>b.addEventListener("click",()=>{S.playerFilters.foot=b.dataset.foot;render()}));
+ if(ageMin)ageMin.addEventListener("input",()=>{S.playerFilters.ageMin=Math.min(Number(ageMin.value),Number(ageMax.value));render()});
+ if(ageMax)ageMax.addEventListener("input",()=>{S.playerFilters.ageMax=Math.max(Number(ageMax.value),Number(ageMin.value));render()});
+ if(psLeague)psLeague.addEventListener("change",()=>{S.playerFilters.league=psLeague.value});
+ if(psSeason)psSeason.addEventListener("change",()=>{S.playerFilters.season=psSeason.value});
+ if(psCountry)psCountry.addEventListener("change",()=>{S.playerFilters.country=psCountry.value});
+ if(psCategory)psCategory.addEventListener("change",()=>{S.playerFilters.category=psCategory.value});
+ const psFilter=document.getElementById("psFilter");
+ if(psFilter)psFilter.addEventListener("click",()=>render());
+ const psClear=document.getElementById("psClear");
+ if(psClear)psClear.addEventListener("click",()=>{S.playerFilters={country:"Türkiye",league:"Tümü",season:"2025/2026",position:"Tümü",ageMin:18,ageMax:22,foot:"İki Ayak",category:"Tümü"};render()});
+ document.querySelectorAll("[data-player-card]").forEach(card=>card.addEventListener("click",e=>{
+   const id=Number(card.dataset.playerCard);S.activePlayer=id;
+   if(e.ctrlKey||e.metaKey){if(S.selectedPlayers.includes(id))S.selectedPlayers=S.selectedPlayers.filter(x=>x!==id);else{S.selectedPlayers=[...S.selectedPlayers,id].slice(-2)}}
+   else if(!S.selectedPlayers.includes(id)){S.selectedPlayers=[S.selectedPlayers[0]??id,id].slice(-2)}
+   render();
+ }));
+ const psSearch=document.getElementById("psSearch");
+ if(psSearch)psSearch.addEventListener("input",()=>{
+   const q=psSearch.value.toLocaleLowerCase("tr-TR");
+   document.querySelectorAll(".ps-player-card").forEach(c=>{const p=PLAYER_DATA[Number(c.dataset.playerCard)];c.style.display=(p.name+" "+p.club+" "+p.league).toLocaleLowerCase("tr-TR").includes(q)?"":"none"});
+ });
 
  const profileToggle=document.getElementById("profileToggle");
  if(profileToggle)profileToggle.addEventListener("click",e=>{
