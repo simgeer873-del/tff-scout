@@ -34,6 +34,9 @@ Bu sürüm, yöneticinin tarayıcıdan gezebileceği kapsamlı çalışan demo p
 - Mesajlar
 - Dark / Light tema
 - Aktif menü vurgusu
+- Referans görsele uyarlanmış Futbolcu Ara ekranı
+- Çalışan filtreler, sıralama ve oyuncu karşılaştırması
+- Radar analizi, performans özeti, ısı haritası ve istatistik grafiği
 
 ## Çalıştırma
 

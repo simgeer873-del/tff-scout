@@ -1567,3 +1567,161 @@ body.light .profile-menu-sep{
 .fp-compare-section{display:grid;grid-template-columns:.9fr 1.25fr;gap:12px;margin-top:8px;padding:10px;border:1px solid #1d3043;border-radius:9px;background:#091521}.fp-table h3,.fp-chart h3{margin:0 0 7px;font-size:8.5px}.fp-table-head,.fp-table-row{display:grid;grid-template-columns:1.25fr repeat(3,1fr);min-height:22px;align-items:center;padding:0 5px;border-bottom:1px solid #192b3e;font-size:6px}.fp-table-head{background:#0d1b29}.fp-table-head b:nth-child(2),.fp-table-row b:nth-child(2){color:#e9343c}.fp-table-head b:nth-child(3),.fp-table-row b:nth-child(3){color:#3f9fe8}.fp-table-row span{color:#d5dce4}.fp-bars{height:132px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;margin-top:4px}.fp-bar-col{text-align:center}.fp-bar-values{display:flex;justify-content:center;gap:5px;font-size:5px}.fp-bar-stack{height:95px;display:flex;justify-content:center;align-items:end;gap:2px;border-bottom:1px solid #2b3b49}.fp-bar-stack b,.fp-bar-stack em,.fp-bar-stack i{width:10px;background:#df2931}.fp-bar-stack em{background:#3188d2}.fp-bar-stack i{background:#76818b}.fp-bar-col>span{display:block;margin-top:4px;font-size:5.5px}.fp-modal-bg{position:fixed;inset:0;z-index:500;display:grid;place-items:center;background:#0009;backdrop-filter:blur(4px)}.fp-modal{width:min(470px,92vw);padding:16px;border:1px solid #294057;border-radius:12px;background:#081522;color:#fff}.fp-modal-head{display:flex;justify-content:space-between}.fp-modal-head h2{margin:3px 0 8px}.fp-modal-head button{width:30px;height:30px;border:1px solid #2b3e51;background:#0d1b29;color:#fff;border-radius:6px}.fp-modal label{display:block;margin-top:10px;font-size:8px;color:#aab5c1}.fp-modal select,.fp-modal textarea{width:100%;margin-top:5px;border:1px solid #2b3d50;border-radius:6px;background:#0c1927;color:#fff;padding:8px}.fp-modal textarea{height:90px}.fp-modal-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}.fp-modal-actions button{height:32px;padding:0 11px;border:1px solid #2b3e51;border-radius:6px;background:#0c1927;color:#fff;font-size:7px}.fp-modal-actions .primary{background:#d71920;border-color:#d71920}
 body.light .fp-filters,body.light .fp-card,body.light .fp-analysis,body.light .fp-compare-section{background:#fff;border-color:#dce4ec}body.light .fp-card-open{color:#172230}body.light .fp-filters select,body.light .fp-top-actions select,body.light .fp-view,body.light .fp-pills button,body.light .fp-ghost-btn,body.light .fp-heat-tabs button{background:#f6f8fa;color:#263648;border-color:#dce4ec}body.light .fp-card-stage:after{background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.78) 33%,rgba(255,255,255,.03) 68%)}.fp-card[hidden]{display:none!important}
 @media(max-width:1280px){.fp-layout{grid-template-columns:205px minmax(0,1fr)}.fp-cards{grid-template-columns:repeat(5,minmax(125px,1fr));overflow-x:auto}.fp-analysis{grid-template-columns:170px 1fr 1fr}.fp-heat-panel{grid-column:1/-1;border-top:1px solid #1b2d40}.fp-compare-section{grid-template-columns:1fr}}
+
+/* =========================================================
+   FUTBOLCU ARA — REFERENCE PROPORTIONS
+   Page-only overrides; the approved dashboard pages stay intact.
+   ========================================================= */
+.route-futbolcu-ara>.fp-global-header{
+  height:94px !important;
+  min-height:94px !important;
+  padding:0 !important;
+  display:grid !important;
+  grid-template-columns:184px minmax(430px,1fr) auto !important;
+  gap:0 !important;
+  align-items:stretch !important;
+}
+.route-futbolcu-ara .top-brand{
+  min-width:0;
+  padding:10px 14px;
+  gap:9px;
+  border-right:1px solid #1b2d40;
+}
+.route-futbolcu-ara .top-brand img{width:43px;height:52px;flex-basis:43px}
+.route-futbolcu-ara .top-brand-title{font-family:Georgia,serif;font-size:25px}
+.route-futbolcu-ara .top-brand-sub1{font-size:8px;white-space:nowrap}
+.route-futbolcu-ara .top-brand-sub2{font-size:7px;white-space:nowrap}
+.fp-header-context{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:9px 24px;
+}
+.fp-header-context h1{margin:0 0 12px;font-size:18px;line-height:1.1}
+.fp-header-context .fp-pills{gap:8px;flex-wrap:nowrap}
+.fp-header-context .fp-pills button{
+  height:34px;
+  padding:0 12px;
+  border-radius:6px;
+  font-size:11px;
+  white-space:nowrap;
+}
+.fp-header-context .fp-pills .clear{font-size:10px}
+.fp-header-tools{
+  min-width:480px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-end;
+  gap:7px;
+  padding:7px 16px 6px 8px;
+}
+.fp-header-primary,.fp-header-sort{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.fp-header-primary .fp-report{height:39px;margin-right:8px;padding:0 16px;font-size:11px}
+.fp-header-primary .iconbtn{width:35px !important;height:35px !important;border-radius:10px !important}
+.fp-header-primary .userbox{margin-left:4px !important}
+.fp-header-primary .userbox img{width:36px !important;height:36px !important}
+.fp-header-primary .username{font-size:10px}.fp-header-primary .role{font-size:9px}
+.fp-header-sort span{font-size:9px;color:#b5bec8}
+.fp-header-sort select,.fp-header-sort .fp-view{
+  height:31px;
+  border:1px solid #213448;
+  border-radius:6px;
+  background:#0a1724;
+  color:#e6ebf0;
+  font-size:9px;
+}
+.fp-header-sort select{width:162px;padding:0 10px}
+.fp-header-sort .fp-view{width:34px;padding:0;font-size:14px}
+.fp-header-sort .fp-view.active{background:#101f2d;color:#fff}
+.route-futbolcu-ara>.shell{min-height:calc(100vh - 94px);grid-template-columns:184px minmax(0,1fr)}
+.route-futbolcu-ara>.shell.sidebar-collapsed{grid-template-columns:76px minmax(0,1fr)}
+.route-futbolcu-ara .sidebar{top:94px !important;height:calc(100vh - 94px) !important;padding:9px 8px 10px !important}
+.route-futbolcu-ara .side-home,.route-futbolcu-ara .side-group-btn{font-size:12px}
+.route-futbolcu-ara .side-group-label{font-size:11px !important}
+.route-futbolcu-ara .side-subnav{font-size:10px !important}
+.route-futbolcu-ara .side-group-btn{grid-template-columns:19px minmax(0,1fr) 14px;gap:7px;padding-left:9px !important;padding-right:7px !important}
+.route-futbolcu-ara .side-submenu{padding-left:8px}
+.route-futbolcu-ara .side-collapse{border:0;background:transparent}
+
+.route-futbolcu-ara .fp-page{max-width:none;padding:11px 18px 20px}
+.route-futbolcu-ara .fp-layout{grid-template-columns:214px minmax(0,1fr);gap:12px}
+.route-futbolcu-ara .fp-filters{top:105px;padding:12px;border-radius:7px}
+.route-futbolcu-ara .fp-filter-head{margin-bottom:11px}
+.route-futbolcu-ara .fp-filter-head b{font-size:12px}
+.route-futbolcu-ara .fp-filter-head button{font-size:9px}
+.route-futbolcu-ara .fp-filters label,.route-futbolcu-ara .fp-range,.route-futbolcu-ara .fp-feet{margin-top:12px}
+.route-futbolcu-ara .fp-filters label>span,.route-futbolcu-ara .fp-range>span,.route-futbolcu-ara .fp-feet>span{margin-bottom:6px;font-size:10px}
+.route-futbolcu-ara .fp-filters select{height:34px;font-size:10px;padding:0 10px}
+.route-futbolcu-ara .fp-range>div{font-size:9px}
+.route-futbolcu-ara .fp-range input{height:14px}
+.route-futbolcu-ara .fp-feet button{height:34px;font-size:9px}
+.route-futbolcu-ara .fp-search-btn{height:38px;margin-top:14px;font-size:11px}
+
+.route-futbolcu-ara .fp-cards{gap:10px;margin-bottom:14px}
+.route-futbolcu-ara .fp-card{border-radius:7px}
+.route-futbolcu-ara .fp-card-title{height:36px;padding:0 10px}
+.route-futbolcu-ara .fp-card-title b{font-size:12px}
+.route-futbolcu-ara .fp-card-title span{font-size:17px}
+.route-futbolcu-ara .fp-card-stage{height:124px}
+.route-futbolcu-ara .fp-card-photo{right:-2px;width:77%;height:110%;object-position:center 15%}
+.route-futbolcu-ara .fp-card-rating{left:12px;top:16px}
+.route-futbolcu-ara .fp-card-rating strong{font-size:30px}
+.route-futbolcu-ara .fp-card-rating small{font-size:8px}
+.route-futbolcu-ara .fp-card-info{padding:7px 10px 6px;min-height:50px}
+.route-futbolcu-ara .fp-card-info span{font-size:8px}
+.route-futbolcu-ara .fp-card-info b{font-size:9px;margin-top:5px}
+.route-futbolcu-ara .fp-card-info small{font-size:8px;margin-top:4px}
+.route-futbolcu-ara .fp-card-compare{height:32px;margin:0 8px 8px;width:calc(100% - 16px);font-size:10px}
+
+.route-futbolcu-ara .fp-analysis{grid-template-columns:195px 1.18fr 1fr 1.08fr;min-height:428px;border-radius:7px}
+.route-futbolcu-ara .fp-analysis>div{padding:13px}
+.route-futbolcu-ara .fp-profile-photo{height:207px;margin:-13px -13px 10px}
+.route-futbolcu-ara .fp-profile-photo img{object-position:center 15%}
+.route-futbolcu-ara .fp-profile-copy h2{font-size:18px}
+.route-futbolcu-ara .fp-profile-copy p{font-size:9px;margin:4px 0}
+.route-futbolcu-ara .fp-profile-copy>b{font-size:9px}
+.route-futbolcu-ara .fp-profile dl{margin-top:10px;font-size:8px;line-height:1.35}
+.route-futbolcu-ara .fp-profile dt,.route-futbolcu-ara .fp-profile dd{margin:2px}
+.route-futbolcu-ara .fp-panel-head h3{font-size:11px}
+.route-futbolcu-ara .fp-legend{gap:12px;margin-top:10px;font-size:7.5px}
+.route-futbolcu-ara .fp-legend i{width:10px;height:5px}
+.route-futbolcu-ara .fp-radar-wrap{width:260px;height:282px;margin-top:2px}
+.route-futbolcu-ara .fp-radar-wrap .rl{font-size:7.5px}
+.route-futbolcu-ara .fp-radar-wrap .rt,.route-futbolcu-ara .fp-radar-wrap .lt{top:60px}
+.route-futbolcu-ara .fp-radar-wrap .rb,.route-futbolcu-ara .fp-radar-wrap .lb{bottom:50px}
+.route-futbolcu-ara .fp-ghost-btn{height:34px;padding:0 16px;font-size:9px}
+.route-futbolcu-ara .fp-perf-names{gap:22px;margin:14px 0 7px;font-size:7.5px}
+.route-futbolcu-ara .fp-perf-row{grid-template-columns:76px 31px 1fr 1fr 31px;gap:5px;margin:8px 0;font-size:7.5px}
+.route-futbolcu-ara .fp-perf-row i{height:7px}
+.route-futbolcu-ara .fp-performance .fp-ghost-btn{margin-top:23px}
+.route-futbolcu-ara .fp-heat-tabs{gap:6px;margin:12px 0}
+.route-futbolcu-ara .fp-heat-tabs button{height:34px;font-size:8.5px}
+.route-futbolcu-ara .fp-heat{height:274px}
+.route-futbolcu-ara .fp-heat-panel .fp-ghost-btn{margin-top:17px}
+
+.route-futbolcu-ara .fp-compare-section{grid-template-columns:.78fr 1.22fr;gap:16px;margin-top:10px;padding:12px;min-height:224px;border-radius:7px}
+.route-futbolcu-ara .fp-table h3,.route-futbolcu-ara .fp-chart h3{font-size:11px;margin-bottom:9px}
+.route-futbolcu-ara .fp-table-head,.route-futbolcu-ara .fp-table-row{min-height:24px;font-size:8px}
+.route-futbolcu-ara .fp-bars{height:176px;gap:11px}
+.route-futbolcu-ara .fp-bar-values{font-size:7px}
+.route-futbolcu-ara .fp-bar-stack{height:142px;gap:3px}
+.route-futbolcu-ara .fp-bar-stack b,.route-futbolcu-ara .fp-bar-stack em,.route-futbolcu-ara .fp-bar-stack i{width:15px}
+.route-futbolcu-ara .fp-bar-col>span{font-size:8px;margin-top:6px}
+
+@media(max-width:1250px){
+  .route-futbolcu-ara>.fp-global-header{grid-template-columns:184px minmax(360px,1fr) auto !important}
+  .fp-header-tools{min-width:410px}
+  .fp-header-primary .username,.fp-header-primary .role{display:none}
+  .route-futbolcu-ara .fp-analysis{grid-template-columns:185px 1fr 1fr}
+  .route-futbolcu-ara .fp-heat-panel{grid-column:1/-1}
+}
+@media(max-width:900px){
+  .route-futbolcu-ara>.fp-global-header{grid-template-columns:1fr auto !important;height:auto !important;min-height:94px !important}
+  .route-futbolcu-ara .top-brand{display:none}
+  .fp-header-context{padding-left:14px}.fp-header-tools{min-width:0;padding-right:10px}
+  .fp-header-primary .fp-report{display:none}.fp-header-primary .iconbtn:nth-of-type(2),.fp-header-primary .iconbtn:nth-of-type(3){display:none}
+  .route-futbolcu-ara>.shell{grid-template-columns:1fr}.route-futbolcu-ara .fp-layout{grid-template-columns:1fr}
+  .route-futbolcu-ara .fp-filters{position:static}.route-futbolcu-ara .fp-cards{grid-template-columns:repeat(5,minmax(165px,1fr));overflow-x:auto}
+}
