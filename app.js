@@ -2,7 +2,7 @@
 const D=window.DATA||{};
 const navGroups=[
 ["MİLLİ TAKIMLAR",[["milli-takimlar","◉","Milli Takımlar"],["karmalar","♧","Karmalar"],["rakipler","♧","Rakipler"]]],
-["OYUNCU & KULÜP",[["futbolcularim","♙","Futbolcularım"],["populer","☆","Popüler Oyuncular"],["kulupler","▣","Kulüpler"]]],
+["OYUNCU & KULÜP",[["futbolcu-ara","⌕","Futbolcu Ara"],["futbolcularim","♙","Futbolcularım"],["populer","☆","Popüler Oyuncular"],["kulupler","▣","Kulüpler"]]],
 ["ANALİZ & RAPORLAR",[["video","▣","Maç & Video Analiz"],["istatistik","▥","İstatistikler"],["raporlar","▤","Oyuncu Raporları"],["videolar","◉","Güncel Videolar"],["esame","▤","Esame Raporu"],["mac-raporlari","▤","Maç Raporları"],["gelisim-raporlari","▤","Gelişim Ligi Raporları"]]],
 ["GELİŞİM",[["antrenman","≋","Antrenman Planları"],["kulup-gelisim","◍","Kulüp Gelişim"],["eslestirme","◎","Oyuncu Eşleştirme"],["teknik","⚒","Teknik Testler"],["sakatlik","♧","Sakatlıklar"]]],
 ["YÖNETİM",[["scout","♙","Scout Profilleri"],["yetenek","✪","Yetenek Başvuruları"],["dokuman","▤","Doküman Yönetimi"],["izleyici","♧","İzleyici Atama"],["kullanici","♧","Kullanıcı Yönetimi"],["mesaj","✉","Mesajlar"]]]
@@ -284,7 +284,57 @@ function loginPage(){
  </div>`;
 }
 
-function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();return generic()}
+
+function playerSearchPage(){
+ const players=[
+  ["Arda Güler","AMC","20 Yaş","Real Madrid","84","91","86","88","83","55","70","assets/arda.png"],
+  ["Orkun Kökçü","CM","22 Yaş","Benfica","82","87","78","83","77","67","76","assets/kenan.png"],
+  ["Demir Ege Tıknaz","CM","20 Yaş","Beşiktaş","78","82","69","76","71","72","78","assets/arda.png"],
+  ["Yusuf Akçiçek","CB","19 Yaş","Fenerbahçe","76","68","52","60","74","78","81","assets/kenan.png"],
+  ["Kenan Yıldız","LW","20 Yaş","Juventus","75","84","71","85","32","32","68","assets/kenan.png"]
+ ];
+ const cards=players.map((p,i)=>`<button class="ps-player-card ${i===0?"selected":""}" data-player="${i}">
+   <div class="ps-player-photo"><div class="ps-avatar-fallback">${p[0].split(" ").map(x=>x[0]).join("").slice(0,2)}</div></div>
+   <div class="ps-player-name">${p[0]} <span>☆</span></div><div class="ps-player-meta">${p[1]} · ${p[2]}</div>
+   <div class="ps-player-club">${p[3]} · 🇹🇷 Türkiye</div>
+   <div class="ps-score"><b>${p[4]}</b><span>Genel Puan</span></div>
+   <div class="ps-mini-stats"><span>PAS<b>${p[5]}</b></span><span>ŞUT<b>${p[6]}</b></span><span>DRB<b>${p[7]}</b></span><span>HIZ<b>${p[8]}</b></span><span>DEF<b>${p[9]}</b></span><span>FİZ<b>${p[10]}</b></span></div>
+ </button>`).join("");
+ return `<section class="ps-page">
+  <div class="ps-head">
+   <div><h1>Futbolcu Ara</h1><p>Oyuncu arama, filtreleme ve performans karşılaştırma ekranı</p></div>
+   <div class="ps-head-actions"><button>⇄ Karşılaştır (2)</button><button>⇩ Dışa Aktar</button><button class="primary">▤ Rapor Oluştur</button></div>
+  </div>
+  <div class="ps-layout">
+   <aside class="ps-filters">
+    <div class="ps-filter-title"><b>⚙ FİLTRELER</b><button>Temizle</button></div>
+    ${[["1. Ülke","🇹🇷 Türkiye"],["2. Lig","Trendyol Süper Lig"],["3. Sezon","2025/2026"]].map(x=>`<label class="ps-field"><b>${x[0]}</b><span>${x[1]}⌄</span></label>`).join("")}
+    <div class="ps-field"><b>4. Mevki</b><div class="ps-pitch"><i class="st">ST</i><i class="lw">LW</i><i class="cam">CAM</i><i class="rw">RW</i><i class="lm">LM</i><i class="cm active">CM</i><i class="rm">RM</i><i class="cdm">CDM</i><i class="lb">LB</i><i class="cb1">CB</i><i class="cb2">CB</i><i class="rb">RB</i><i class="gk">GK</i></div></div>
+    <div class="ps-field"><b>5. Yaş Aralığı</b><div class="ps-range"><span>18</span><div><i></i></div><span>22</span></div></div>
+    <div class="ps-field"><b>6. Ayak</b><div class="ps-segment"><button>Sol</button><button class="active">Sağ</button><button>İki Ayak</button></div></div>
+    <label class="ps-field"><b>7. İstatistik Kategorisi</b><span>Tümü⌄</span></label>
+    <button class="ps-filter-btn">Filtrele</button>
+   </aside>
+   <div class="ps-content">
+    <div class="ps-results-head"><div><h2>Oyuncu Sonuçları</h2><strong>28 oyuncu bulundu</strong></div><div class="ps-search">⌕ Oyuncu, kulüp veya lig ara...</div></div>
+    <div class="ps-kpis"><span>♙ <b>28</b><small>Oyuncu</small></span><span>▣ <b>843</b><small>Toplam Maç</small></span><span>⚽ <b>312</b><small>Toplam Gol</small></span><span>◎ <b>2.87</b><small>Gol Ortalaması</small></span><span>◉ <b>12.458</b><small>Toplam Şut</small></span><span>♧ <b>%84.7</b><small>Pas İsabeti Ort.</small></span></div>
+    <div class="ps-cards">${cards}</div>
+    <div class="ps-detail">
+      <div class="ps-tabs"><b>Genel Bakış</b><span>İstatistikler</span><span>Performans Grafiği</span><span>Maçlar</span><span>Video</span><span>Raporlar</span></div>
+      <div class="ps-detail-grid">
+       <div class="ps-profile"><div class="ps-big-avatar">AG</div><div><h2>Arda Güler ☆</h2><p>⚽ Real Madrid</p><p>AMC · 20 Yaş · 🇹🇷 Türkiye</p></div><dl><dt>Boy / Kilo</dt><dd>176 cm / 68 kg</dd><dt>Ayak Tercihi</dt><dd>Sağ</dd><dt>Sözleşme Bitiş</dt><dd>30.06.2029</dd><dt>Piyasa Değeri</dt><dd>€45.00M</dd></dl></div>
+       <div class="ps-radar"><h3>YETENEK ANALİZİ</h3><div class="radar-shape"><i></i></div><div class="radar-labels"><span>Hücum 86</span><span>Teknik 88</span><span>Pas 91</span><span>Fiziksel 70</span><span>Savunma 55</span><span>Zihinsel 83</span></div></div>
+       <div class="ps-performance"><h3>PERFORMANS ÖZETİ</h3>${[["Pas",91],["Şut",86],["Dripling",88],["Hız",83],["Defansif",55],["Fiziksel",70]].map(x=>`<div><span>${x[0]}</span><i><b style="width:${x[1]}%"></b></i><strong>${x[1]}</strong></div>`).join("")}<div class="ps-performance-bottom"><b>8.3<small>Maç Başına Puan</small></b><span>34<small>Maç</small></span><span>6<small>Gol</small></span><span>7<small>Asist</small></span></div></div>
+       <div class="ps-heat"><h3>BÖLGESEL ISI HARİTASI</h3><div class="heat-pitch">${Array.from({length:11},(_,i)=>`<i style="left:${8+i*8}%;top:${30+(i%3)*18}%"></i>`).join("")}</div><p><b>Pozisyon Dağılımı</b></p><div class="ps-pos"><span>AMC<b>%62</b></span><span>CM<b>%25</b></span><span>RW<b>%8</b></span><span>LW<b>%5</b></span></div></div>
+      </div>
+    </div>
+    <div class="ps-compare"><div class="ps-compare-title"><b>OYUNCU KARŞILAŞTIRMA</b><span>2 oyuncu seçildi</span></div><div class="ps-compare-body"><div class="ps-compare-table">${[["Genel Puan","84","75","+9"],["Pas","91","84","+7"],["Şut","86","71","+15"],["Dripling","88","85","+3"],["Hız","83","32","+51"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b><b>${x[2]}</b><strong>${x[3]}</strong></div>`).join("")}</div><div class="ps-bars"><h3>İSTATİSTİK KARŞILAŞTIRMA GRAFİĞİ</h3>${[84,91,86,88,83,55].map((n,i)=>`<i><b style="height:${n*.7}%"></b><em style="height:${[75,84,71,85,32,68][i]*.7}%"></em></i>`).join("")}</div></div></div>
+   </div>
+  </div>
+ </section>`;
+}
+
+function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();if(S.route==="futbolcu-ara")return playerSearchPage();return generic()}
 function render(){if(S.route==="login"){if(location.hash!=="#/login")history.replaceState(null,"","#/login");document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}bind()}
 function bind(){
  document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
