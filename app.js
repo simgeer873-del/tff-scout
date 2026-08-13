@@ -332,7 +332,16 @@ function playerCardV4(p){
    <button class="psv5-compare-add ${selected?"added":""}" data-compare-player="${p._i}">${selected?"✓ Karşılaştırmada":"＋ Karşılaştır"}</button>
  </article>`;
 }
+
 function playerDetailV4(p){
+ const activeId=PLAYER_DATA.indexOf(p);
+ const otherId=S.selectedPlayers.find(id=>id!==activeId) ?? S.selectedPlayers[0] ?? 4;
+ const cp=PLAYER_DATA[otherId]||PLAYER_DATA[4];
+ const league={attack:74,tech:76,pas:78,fiz:72,def:64,mental:73};
+ const radarPts=obj=>{
+   const vals=[obj.attack,obj.tech,obj.pas,obj.fiz,obj.def,obj.mental];
+   return vals.map((v,i)=>{const a=(-90+i*60)*Math.PI/180;const r=44*(v/100);return `${50+Math.cos(a)*r},${50+Math.sin(a)*r}`}).join(" ");
+ };
  return `<section class="psv4-detail">
   <nav class="psv4-tabs"><button class="active">Genel Bakış</button><button>İstatistikler</button><button>Performans Grafiği</button><button>Maçlar</button><button>Video</button><button>Raporlar</button></nav>
   <div class="psv4-detailgrid">
@@ -340,7 +349,28 @@ function playerDetailV4(p){
     <div class="psv4-profiletop"><img src="${p.img}" alt=""><div><h2>${p.name} <span>☆</span></h2><p>⚽ ${p.club}</p><p>${p.pos} · ${p.age} Yaş · 🇹🇷 Türkiye</p></div></div>
     <dl><dt>Boy / Kilo</dt><dd>${p.height} / ${p.weight}</dd><dt>Ayak Tercihi</dt><dd>${p.foot}</dd><dt>Sözleşme Bitiş</dt><dd>${p.contract}</dd><dt>Piyasa Değeri</dt><dd>${p.value}</dd><dt>Maç Sayısı</dt><dd>${p.matches}</dd><dt>İlk 11</dt><dd>18</dd><dt>Gol</dt><dd>${p.goals}</dd><dt>Asist</dt><dd>${p.assists}</dd></dl>
    </div>
-   <div class="psv4-radar"><h3>YETENEK ANALİZİ</h3><svg viewBox="0 0 100 100"><polygon class="g" points="50,6 88,28 88,72 50,94 12,72 12,28"/><polygon class="g inner" points="50,19 77,34 77,66 50,81 23,66 23,34"/><line x1="50" y1="6" x2="50" y2="94"/><line x1="12" y1="28" x2="88" y2="72"/><line x1="88" y1="28" x2="12" y2="72"/><polygon class="shape" points="${radarPolygon(p)}"/></svg><span class="r r1">Hücum<br><b>${p.attack}</b></span><span class="r r2">Teknik<br><b>${p.tech}</b></span><span class="r r3">Pas<br><b>${p.pas}</b></span><span class="r r4">Fiziksel<br><b>${p.fiz}</b></span><span class="r r5">Savunma<br><b>${p.def}</b></span><span class="r r6">Zihinsel<br><b>${p.mental}</b></span><div class="psv4-radarlegend"><i></i> Oyuncu <i></i> Lig Ortalaması</div></div>
+   <div class="psv4-radar psv6-radar">
+    <div class="psv6-radar-head"><h3>YETENEK ANALİZİ</h3><div class="psv6-radar-select"><span>${p.name}</span><b>vs</b><span>${cp.name}</span></div></div>
+    <svg viewBox="0 0 100 100">
+      <polygon class="g" points="50,6 88,28 88,72 50,94 12,72 12,28"/>
+      <polygon class="g inner" points="50,19 77,34 77,66 50,81 23,66 23,34"/>
+      <line x1="50" y1="6" x2="50" y2="94"/><line x1="12" y1="28" x2="88" y2="72"/><line x1="88" y1="28" x2="12" y2="72"/>
+      <polygon class="shape league" points="${radarPts(league)}"/>
+      <polygon class="shape compare" points="${radarPts(cp)}"/>
+      <polygon class="shape active-player" points="${radarPts(p)}"/>
+    </svg>
+    <span class="r r1">Hücum<br><b>${p.attack}</b><small>${cp.attack}</small></span>
+    <span class="r r2">Teknik<br><b>${p.tech}</b><small>${cp.tech}</small></span>
+    <span class="r r3">Pas<br><b>${p.pas}</b><small>${cp.pas}</small></span>
+    <span class="r r4">Fiziksel<br><b>${p.fiz}</b><small>${cp.fiz}</small></span>
+    <span class="r r5">Savunma<br><b>${p.def}</b><small>${cp.def}</small></span>
+    <span class="r r6">Zihinsel<br><b>${p.mental}</b><small>${cp.mental}</small></span>
+    <div class="psv6-radarlegend">
+      <span><i class="red"></i>${p.name}</span>
+      <span><i class="blue"></i>${cp.name}</span>
+      <span><i class="gray"></i>Lig Ortalaması</span>
+    </div>
+   </div>
    <div class="psv4-perf"><div class="psv4-subhead"><h3>PERFORMANS ÖZETİ</h3><select><option>Sezonluk</option></select></div>${[["Pas",p.pas],["Şut",p.sut],["Dripling",p.drb],["Hız",p.hiz],["Defansif",p.def],["Fiziksel",p.fiz]].map(([n,v],i)=>`<div class="psv4-prow"><span>${n}</span><i><b class="${i===5?"red":""}" style="width:${v}%"></b></i><strong>${v}</strong></div>`).join("")}<div class="psv4-perfnums"><b>8.3<small>Maç Başına Puan</small></b><span>${p.matches}<small>Maçlar</small></span><span>${p.goals}<small>Goller</small></span><span>${p.assists}<small>Asistler</small></span></div></div>
    <div class="psv4-heat"><h3>BÖLGESEL ISI HARİTASI</h3><div class="psv4-pitchheat"><div class="mid"></div><div class="box l"></div><div class="box r"></div>${[[18,50],[28,43],[38,55],[48,49],[58,58],[67,43],[76,54],[84,38],[88,62]].map(([x,y])=>`<i style="left:${x}%;top:${y}%"></i>`).join("")}</div><h4>Pozisyon Dağılımı</h4><div class="psv4-pos"><span>${p.pos}<b>%62</b></span><span>CM<b>%25</b></span><span>RW<b>%8</b></span><span>LW<b>%5</b></span></div></div>
   </div>

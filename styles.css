@@ -1674,3 +1674,136 @@ body.light .psv5-modal-actions .primary{background:#d71920;color:#fff;border-col
 @media(max-width:1100px){
  .psv4-filters{position:relative !important;top:auto !important;max-height:none !important}
 }
+
+
+/* =========================================================
+   FUTBOLCU ARA V6 — PLAYER PHOTOS + RADAR COMPARISON
+   ========================================================= */
+
+/* Oyuncu fotoğrafları daha görünür */
+.psv4-photo{
+  height:132px !important;
+  position:relative;
+  background:linear-gradient(180deg,#101c29 0%,#0b1420 100%) !important;
+}
+.psv4-photo img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:center 12% !important;
+  transform:scale(1.03);
+  filter:contrast(1.03) saturate(1.05) !important;
+}
+.psv4-photo:after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:38%;
+  background:linear-gradient(transparent,rgba(5,12,20,.78));
+  pointer-events:none;
+}
+.psv4-star{
+  z-index:3 !important;
+  width:24px;height:24px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:rgba(7,16,27,.68);
+  backdrop-filter:blur(4px);
+}
+.psv4-cardcopy{padding-top:9px !important}
+.psv4-name{font-size:12.5px !important}
+.psv4-player{min-height:305px}
+
+/* Profil fotoğrafı da biraz büyüsün */
+.psv4-profiletop img{
+  width:72px !important;
+  height:72px !important;
+  object-fit:cover !important;
+  object-position:center 15% !important;
+}
+
+/* Yetenek analizi karşılaştırmalı radar */
+.psv6-radar{min-height:250px !important}
+.psv6-radar-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:8px;
+}
+.psv6-radar-head h3{margin:0}
+.psv6-radar-select{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-size:7px;
+  color:var(--muted);
+}
+.psv6-radar-select span{
+  padding:4px 6px;
+  border:1px solid var(--line);
+  border-radius:5px;
+  background:var(--panel2);
+  color:var(--text);
+  max-width:70px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.psv6-radar-select b{color:#718092}
+.psv6-radar svg{
+  width:170px !important;
+  height:170px !important;
+  margin:16px auto 8px !important;
+}
+.psv6-radar .shape{
+  stroke-width:1.8;
+}
+.psv6-radar .shape.active-player{
+  fill:rgba(226,28,37,.25);
+  stroke:#f02a32;
+}
+.psv6-radar .shape.compare{
+  fill:rgba(34,100,176,.13);
+  stroke:#3782cc;
+}
+.psv6-radar .shape.league{
+  fill:rgba(140,150,160,.06);
+  stroke:#697684;
+  stroke-dasharray:2.5 2.5;
+}
+.psv6-radar .r{
+  min-width:44px;
+  line-height:1.12;
+}
+.psv6-radar .r b{
+  color:#ff3d45;
+  margin-right:3px;
+}
+.psv6-radar .r small{
+  color:#55a5ec;
+  font-size:7px;
+}
+.psv6-radarlegend{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:3px;
+  font-size:7px;
+  color:var(--muted);
+}
+.psv6-radarlegend span{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+.psv6-radarlegend i{
+  width:8px;height:3px;border-radius:2px;display:block;
+}
+.psv6-radarlegend .red{background:#ef2a32}
+.psv6-radarlegend .blue{background:#3782cc}
+.psv6-radarlegend .gray{background:#697684}
+
+body.light .psv4-photo:after{
+  background:linear-gradient(transparent,rgba(241,245,248,.28));
+}
