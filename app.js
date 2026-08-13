@@ -17,7 +17,7 @@ let S={
  playerFiltersApplied:false,
  playerAgeChip:true,
  selectedPlayers:[0,4],
- activePlayer:0,playerSort:"score-desc",reportModal:false
+ activePlayer:0,playerSort:"score-desc",compareTab:"skills",reportModal:false
 };
 document.body.classList.toggle("light",S.theme==="light");
 function go(r){location.hash="#/"+r}
@@ -113,12 +113,11 @@ function topbar(){
       <button type="button" class="profile-menu-item logout" id="logoutBtn">⇥ <span>Çıkış Yap</span></button>
    </div>`:""}
  </div>`;
- if(S.route==="futbolcu-ara")return `<header class="topbar fp-global-header">
+ if(S.route==="futbolcu-ara")return `<header class="topbar fp-global-header simple-compare-header">
  <div class="top-brand"><img src="assets/tff-logo.png" alt="TFF"><div><div class="top-brand-title">TFF</div><div class="top-brand-sub1">Türkiye Futbol Federasyonu</div><div class="top-brand-sub2">Scout ve Analiz Sistemi</div></div></div>
- <div class="fp-header-context"><h1>Futbolcu Ara</h1>${activeFilterChips()}</div>
+ <div class="fp-header-context"><h1>Oyuncu Karşılaştırma</h1>${selectedPlayerChips()}</div>
  <div class="fp-header-tools">
-   <div class="fp-header-primary"><button class="fp-report" id="reportOpen">▣ &nbsp; Rapor Oluştur</button><button class="iconbtn" id="theme" aria-label="Temayı değiştir">${S.theme==="dark"?"☀":"☾"}</button><button class="iconbtn" aria-label="Hızlı işlemler">✧</button><button class="iconbtn notification" aria-label="Bildirimler">♧<b>2</b></button><button class="iconbtn notification" aria-label="Mesajlar">✉<b>1</b></button>${profile}</div>
-   <div class="fp-header-sort"><span>Sırala:</span><select id="psSort" aria-label="Oyuncuları sırala"><option value="score-desc" ${S.playerSort==="score-desc"?"selected":""}>Genel Puan ↕</option><option value="age-asc" ${S.playerSort==="age-asc"?"selected":""}>Yaş</option><option value="value-desc" ${S.playerSort==="value-desc"?"selected":""}>Piyasa Değeri</option><option value="matches-desc" ${S.playerSort==="matches-desc"?"selected":""}>Maç Sayısı</option></select><button class="fp-view active" aria-label="Kart görünümü">▦</button><button class="fp-view" aria-label="Liste görünümü">☷</button></div>
+   <div class="fp-header-primary"><button class="fp-report" id="reportOpen">▣ &nbsp; Rapor Oluştur</button><button class="iconbtn" id="theme" aria-label="Temayı değiştir">${S.theme==="dark"?"☀":"☾"}</button><button class="iconbtn notification" aria-label="Bildirimler">♧<b>2</b></button><button class="iconbtn notification" aria-label="Mesajlar">✉<b>1</b></button>${profile}</div>
  </div>
  </header>`;
  return `<header class="topbar">
@@ -401,7 +400,7 @@ function reportModalV5(){
  if(!S.reportModal)return "";const p=PLAYER_DATA[S.activePlayer]||PLAYER_DATA[0];return `<div class="fp-modal-bg" id="reportBackdrop"><section class="fp-modal"><div class="fp-modal-head"><div><small>YENİ RAPOR</small><h2>${p.name}</h2></div><button id="reportClose">×</button></div><label>Rapor Türü<select><option>Gözlem Raporu</option><option>Maç Raporu</option></select></label><label>Genel Değerlendirme<textarea placeholder="Oyuncu hakkında kısa değerlendirme..."></textarea></label><div class="fp-modal-actions"><button id="reportCancel">Vazgeç</button><button class="primary" id="reportSave">Raporu Oluştur</button></div></section></div>`;
 }
 
-function playerSearchPage(){
+function playerSearchPageLegacy(){
  const f=S.playerFilters,list=playerFiltered(),active=PLAYER_DATA[S.activePlayer]||PLAYER_DATA[0];
  return `<div class="fp-page">
    <div class="fp-layout">
@@ -409,6 +408,58 @@ function playerSearchPage(){
     <main class="fp-main"><div class="fp-cards">${list.map(playerCardExact).join("")}</div>${playerAnalysisExact(active)}${compareExact()}</main>
    </div>${reportModalV5()}
   </div>`;
+}
+
+function selectedPlayerChips(){
+ const ids=S.selectedPlayers.slice(0,2);
+ return `<div class="sc-header-chips">${ids.map((id,i)=>`<span><i>${i+1}</i>${PLAYER_DATA[id]?.name||"Oyuncu seçilmedi"}</span>`).join("")}</div>`;
+}
+
+function simplePlayerCard(p,side){
+ return `<article class="sc-player-card ${side}">
+   <div class="sc-player-photo">${safeImg(p)}</div>
+   <div class="sc-player-main">
+     <div class="sc-player-name"><div><small>${side==="left"?"1. OYUNCU":"2. OYUNCU"}</small><h2>${p.name}</h2><p>${p.club} · ${p.posLong}</p></div><strong>${p.score}<span>Genel Puan</span></strong></div>
+     <div class="sc-player-facts"><span><small>Yaş</small><b>${p.age}</b></span><span><small>Boy</small><b>${p.height}</b></span><span><small>Ayak</small><b>${p.foot}</b></span><span><small>Piyasa Değeri</small><b>${p.value}</b></span></div>
+   </div>
+ </article>`;
+}
+
+function simpleSkillsPanel(a,b){
+ const league=[72,64,66,49,58,70],av=[a.pas,a.sut,a.drb,a.def,a.fiz,a.tech],bv=[b.pas,b.sut,b.drb,b.def,b.fiz,b.tech];
+ const metrics=[["Pas",a.pas,b.pas],["Şut",a.sut,b.sut],["Dribbling",a.drb,b.drb],["Hız",a.hiz,b.hiz],["Savunma",a.def,b.def],["Fiziksel",a.fiz,b.fiz]];
+ return `<div class="sc-skill-layout"><div class="sc-radar">
+   <div class="sc-legend"><span><i class="red"></i>${a.name}</span><span><i class="blue"></i>${b.name}</span><span><i class="gray"></i>Lig Ortalaması</span></div>
+   <div class="sc-radar-canvas"><svg viewBox="0 0 100 100"><polygon class="grid" points="50,6 88,28 88,72 50,94 12,72 12,28"/><polygon class="grid inner" points="50,18 78,34 78,66 50,82 22,66 22,34"/><polygon class="grid inner" points="50,31 67,40 67,60 50,69 33,60 33,40"/><line x1="50" y1="6" x2="50" y2="94"/><line x1="12" y1="28" x2="88" y2="72"/><line x1="88" y1="28" x2="12" y2="72"/><polygon class="league" points="${radarPts(league)}"/><polygon class="second" points="${radarPts(bv)}"/><polygon class="first" points="${radarPts(av)}"/></svg><span class="top">Pas</span><span class="rt">Şut</span><span class="rb">Dribbling</span><span class="bottom">Savunma</span><span class="lb">Fiziksel</span><span class="lt">Teknik</span></div>
+ </div><div class="sc-metrics">${metrics.map(([name,x,y])=>`<div class="sc-metric"><div><b>${name}</b><span>${x} <em>${y}</em></span></div><div class="sc-dual-bar"><i style="width:${x}%"></i><i class="blue" style="width:${y}%"></i></div></div>`).join("")}</div></div>`;
+}
+
+function simplePerformancePanel(a,b){
+ const rows=[["Maç Sayısı",a.matches,b.matches],["İlk 11",a.starts,b.starts],["Dakika",a.minutes.toLocaleString("tr-TR"),b.minutes.toLocaleString("tr-TR")],["Gol",a.goals,b.goals],["Asist",a.assists,b.assists],["Pas Başarısı",a.pas+"%",b.pas+"%"],["Sözleşme Bitiş",a.contract,b.contract]];
+ return `<div class="sc-performance"><div class="sc-perf-head"><b>${a.name}</b><span>PERFORMANS</span><b>${b.name}</b></div>${rows.map(r=>`<div class="sc-perf-row"><strong>${r[1]}</strong><span>${r[0]}</span><strong>${r[2]}</strong></div>`).join("")}</div>`;
+}
+
+function simpleHeat(p,variant){
+ const dots=variant==="left"?[[22,46],[34,58],[47,49],[58,63],[69,40],[80,55]]:[[18,55],[31,43],[45,61],[57,48],[72,58],[84,37]];
+ return `<div class="sc-heat-wrap"><h3>${p.name}</h3><div class="sc-heat"><div class="mid"></div><div class="circle"></div><div class="box l"></div><div class="box r"></div>${dots.map(([x,y])=>`<i style="left:${x}%;top:${y}%"></i>`).join("")}</div><small>Son 10 maç · Hücum yönü →</small></div>`;
+}
+
+function simpleCompareContent(a,b){
+ if(S.compareTab==="performance")return simplePerformancePanel(a,b);
+ if(S.compareTab==="heat")return `<div class="sc-heat-grid">${simpleHeat(a,"left")}${simpleHeat(b,"right")}</div>`;
+ return simpleSkillsPanel(a,b);
+}
+
+function playerSearchPage(){
+ const ids=S.selectedPlayers.slice(0,2),a=PLAYER_DATA[ids[0]??0],b=PLAYER_DATA[ids[1]??4];
+ const options=id=>PLAYER_DATA.map((p,i)=>`<option value="${i}" ${i===id?"selected":""}>${p.name} — ${p.club}</option>`).join("");
+ return `<div class="sc-page">
+   <section class="sc-selector"><div><small>KARŞILAŞTIRILACAK OYUNCULAR</small><h1>İki futbolcu seçin</h1></div><label><span>1. Oyuncu</span><select id="playerOneSelect">${options(ids[0]??0)}</select></label><button id="swapPlayers" class="sc-swap" aria-label="Oyuncuların yerini değiştir">⇄</button><label><span>2. Oyuncu</span><select id="playerTwoSelect">${options(ids[1]??4)}</select></label><button id="applyCompare" class="sc-primary">Karşılaştır</button></section>
+   <section class="sc-selected-only">${simplePlayerCard(a,"left")}<div class="sc-vs">VS</div>${simplePlayerCard(b,"right")}</section>
+   <section class="sc-quick-compare"><div><strong>${a.score}</strong><span>Genel Puan</span><strong>${b.score}</strong></div><div><strong>${a.matches}</strong><span>Maç</span><strong>${b.matches}</strong></div><div><strong>${a.goals} / ${a.assists}</strong><span>Gol / Asist</span><strong>${b.goals} / ${b.assists}</strong></div><div><strong>${a.value}</strong><span>Piyasa Değeri</span><strong>${b.value}</strong></div></section>
+   <section class="sc-analysis-card"><div class="sc-analysis-head"><div><small>KARŞILAŞTIRMA</small><h2>Oyuncu Analizi</h2></div><div class="sc-tabs"><button data-compare-tab="skills" class="${S.compareTab==="skills"?"active":""}">Yetenek Analizi</button><button data-compare-tab="performance" class="${S.compareTab==="performance"?"active":""}">Performans</button><button data-compare-tab="heat" class="${S.compareTab==="heat"?"active":""}">Isı Haritası</button></div></div>${simpleCompareContent(a,b)}</section>
+   ${reportModalV5()}
+ </div>`;
 }
 
 function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();if(S.route==="futbolcu-ara")return playerSearchPage();return generic()}
@@ -480,6 +531,19 @@ function bind(){
    if(S.selectedPlayers.length<2){const fallback=PLAYER_DATA.findIndex((_,i)=>i!==id&&!S.selectedPlayers.includes(i));if(fallback>=0)S.selectedPlayers.push(fallback)}
    render();
  }));
+ const playerOneSelect=document.getElementById("playerOneSelect"),playerTwoSelect=document.getElementById("playerTwoSelect");
+ const setComparedPlayer=(slot,value)=>{
+   const next=Number(value),other=S.selectedPlayers[slot===0?1:0];
+   if(next===other){S.selectedPlayers[slot===0?1:0]=S.selectedPlayers[slot]}
+   S.selectedPlayers[slot]=next;
+   S.activePlayer=S.selectedPlayers[0];
+   render();
+ };
+ if(playerOneSelect)playerOneSelect.addEventListener("change",()=>setComparedPlayer(0,playerOneSelect.value));
+ if(playerTwoSelect)playerTwoSelect.addEventListener("change",()=>setComparedPlayer(1,playerTwoSelect.value));
+ const swapPlayers=document.getElementById("swapPlayers");if(swapPlayers)swapPlayers.addEventListener("click",()=>{S.selectedPlayers=[S.selectedPlayers[1],S.selectedPlayers[0]];S.activePlayer=S.selectedPlayers[0];render()});
+ const applyCompare=document.getElementById("applyCompare");if(applyCompare)applyCompare.addEventListener("click",()=>document.querySelector(".sc-selected-only")?.scrollIntoView({behavior:"smooth",block:"start"}));
+ document.querySelectorAll("[data-compare-tab]").forEach(button=>button.addEventListener("click",()=>{S.compareTab=button.dataset.compareTab;render()}));
  const psSort=document.getElementById("psSort");if(psSort)psSort.addEventListener("change",()=>{S.playerSort=psSort.value;render()});
  const psSearch=document.getElementById("psSearch");if(psSearch)psSearch.addEventListener("input",()=>{const q=psSearch.value.toLocaleLowerCase("tr-TR");document.querySelectorAll(".fp-card").forEach(c=>{const id=+(c.querySelector("[data-open-player]")?.dataset.openPlayer??-1);const p=PLAYER_DATA[id];c.hidden=!p||!(p.name+" "+p.club+" "+p.league).toLocaleLowerCase("tr-TR").includes(q)})});
  const scrollCompare=document.getElementById("scrollCompare");if(scrollCompare)scrollCompare.addEventListener("click",()=>document.getElementById("compareSection")?.scrollIntoView({behavior:"smooth",block:"start"}));

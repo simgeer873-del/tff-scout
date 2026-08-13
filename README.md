@@ -37,6 +37,9 @@ Bu sürüm, yöneticinin tarayıcıdan gezebileceği kapsamlı çalışan demo p
 - Referans görsele uyarlanmış Futbolcu Ara ekranı
 - Çalışan filtreler, sıralama ve oyuncu karşılaştırması
 - Radar analizi, performans özeti, ısı haritası ve istatistik grafiği
+- Sade iki oyunculu karşılaştırma akışı
+- Karşılaştırma ekranında yalnızca seçilen futbolcular
+- Yetenek, performans ve ısı haritası için ayrı sekmeler
 
 ## Çalıştırma
 
