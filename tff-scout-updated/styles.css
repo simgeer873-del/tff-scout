@@ -1568,79 +1568,1189 @@ body.light .profile-menu-sep{
 body.light .fp-filters,body.light .fp-card,body.light .fp-analysis,body.light .fp-compare-section{background:#fff;border-color:#dce4ec}body.light .fp-card-open{color:#172230}body.light .fp-filters select,body.light .fp-top-actions select,body.light .fp-view,body.light .fp-pills button,body.light .fp-ghost-btn,body.light .fp-heat-tabs button{background:#f6f8fa;color:#263648;border-color:#dce4ec}body.light .fp-card-stage:after{background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.78) 33%,rgba(255,255,255,.03) 68%)}.fp-card[hidden]{display:none!important}
 @media(max-width:1280px){.fp-layout{grid-template-columns:205px minmax(0,1fr)}.fp-cards{grid-template-columns:repeat(5,minmax(125px,1fr));overflow-x:auto}.fp-analysis{grid-template-columns:170px 1fr 1fr}.fp-heat-panel{grid-column:1/-1;border-top:1px solid #1b2d40}.fp-compare-section{grid-template-columns:1fr}}
 
+/* =========================================================
+   FUTBOLCU ARA — REFERENCE PROPORTIONS
+   Page-only overrides; the approved dashboard pages stay intact.
+   ========================================================= */
+.route-futbolcu-ara>.fp-global-header{
+  height:94px !important;
+  min-height:94px !important;
+  padding:0 !important;
+  display:grid !important;
+  grid-template-columns:184px minmax(430px,1fr) auto !important;
+  gap:0 !important;
+  align-items:stretch !important;
+}
+.route-futbolcu-ara .top-brand{
+  min-width:0;
+  padding:10px 14px;
+  gap:9px;
+  border-right:1px solid #1b2d40;
+}
+.route-futbolcu-ara .top-brand img{width:43px;height:52px;flex-basis:43px}
+.route-futbolcu-ara .top-brand-title{font-family:Georgia,serif;font-size:25px}
+.route-futbolcu-ara .top-brand-sub1{font-size:8px;white-space:nowrap}
+.route-futbolcu-ara .top-brand-sub2{font-size:7px;white-space:nowrap}
+.fp-header-context{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:9px 24px;
+}
+.fp-header-context h1{margin:0 0 12px;font-size:18px;line-height:1.1}
+.fp-header-context .fp-pills{gap:8px;flex-wrap:nowrap}
+.fp-header-context .fp-pills button{
+  height:34px;
+  padding:0 12px;
+  border-radius:6px;
+  font-size:11px;
+  white-space:nowrap;
+}
+.fp-header-context .fp-pills .clear{font-size:10px}
+.fp-header-tools{
+  min-width:480px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-end;
+  gap:7px;
+  padding:7px 16px 6px 8px;
+}
+.fp-header-primary,.fp-header-sort{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.fp-header-primary .fp-report{height:39px;margin-right:8px;padding:0 16px;font-size:11px}
+.fp-header-primary .iconbtn{width:35px !important;height:35px !important;border-radius:10px !important}
+.fp-header-primary .userbox{margin-left:4px !important}
+.fp-header-primary .userbox img{width:36px !important;height:36px !important}
+.fp-header-primary .username{font-size:10px}.fp-header-primary .role{font-size:9px}
+.fp-header-sort span{font-size:9px;color:#b5bec8}
+.fp-header-sort select,.fp-header-sort .fp-view{
+  height:31px;
+  border:1px solid #213448;
+  border-radius:6px;
+  background:#0a1724;
+  color:#e6ebf0;
+  font-size:9px;
+}
+.fp-header-sort select{width:162px;padding:0 10px}
+.fp-header-sort .fp-view{width:34px;padding:0;font-size:14px}
+.fp-header-sort .fp-view.active{background:#101f2d;color:#fff}
+.route-futbolcu-ara>.shell{min-height:calc(100vh - 94px);grid-template-columns:184px minmax(0,1fr)}
+.route-futbolcu-ara>.shell.sidebar-collapsed{grid-template-columns:76px minmax(0,1fr)}
+.route-futbolcu-ara .sidebar{top:94px !important;height:calc(100vh - 94px) !important;padding:9px 8px 10px !important}
+.route-futbolcu-ara .side-home,.route-futbolcu-ara .side-group-btn{font-size:12px}
+.route-futbolcu-ara .side-group-label{font-size:11px !important}
+.route-futbolcu-ara .side-subnav{font-size:10px !important}
+.route-futbolcu-ara .side-group-btn{grid-template-columns:19px minmax(0,1fr) 14px;gap:7px;padding-left:9px !important;padding-right:7px !important}
+.route-futbolcu-ara .side-submenu{padding-left:8px}
+.route-futbolcu-ara .side-collapse{border:0;background:transparent}
+
+.route-futbolcu-ara .fp-page{max-width:none;padding:11px 18px 20px}
+.route-futbolcu-ara .fp-layout{grid-template-columns:214px minmax(0,1fr);gap:12px}
+.route-futbolcu-ara .fp-filters{top:105px;padding:12px;border-radius:7px}
+.route-futbolcu-ara .fp-filter-head{margin-bottom:11px}
+.route-futbolcu-ara .fp-filter-head b{font-size:12px}
+.route-futbolcu-ara .fp-filter-head button{font-size:9px}
+.route-futbolcu-ara .fp-filters label,.route-futbolcu-ara .fp-range,.route-futbolcu-ara .fp-feet{margin-top:12px}
+.route-futbolcu-ara .fp-filters label>span,.route-futbolcu-ara .fp-range>span,.route-futbolcu-ara .fp-feet>span{margin-bottom:6px;font-size:10px}
+.route-futbolcu-ara .fp-filters select{height:34px;font-size:10px;padding:0 10px}
+.route-futbolcu-ara .fp-range>div{font-size:9px}
+.route-futbolcu-ara .fp-range input{height:14px}
+.route-futbolcu-ara .fp-feet button{height:34px;font-size:9px}
+.route-futbolcu-ara .fp-search-btn{height:38px;margin-top:14px;font-size:11px}
+
+.route-futbolcu-ara .fp-cards{gap:10px;margin-bottom:14px}
+.route-futbolcu-ara .fp-card{border-radius:7px}
+.route-futbolcu-ara .fp-card-title{height:36px;padding:0 10px}
+.route-futbolcu-ara .fp-card-title b{font-size:12px}
+.route-futbolcu-ara .fp-card-title span{font-size:17px}
+.route-futbolcu-ara .fp-card-stage{height:124px}
+.route-futbolcu-ara .fp-card-photo{right:-2px;width:77%;height:110%;object-position:center 15%}
+.route-futbolcu-ara .fp-card-rating{left:12px;top:16px}
+.route-futbolcu-ara .fp-card-rating strong{font-size:30px}
+.route-futbolcu-ara .fp-card-rating small{font-size:8px}
+.route-futbolcu-ara .fp-card-info{padding:7px 10px 6px;min-height:50px}
+.route-futbolcu-ara .fp-card-info span{font-size:8px}
+.route-futbolcu-ara .fp-card-info b{font-size:9px;margin-top:5px}
+.route-futbolcu-ara .fp-card-info small{font-size:8px;margin-top:4px}
+.route-futbolcu-ara .fp-card-compare{height:32px;margin:0 8px 8px;width:calc(100% - 16px);font-size:10px}
+
+.route-futbolcu-ara .fp-analysis{grid-template-columns:195px 1.18fr 1fr 1.08fr;min-height:428px;border-radius:7px}
+.route-futbolcu-ara .fp-analysis>div{padding:13px}
+.route-futbolcu-ara .fp-profile-photo{height:207px;margin:-13px -13px 10px}
+.route-futbolcu-ara .fp-profile-photo img{object-position:center 15%}
+.route-futbolcu-ara .fp-profile-copy h2{font-size:18px}
+.route-futbolcu-ara .fp-profile-copy p{font-size:9px;margin:4px 0}
+.route-futbolcu-ara .fp-profile-copy>b{font-size:9px}
+.route-futbolcu-ara .fp-profile dl{margin-top:10px;font-size:8px;line-height:1.35}
+.route-futbolcu-ara .fp-profile dt,.route-futbolcu-ara .fp-profile dd{margin:2px}
+.route-futbolcu-ara .fp-panel-head h3{font-size:11px}
+.route-futbolcu-ara .fp-legend{gap:12px;margin-top:10px;font-size:7.5px}
+.route-futbolcu-ara .fp-legend i{width:10px;height:5px}
+.route-futbolcu-ara .fp-radar-wrap{width:260px;height:282px;margin-top:2px}
+.route-futbolcu-ara .fp-radar-wrap .rl{font-size:7.5px}
+.route-futbolcu-ara .fp-radar-wrap .rt,.route-futbolcu-ara .fp-radar-wrap .lt{top:60px}
+.route-futbolcu-ara .fp-radar-wrap .rb,.route-futbolcu-ara .fp-radar-wrap .lb{bottom:50px}
+.route-futbolcu-ara .fp-ghost-btn{height:34px;padding:0 16px;font-size:9px}
+.route-futbolcu-ara .fp-perf-names{gap:22px;margin:14px 0 7px;font-size:7.5px}
+.route-futbolcu-ara .fp-perf-row{grid-template-columns:76px 31px 1fr 1fr 31px;gap:5px;margin:8px 0;font-size:7.5px}
+.route-futbolcu-ara .fp-perf-row i{height:7px}
+.route-futbolcu-ara .fp-performance .fp-ghost-btn{margin-top:23px}
+.route-futbolcu-ara .fp-heat-tabs{gap:6px;margin:12px 0}
+.route-futbolcu-ara .fp-heat-tabs button{height:34px;font-size:8.5px}
+.route-futbolcu-ara .fp-heat{height:274px}
+.route-futbolcu-ara .fp-heat-panel .fp-ghost-btn{margin-top:17px}
+
+.route-futbolcu-ara .fp-compare-section{grid-template-columns:.78fr 1.22fr;gap:16px;margin-top:10px;padding:12px;min-height:224px;border-radius:7px}
+.route-futbolcu-ara .fp-table h3,.route-futbolcu-ara .fp-chart h3{font-size:11px;margin-bottom:9px}
+.route-futbolcu-ara .fp-table-head,.route-futbolcu-ara .fp-table-row{min-height:24px;font-size:8px}
+.route-futbolcu-ara .fp-bars{height:176px;gap:11px}
+.route-futbolcu-ara .fp-bar-values{font-size:7px}
+.route-futbolcu-ara .fp-bar-stack{height:142px;gap:3px}
+.route-futbolcu-ara .fp-bar-stack b,.route-futbolcu-ara .fp-bar-stack em,.route-futbolcu-ara .fp-bar-stack i{width:15px}
+.route-futbolcu-ara .fp-bar-col>span{font-size:8px;margin-top:6px}
+
+@media(max-width:1250px){
+  .route-futbolcu-ara>.fp-global-header{grid-template-columns:184px minmax(360px,1fr) auto !important}
+  .fp-header-tools{min-width:410px}
+  .fp-header-primary .username,.fp-header-primary .role{display:none}
+  .route-futbolcu-ara .fp-analysis{grid-template-columns:185px 1fr 1fr}
+  .route-futbolcu-ara .fp-heat-panel{grid-column:1/-1}
+}
+@media(max-width:900px){
+  .route-futbolcu-ara>.fp-global-header{grid-template-columns:1fr auto !important;height:auto !important;min-height:94px !important}
+  .route-futbolcu-ara .top-brand{display:none}
+  .fp-header-context{padding-left:14px}.fp-header-tools{min-width:0;padding-right:10px}
+  .fp-header-primary .fp-report{display:none}.fp-header-primary .iconbtn:nth-of-type(2),.fp-header-primary .iconbtn:nth-of-type(3){display:none}
+  .route-futbolcu-ara>.shell{grid-template-columns:1fr}.route-futbolcu-ara .fp-layout{grid-template-columns:1fr}
+  .route-futbolcu-ara .fp-filters{position:static}.route-futbolcu-ara .fp-cards{grid-template-columns:repeat(5,minmax(165px,1fr));overflow-x:auto}
+}
 
 /* =========================================================
-   KARMALAR — APPROVED DESIGN / ISOLATED
-   Only affects the Karmalar route.
+   SADE OYUNCU KARŞILAŞTIRMA
+   Yalnızca seçilen iki oyuncu görünür.
    ========================================================= */
-.karma2-page{padding:18px 20px 26px;max-width:1540px;margin:0 auto}
-.karma2-pagehead{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
-.karma2-pagehead h1,.karma2-detail-title h1{margin:0;font-size:25px}
-.karma2-pagehead p,.karma2-detail-title p{margin:5px 0 0;color:var(--muted);font-size:11px}
-.karma2-detail-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.karma2-detail-title>button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text)}
-.karma2-detail-title p span{color:#d71920;margin:0 5px}
+.simple-compare-header .fp-header-context{justify-content:center}
+.simple-compare-header .fp-header-tools{justify-content:center;min-width:430px}
+.sc-header-chips{display:flex;gap:8px;flex-wrap:wrap}
+.sc-header-chips span{height:30px;display:flex;align-items:center;gap:7px;padding:0 11px;border:1px solid #26394c;border-radius:7px;background:#0b1825;color:#dfe6ed;font-size:10px}
+.sc-header-chips i{width:17px;height:17px;display:grid;place-items:center;border-radius:50%;background:#d71920;color:#fff;font-size:8px;font-style:normal;font-weight:800}
+.sc-page{width:min(100%,1220px);margin:0 auto;padding:18px;color:var(--text)}
+.sc-selector{display:grid;grid-template-columns:minmax(180px,1fr) 245px 40px 245px 120px;gap:12px;align-items:end;padding:15px 17px;border:1px solid #203348;border-radius:11px;background:#091521;box-shadow:0 10px 28px rgba(0,0,0,.12)}
+.sc-selector>div{align-self:center}.sc-selector>div small,.sc-analysis-head small{color:#e32730;font-size:8px;font-weight:800;letter-spacing:.08em}.sc-selector h1{margin:4px 0 0;font-size:18px}
+.sc-selector label span{display:block;margin-bottom:6px;color:#9aa7b5;font-size:9px}.sc-selector select{width:100%;height:39px;padding:0 10px;border:1px solid #2a3d50;border-radius:7px;background:#0d1b29;color:#edf2f6;font-size:10px;outline:0}.sc-selector select:focus{border-color:#d71920}
+.sc-swap{width:40px;height:39px;border:1px solid #2a3d50;border-radius:7px;background:#0d1b29;color:#dce4eb;font-size:18px}.sc-swap:hover{border-color:#e0262f;color:#fff}.sc-primary{height:39px;border:0;border-radius:7px;background:linear-gradient(90deg,#c9151e,#e1252d);color:#fff;font-size:10px;font-weight:800}
+.sc-selected-only{display:grid;grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);gap:12px;align-items:center;margin-top:14px}.sc-vs{width:44px;height:44px;display:grid;place-items:center;z-index:2;border:4px solid #06101b;border-radius:50%;background:#d71920;color:#fff;font-size:11px;font-weight:900;box-shadow:0 7px 18px rgba(215,25,32,.25)}
+.sc-player-card{height:242px;display:grid;grid-template-columns:42% 58%;overflow:hidden;border:1px solid #22364a;border-radius:12px;background:linear-gradient(135deg,#0d1b29,#08131f);box-shadow:0 12px 32px rgba(0,0,0,.16)}.sc-player-card.right{grid-template-columns:58% 42%}.sc-player-card.right .sc-player-photo{order:2}.sc-player-card.right .sc-player-main{order:1}
+.sc-player-photo{position:relative;overflow:hidden;background:radial-gradient(circle at 50% 30%,#24384a 0,#0a1622 68%)}.sc-player-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,#0c1927)}.sc-player-card.right .sc-player-photo:after{background:linear-gradient(270deg,transparent 55%,#0c1927)}.sc-player-photo img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 15%;filter:saturate(.96) contrast(1.03)}
+.sc-player-main{min-width:0;display:flex;flex-direction:column;justify-content:space-between;padding:24px 22px 20px}.sc-player-name{display:flex;justify-content:space-between;gap:14px}.sc-player-name small{color:#e32a33;font-size:8px;font-weight:800;letter-spacing:.1em}.sc-player-name h2{margin:7px 0 4px;font-size:22px}.sc-player-name p{margin:0;color:#9eabb8;font-size:10px}.sc-player-name>strong{flex:0 0 66px;color:#67d522;font-size:37px;line-height:.95;text-align:right}.sc-player-name>strong span{display:block;margin-top:6px;color:#94a2b0;font-size:7px;font-weight:500}
+.sc-player-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.sc-player-facts span{padding:9px 10px;border:1px solid #1d3043;border-radius:7px;background:#0b1825}.sc-player-facts small,.sc-player-facts b{display:block}.sc-player-facts small{color:#8f9dab;font-size:7px}.sc-player-facts b{margin-top:4px;font-size:10px}
+.sc-quick-compare{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:12px;overflow:hidden;border:1px solid #203348;border-radius:10px;background:#203348}.sc-quick-compare>div{min-height:63px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:0 14px;background:#091521;text-align:center}.sc-quick-compare strong:first-child{color:#ef343c}.sc-quick-compare strong:last-child{color:#469fe3}.sc-quick-compare strong{font-size:13px}.sc-quick-compare span{color:#8795a4;font-size:8px}
+.sc-analysis-card{margin-top:12px;padding:16px 18px 18px;border:1px solid #203348;border-radius:12px;background:#091521}.sc-analysis-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:13px;border-bottom:1px solid #1b2e41}.sc-analysis-head h2{margin:4px 0 0;font-size:17px}.sc-tabs{display:flex;gap:6px}.sc-tabs button{height:34px;padding:0 14px;border:1px solid #26394c;border-radius:7px;background:#0d1b29;color:#aeb9c5;font-size:9px}.sc-tabs button.active{border-color:#d71920;background:#8d1117;color:#fff}
+.sc-skill-layout{display:grid;grid-template-columns:minmax(310px,.9fr) minmax(340px,1.1fr);gap:30px;align-items:center;min-height:330px;padding:12px 20px 0}.sc-legend{display:flex;justify-content:center;gap:16px;color:#aab5c1;font-size:8px}.sc-legend span{display:flex;align-items:center;gap:5px}.sc-legend i{width:12px;height:5px;border-radius:3px}.sc-legend .red{background:#e32932}.sc-legend .blue{background:#338bd5}.sc-legend .gray{background:#78848f}
+.sc-radar-canvas{position:relative;width:300px;height:270px;margin:8px auto 0}.sc-radar-canvas svg{width:100%;height:100%}.sc-radar-canvas polygon.grid{fill:none;stroke:#35495c;stroke-width:.7}.sc-radar-canvas polygon.inner{stroke:#293b4d}.sc-radar-canvas line{stroke:#2a3b4c;stroke-width:.5}.sc-radar-canvas polygon.league{fill:none;stroke:#78848f;stroke-dasharray:2 2}.sc-radar-canvas polygon.second{fill:rgba(51,139,213,.08);stroke:#338bd5;stroke-width:1.4}.sc-radar-canvas polygon.first{fill:rgba(227,41,50,.15);stroke:#e32932;stroke-width:1.7}.sc-radar-canvas>span{position:absolute;color:#cbd4dc;font-size:8px}.sc-radar-canvas .top{top:0;left:48%}.sc-radar-canvas .rt{top:60px;right:4px}.sc-radar-canvas .rb{right:0;bottom:55px}.sc-radar-canvas .bottom{bottom:0;left:43%}.sc-radar-canvas .lb{left:0;bottom:55px}.sc-radar-canvas .lt{left:3px;top:60px}
+.sc-metrics{display:grid;gap:16px}.sc-metric>div:first-child{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}.sc-metric b{font-size:10px}.sc-metric span{color:#ef333c;font-size:10px;font-weight:800}.sc-metric span em{margin-left:12px;color:#449ce1;font-style:normal}.sc-dual-bar{display:grid;grid-template-columns:1fr 1fr;gap:6px;height:7px}.sc-dual-bar:before,.sc-dual-bar:after{content:"";position:absolute}.sc-dual-bar i{display:block;height:7px;border-radius:5px;background:#e32a33}.sc-dual-bar i.blue{background:#348bd4}
+.sc-performance{max-width:780px;margin:18px auto 0;border:1px solid #1d3043;border-radius:9px;overflow:hidden}.sc-perf-head,.sc-perf-row{display:grid;grid-template-columns:1fr 160px 1fr;align-items:center;min-height:42px;padding:0 18px;text-align:center}.sc-perf-head{background:#0d1c2a;font-size:10px}.sc-perf-head b:first-child{color:#ef343c}.sc-perf-head b:last-child{color:#459fe4}.sc-perf-head span{color:#8795a4;font-size:8px}.sc-perf-row{border-top:1px solid #1b2d40;font-size:10px}.sc-perf-row span{color:#8f9caa;font-size:9px}.sc-perf-row strong:first-child{color:#ef343c}.sc-perf-row strong:last-child{color:#459fe4}
+.sc-heat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:18px 24px 4px}.sc-heat-wrap h3{margin:0 0 9px;font-size:12px}.sc-heat-wrap>small{display:block;margin-top:7px;color:#81909f;font-size:8px;text-align:center}.sc-heat{height:265px;position:relative;overflow:hidden;border:2px solid #587a43;background:linear-gradient(90deg,transparent 49.7%,rgba(255,255,255,.22) 50%,transparent 50.3%),#315b25}.sc-heat:before{content:"";position:absolute;inset:6px;border:1px solid rgba(255,255,255,.25)}.sc-heat .mid{position:absolute;left:50%;top:6px;bottom:6px;border-left:1px solid rgba(255,255,255,.24)}.sc-heat .circle{position:absolute;left:50%;top:50%;width:52px;height:52px;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.24);border-radius:50%}.sc-heat .box{position:absolute;top:26%;bottom:26%;width:18%;border:1px solid rgba(255,255,255,.24)}.sc-heat .box.l{left:6px}.sc-heat .box.r{right:6px}.sc-heat i{position:absolute;width:13px;height:13px;transform:translate(-50%,-50%);border-radius:50%;background:#ffe31f;box-shadow:0 0 8px 6px #ed7419,0 0 19px 11px rgba(118,198,43,.5)}
+body.light .sc-selector,body.light .sc-player-card,body.light .sc-quick-compare>div,body.light .sc-analysis-card{background:#fff;border-color:#dce4ec}body.light .sc-selector select,body.light .sc-swap,body.light .sc-tabs button,body.light .sc-player-facts span{background:#f5f8fa;color:#243447;border-color:#dce4ec}body.light .sc-player-photo:after{opacity:.15}
+@media(max-width:1180px){.sc-selector{grid-template-columns:1fr 1fr 40px 1fr}.sc-selector>div{grid-column:1/-1}.sc-selector .sc-primary{grid-column:4}.sc-player-card{grid-template-columns:38% 62%}.sc-player-card.right{grid-template-columns:62% 38%}.sc-quick-compare{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.simple-compare-header .fp-header-tools{min-width:0}.sc-page{padding:12px}.sc-selector{grid-template-columns:1fr}.sc-selector>div,.sc-selector .sc-primary{grid-column:auto}.sc-swap{justify-self:center;transform:rotate(90deg)}.sc-selected-only{grid-template-columns:1fr}.sc-vs{justify-self:center;margin:-24px 0}.sc-player-card,.sc-player-card.right{grid-template-columns:40% 60%}.sc-player-card.right .sc-player-photo,.sc-player-card.right .sc-player-main{order:initial}.sc-quick-compare{grid-template-columns:1fr}.sc-analysis-head{align-items:flex-start;gap:12px;flex-direction:column}.sc-tabs{width:100%;overflow-x:auto}.sc-skill-layout,.sc-heat-grid{grid-template-columns:1fr;padding-left:0;padding-right:0}.sc-radar-canvas{width:min(300px,100%)}.sc-performance{overflow-x:auto}}
 
-.karma2-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.karma2-cats{display:flex;gap:7px;flex-wrap:wrap}
-.karma2-cats button{height:34px;padding:0 14px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text);font-size:9px}
-.karma2-cats button.active{background:#a81319;border-color:#cf1b23;color:#fff}
-.karma2-search{width:255px;height:34px;border:1px solid var(--line);border-radius:7px;background:var(--panel);display:flex;align-items:center;gap:7px;padding:0 10px;color:var(--muted)}
-.karma2-search input{width:100%;border:0;outline:0;background:transparent;color:var(--text);font-size:9px}
+/* Okunabilirlik modu — saha görevlileri ve ileri yaş kullanıcılar için */
+.route-futbolcu-ara .sc-page{font-size:16px;line-height:1.45}
+.route-futbolcu-ara .sc-header-chips span{height:38px;padding:0 14px;font-size:14px;font-weight:700}
+.route-futbolcu-ara .sc-header-chips i{width:22px;height:22px;font-size:12px}
 
-.karma2-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.karma2-card{min-height:126px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text);text-align:left;transition:border-color .16s ease,transform .16s ease}
-.karma2-card:hover{border-color:#354a61;transform:translateY(-1px)}
-.karma2-cardtop{display:grid;grid-template-columns:58px minmax(0,1fr);gap:10px;align-items:start}
-.karma2-logo{width:58px;height:58px;border-radius:9px;background:#f5f7f9;display:grid;place-items:center;overflow:hidden}
-.karma2-logo img{width:49px;height:49px;object-fit:contain}
-.karma2-logo.karma2-bal,.karma2-logo.karma2-cup{background:#0c1a27;color:#fff;border:1px solid #273a4e;font-size:21px;font-weight:800;line-height:1}
-.karma2-logo small{display:block;font-size:6px;margin-top:2px;color:#9aa8b7}
-.karma2-title h3{font-size:11.5px;line-height:1.25;margin:2px 0 6px}
-.karma2-title small{display:block;color:var(--muted);font-size:8px;margin-top:6px}
-.karma2-tag{display:inline-flex;height:20px;align-items:center;padding:0 7px;border-radius:4px;background:#35191d;color:#ff7c83;font-size:7px}
-.karma2-tag.kadin{background:#30162f;color:#e289dc}.karma2-tag.gelisim{background:#1d252d;color:#b1becb}.karma2-tag.amator{background:#10352f;color:#68d7bb}.karma2-tag.kupa{background:#3e3012;color:#e8ca68}
-.karma2-cardfoot{display:flex;justify-content:space-between;gap:8px;margin-top:12px;padding-top:9px;border-top:1px solid var(--line);color:#aab5c1;font-size:7.5px}
-.karma2-empty{padding:50px;border:1px dashed var(--line);border-radius:10px;text-align:center;color:var(--muted)}
+.route-futbolcu-ara .sc-selector{grid-template-columns:minmax(210px,1fr) minmax(260px,1.15fr) 48px minmax(260px,1.15fr) 140px;gap:14px;padding:20px}
+.route-futbolcu-ara .sc-selector>div small,
+.route-futbolcu-ara .sc-analysis-head small{font-size:13px;letter-spacing:.07em}
+.route-futbolcu-ara .sc-selector h1{margin-top:5px;font-size:24px}
+.route-futbolcu-ara .sc-selector label span{margin-bottom:8px;color:#d4dce5;font-size:15px;font-weight:700}
+.route-futbolcu-ara .sc-selector select{height:50px;padding:0 14px;font-size:16px;font-weight:650}
+.route-futbolcu-ara .sc-swap{width:48px;height:50px;font-size:24px}
+.route-futbolcu-ara .sc-primary{height:50px;font-size:16px}
 
-.karma2-detail-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:14px}
-.karma2-hero,.karma2-videos,.karma2-sidecard{background:var(--panel);border:1px solid var(--line);border-radius:10px}
-.karma2-hero{position:relative;padding:14px 14px 0;display:grid;grid-template-columns:minmax(250px,1fr) auto auto;gap:18px;align-items:start}
-.karma2-hero-main{display:flex;gap:12px;align-items:center}
-.karma2-hero-main .karma2-logo{width:72px;height:72px}.karma2-hero-main .karma2-logo img{width:62px;height:62px}
-.karma2-hero-main h2{font-size:18px;margin:0 0 6px}.karma2-hero-main p{font-size:8px;color:var(--muted);margin:6px 0 0}
-.karma2-kpis{display:flex;gap:4px;align-items:center}
-.karma2-kpis span{min-width:63px;text-align:center;padding:10px 8px;border-left:1px solid var(--line)}
-.karma2-kpis b{display:block;font-size:17px}.karma2-kpis small{font-size:7px;color:var(--muted)}
-.karma2-newvideo{height:35px;padding:0 15px;border:1px solid #cf2630;border-radius:6px;background:#b3171e;color:#fff;font-size:9px}
-.karma2-tabs{grid-column:1/-1;display:flex;gap:4px;margin-top:8px;border-top:1px solid var(--line)}
-.karma2-tabs button{height:39px;padding:0 17px;border:0;border-bottom:2px solid transparent;background:transparent;color:#9da9b7;font-size:8.5px}
-.karma2-tabs button.active{color:#f0444b;border-bottom-color:#e31d25}
+.route-futbolcu-ara .sc-selected-only{grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);gap:15px;margin-top:18px}
+.route-futbolcu-ara .sc-vs{width:56px;height:56px;font-size:16px}
+.route-futbolcu-ara .sc-player-card{height:300px}
+.route-futbolcu-ara .sc-player-main{padding:28px 25px 24px}
+.route-futbolcu-ara .sc-player-name{gap:16px}
+.route-futbolcu-ara .sc-player-name small{font-size:14px;letter-spacing:.08em}
+.route-futbolcu-ara .sc-player-name h2{margin:8px 0 5px;font-size:29px;line-height:1.12}
+.route-futbolcu-ara .sc-player-name p{color:#d2dae3;font-size:15px;line-height:1.35}
+.route-futbolcu-ara .sc-player-name>strong{flex-basis:78px;font-size:45px}
+.route-futbolcu-ara .sc-player-name>strong span{margin-top:7px;color:#cbd4dd;font-size:13px;line-height:1.15}
+.route-futbolcu-ara .sc-player-facts{gap:12px}
+.route-futbolcu-ara .sc-player-facts span{min-height:68px;padding:11px 13px}
+.route-futbolcu-ara .sc-player-facts small{color:#c4ced8;font-size:14px;font-weight:650}
+.route-futbolcu-ara .sc-player-facts b{margin-top:5px;font-size:17px}
 
-.karma2-videos{padding:13px;margin-top:10px}
-.karma2-videos h3,.karma2-sidecard h3{font-size:11px;margin:0 0 10px}
-.karma2-videos article{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
-.karma2-thumb{height:60px;border-radius:6px;background:center/cover no-repeat;position:relative;overflow:hidden;border:1px solid #2b4055}
-.karma2-thumb>span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#0008;border:1px solid #fff;font-size:7px}
-.karma2-thumb>small{position:absolute;right:4px;bottom:4px;background:#0009;border-radius:3px;padding:2px 4px;font-size:6px}
-.karma2-vcopy b{display:block;font-size:9px}.karma2-vcopy small{display:block;color:#9eabb9;font-size:7px;margin-top:3px}.karma2-vcopy p{margin:6px 0 0;color:#8795a5;font-size:7px}
-.karma2-vacts{display:flex;gap:6px}.karma2-vacts button{width:31px;height:31px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);color:#c8d1db}.karma2-vacts .danger{color:#ff3e45}
+.route-futbolcu-ara .sc-quick-compare>div{min-height:78px;padding:0 18px}
+.route-futbolcu-ara .sc-quick-compare strong{font-size:18px}
+.route-futbolcu-ara .sc-quick-compare span{color:#c5ced7;font-size:14px;font-weight:650}
 
-.karma2-side{display:grid;gap:10px;align-content:start}
-.karma2-sidecard{padding:13px}
-.karma2-sidecard>div:not(.karma2-sidevideo){display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:8px}
-.karma2-sidecard>div span{color:#8f9dab}.karma2-sidecard>div b{font-weight:600}
-.karma2-sidevideo{display:flex;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
-.karma2-sidevideo img{width:34px;height:34px;object-fit:contain;background:#fff;border-radius:5px}
-.karma2-sidevideo span{min-width:0}.karma2-sidevideo b{display:block;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.karma2-sidevideo small{display:block;font-size:7px;color:#8996a4;margin-top:3px}
-.karma2-sidecard>button{width:100%;height:31px;margin-top:7px;border:0;background:transparent;color:#c5ced8;font-size:8px;text-align:left}
+.route-futbolcu-ara .sc-analysis-card{padding:21px 23px 24px}
+.route-futbolcu-ara .sc-analysis-head h2{margin-top:5px;font-size:24px}
+.route-futbolcu-ara .sc-tabs button{height:46px;padding:0 19px;font-size:15px;font-weight:700}
+.route-futbolcu-ara .sc-skill-layout{grid-template-columns:minmax(390px,.95fr) minmax(400px,1.05fr);gap:42px;min-height:410px;padding:20px 24px 5px}
+.route-futbolcu-ara .sc-legend{gap:20px;font-size:14px;font-weight:650}
+.route-futbolcu-ara .sc-legend i{width:17px;height:7px}
+.route-futbolcu-ara .sc-radar-canvas{width:360px;height:325px;margin-top:14px}
+.route-futbolcu-ara .sc-radar-canvas>span{color:#eef3f7;font-size:14px;font-weight:700}
+.route-futbolcu-ara .sc-radar-canvas .rt{top:72px}.route-futbolcu-ara .sc-radar-canvas .rb{bottom:66px}
+.route-futbolcu-ara .sc-radar-canvas .lb{bottom:66px}.route-futbolcu-ara .sc-radar-canvas .lt{top:72px}
+.route-futbolcu-ara .sc-metrics{gap:20px}
+.route-futbolcu-ara .sc-metric>div:first-child{margin-bottom:10px}
+.route-futbolcu-ara .sc-metric b,
+.route-futbolcu-ara .sc-metric span{font-size:16px}
+.route-futbolcu-ara .sc-dual-bar,
+.route-futbolcu-ara .sc-dual-bar i{height:10px}
 
-body.light .karma2-tag{background:#ffe7e9;color:#b5171e}
-body.light .karma2-tag.kadin{background:#fae9fa;color:#87397f}
-body.light .karma2-tag.gelisim{background:#edf2f6;color:#536170}
-body.light .karma2-tag.amator{background:#e5f8f2;color:#2d7f69}
-body.light .karma2-tag.kupa{background:#fff5d8;color:#8d7021}
-body.light .karma2-logo.karma2-bal,body.light .karma2-logo.karma2-cup{background:#eef3f7;color:#263746}
+.route-futbolcu-ara .sc-performance{max-width:920px;margin-top:24px}
+.route-futbolcu-ara .sc-perf-head,
+.route-futbolcu-ara .sc-perf-row{grid-template-columns:1fr 210px 1fr;min-height:58px;padding:0 24px;font-size:16px}
+.route-futbolcu-ara .sc-perf-head{font-size:16px}
+.route-futbolcu-ara .sc-perf-head span,
+.route-futbolcu-ara .sc-perf-row span{color:#d0d8e1;font-size:15px;font-weight:650}
+.route-futbolcu-ara .sc-heat-wrap h3{font-size:18px}
+.route-futbolcu-ara .sc-heat-wrap>small{color:#c8d1da;font-size:14px}
 
-@media(max-width:1250px){.karma2-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.karma2-detail-layout{grid-template-columns:1fr}.karma2-side{grid-template-columns:1fr 1fr}}
-@media(max-width:1000px){.karma2-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.karma2-toolbar{align-items:flex-start;flex-direction:column}.karma2-search{width:100%}.karma2-hero{grid-template-columns:1fr}.karma2-tabs{overflow:auto}}
+@media(max-width:1400px){
+ .route-futbolcu-ara .sc-selector{grid-template-columns:1fr 1fr 48px 1fr 140px}
+ .route-futbolcu-ara .sc-player-name h2{font-size:25px}
+ .route-futbolcu-ara .sc-player-name p{font-size:14px}
+ .route-futbolcu-ara .sc-skill-layout{grid-template-columns:minmax(340px,.9fr) minmax(360px,1.1fr);gap:28px;padding-left:12px;padding-right:12px}
+ .route-futbolcu-ara .sc-radar-canvas{width:330px;height:300px}
+}
+@media(max-width:1180px){
+ .route-futbolcu-ara .sc-selector{grid-template-columns:1fr 1fr 48px 1fr}
+ .route-futbolcu-ara .sc-selector>div{grid-column:1/-1}
+ .route-futbolcu-ara .sc-selector .sc-primary{grid-column:4}
+ .route-futbolcu-ara .sc-player-card{height:330px;grid-template-columns:36% 64%}
+ .route-futbolcu-ara .sc-player-card.right{grid-template-columns:64% 36%}
+ .route-futbolcu-ara .sc-player-main{padding:24px 20px}
+ .route-futbolcu-ara .sc-skill-layout{grid-template-columns:1fr}
+}
+@media(max-width:820px){
+ .route-futbolcu-ara .sc-selector{grid-template-columns:1fr}
+ .route-futbolcu-ara .sc-selector>div,.route-futbolcu-ara .sc-selector .sc-primary{grid-column:auto}
+ .route-futbolcu-ara .sc-selected-only{grid-template-columns:1fr}
+ .route-futbolcu-ara .sc-player-card,.route-futbolcu-ara .sc-player-card.right{height:auto;min-height:350px;grid-template-columns:38% 62%}
+ .route-futbolcu-ara .sc-player-name h2{font-size:23px}
+ .route-futbolcu-ara .sc-quick-compare{grid-template-columns:1fr}
+ .route-futbolcu-ara .sc-tabs button{white-space:nowrap}
+ .route-futbolcu-ara .sc-radar-canvas{width:min(330px,100%)}
+}
+
+/* TR / EN dil seçici */
+.lang-switch{height:42px;min-width:88px;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:0 11px;border:1px solid #31465a;border-radius:9px;background:#0b1825;color:#9daab8;font-size:14px;font-weight:800;cursor:pointer}
+.lang-switch span{min-width:22px;text-align:center}.lang-switch i{color:#647487;font-style:normal}.lang-switch span.active{color:#fff}.lang-switch span.active:first-child{color:#ff3c45}.lang-switch span.active:last-child{color:#55b7ff}
+.lang-switch:hover,.lang-switch:focus-visible{border-color:#e02932;outline:2px solid rgba(224,41,50,.2);outline-offset:2px}
+.login-lang{position:absolute;z-index:5;top:28px;left:28px;height:44px;background:#07131f}
+body.light .lang-switch{background:#fff;color:#6e7b88;border-color:#cbd5df}body.light .lang-switch span.active{color:#be1119}
+
+/* Tüm modüller için ortak okunabilirlik standardı */
+.app-frame{font-size:16px;line-height:1.45}
+.app-frame .top-brand-sub1{font-size:13px}.app-frame .top-brand-sub2{font-size:12px}
+.app-frame .search input{font-size:15px}.app-frame .username{font-size:14px}.app-frame .role{font-size:13px}
+.app-frame .side-group-label,
+.app-frame .side-subnav,
+.app-frame .side-home,
+.app-frame .side-message,
+.app-frame .collapse-label{font-size:14px!important;line-height:1.35}
+.app-frame .side-subnav{min-height:40px}.app-frame .side-group-btn{min-height:44px}
+
+.app-frame .main :is(p,small,label,input,select,textarea,button,dt,dd){font-size:14px!important;line-height:1.4}
+.app-frame .main :is(input,select,textarea,button){min-height:38px}
+.app-frame .main :is(.page-head p,.welcome p,.ref-muted,.tab-toolbar p){color:#c1cbd5}
+.app-frame .panel-head{font-size:16px;min-height:48px}
+.app-frame .main [style*="font-size"]{font-size:14px!important;line-height:1.4}
+.app-frame .section-title{font-size:22px}
+.app-frame .quick-info b{font-size:16px}.app-frame .quick-info small,.app-frame .quick-info span{font-size:13px}
+.app-frame .video-title{font-size:15px}.app-frame .video-sub{font-size:13px;line-height:1.45}
+.app-frame .duration,.app-frame .match-vs,.app-frame .linkbtn{font-size:13px}
+.app-frame .stat small{font-size:13px}.app-frame .stat strong{font-size:27px}.app-frame .trend{font-size:13px}
+.app-frame :is(.match-meta,.match-right,.report-sub,.rsub,.rside,.panel-link){font-size:13px!important;line-height:1.4}
+.app-frame :is(.report-title,.rmain,.match-teams){font-size:14px!important}
+.app-frame .report-score,.app-frame .score{font-size:15px}
+.app-frame .qbtn{font-size:14px;min-height:60px}
+
+.app-frame .ref-card h2{font-size:22px}.app-frame .ref-card h3{font-size:17px}
+.app-frame .team-ref-tabs button{font-size:14px;min-height:45px}
+.app-frame .ref-team{font-size:14px}.app-frame .ref-info{font-size:14px;grid-template-columns:minmax(145px,1fr) 1fr;min-height:38px}
+.app-frame .ref-wide-btn{font-size:14px;min-height:42px}
+.app-frame .squad-summary button{min-height:58px;font-size:14px}
+.app-frame .squad-summary em{font-size:13px}.app-frame .face-stack span{font-size:11px}
+.app-frame .perf-box{height:auto;min-height:112px}.app-frame .perf-box span{font-size:13px}.app-frame .perf-box strong{font-size:22px}
+.app-frame .staff-row{min-height:48px}.app-frame .staff-row b{font-size:14px}.app-frame .staff-row small{font-size:13px}
+.app-frame .ref-card-head button{font-size:14px}
+.app-frame .ref-video-row article b,.app-frame .team-video-grid article b{font-size:14px;line-height:1.35}
+.app-frame .ref-video-row article p,.app-frame .team-video-grid article p{font-size:13px;line-height:1.4}
+.app-frame .recent-match-list,.app-frame .player-table,.app-frame .big-match-list,.app-frame .report-table{overflow-x:auto}
+.app-frame .recent-match-list>div{min-width:760px;min-height:55px;font-size:14px}
+.app-frame .recent-match-list>div>span:first-child small{font-size:12px}
+.app-frame .recent-match-list button{font-size:13px;min-height:34px}
+.app-frame .ref-actions button{min-height:55px}.app-frame .ref-actions button span{font-size:14px}
+.app-frame .filter-pills button{font-size:14px;min-height:38px}
+.app-frame .pt-head,.app-frame .pt-row{min-width:980px;min-height:58px;font-size:14px}
+.app-frame .mini-avatar{font-size:11px}.app-frame .big-match{min-width:920px;min-height:68px;font-size:14px}
+.app-frame .big-match>div small{font-size:12px}.app-frame .big-match button{font-size:13px;min-height:36px}
+.app-frame .upload-btn{font-size:14px;min-height:42px}
+.app-frame .video-tags span{font-size:12px}
+.app-frame .stat-kpi span,.app-frame .stat-kpi small{font-size:13px}.app-frame .stat-kpi strong{font-size:25px}
+.app-frame .bar-list>div{grid-template-columns:125px 1fr 45px;font-size:14px}
+.app-frame .rt-head,.app-frame .rt-row{min-width:820px;min-height:54px;font-size:14px}
+
+.login-page .login-card>p,.login-page .remember,.login-page .forgot-btn,.login-page .demo-login small,.login-page .login-copy{font-size:14px}
+.login-page .login-field input{font-size:16px}.login-page .login-divider em{font-size:13px}.login-page .demo-login b{font-size:16px}
+
+@media(max-width:900px){.login-lang{top:18px;left:14px}.lang-switch{min-width:82px}.app-frame .topbar .lang-switch{height:38px}.app-frame .stats-kpis{grid-template-columns:repeat(2,1fr)}.app-frame .ref-video-row,.app-frame .team-video-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Kurumsal TFF marka alanı */
+:root{--topbar-h:92px}
+.app-frame>.topbar:not(.fp-global-header){grid-template-columns:330px minmax(340px,520px) 1fr!important}
+.top-brand{gap:15px;min-width:0}
+.top-brand img{width:64px;height:70px;flex:0 0 64px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.22))}
+.top-brand-copy{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.top-brand-title{max-width:240px;font-family:"Arial Narrow","Roboto Condensed","Segoe UI",Arial,sans-serif;font-size:19px;font-weight:800;line-height:1.08;letter-spacing:-.25px;color:#f8fafc;text-wrap:balance}
+.top-brand-sub2{max-width:245px;margin-top:7px;font-family:"Segoe UI",Arial,sans-serif;font-size:13px;font-weight:600;line-height:1.2;letter-spacing:.01em;color:#c4ced8}
+.route-futbolcu-ara>.fp-global-header{grid-template-columns:300px minmax(430px,1fr) auto!important}
+.route-futbolcu-ara .top-brand{padding:11px 18px;gap:14px}
+.route-futbolcu-ara .top-brand img{width:60px;height:68px;flex-basis:60px}
+.route-futbolcu-ara .top-brand-title{max-width:195px;font-family:"Arial Narrow","Roboto Condensed","Segoe UI",Arial,sans-serif;font-size:18px;line-height:1.08;letter-spacing:-.2px}
+.route-futbolcu-ara .top-brand-sub2{max-width:200px;margin-top:6px;font-size:12px;line-height:1.2;white-space:normal}
+body.light .top-brand-title{color:#17212c}body.light .top-brand-sub2{color:#526273}
+@media(max-width:1400px){.app-frame>.topbar:not(.fp-global-header){grid-template-columns:295px minmax(300px,460px) 1fr!important}.top-brand-title{font-size:18px}.route-futbolcu-ara>.fp-global-header{grid-template-columns:275px minmax(390px,1fr) auto!important}.route-futbolcu-ara .top-brand{padding-left:14px;padding-right:14px}.route-futbolcu-ara .top-brand img{width:54px;height:64px;flex-basis:54px}.route-futbolcu-ara .top-brand-title{font-size:17px}}
+@media(max-width:1050px){.app-frame>.topbar:not(.fp-global-header){grid-template-columns:270px 1fr!important}.app-frame>.topbar:not(.fp-global-header) .search{display:none!important}}
+@media(max-width:900px){.route-futbolcu-ara>.fp-global-header{grid-template-columns:1fr auto!important}.route-futbolcu-ara .top-brand{display:none}.app-frame>.topbar:not(.fp-global-header){grid-template-columns:minmax(220px,1fr) auto!important}.top-brand img{width:54px;height:62px;flex-basis:54px}.top-brand-title{font-size:17px}.top-brand-sub2{font-size:12px}}
+
+/* Yeni milli takım kart görselleri ve ay-yıldız işareti */
+.quick-img{background-color:#111c28;background-repeat:no-repeat!important}
+.quick-card.team-futsal .quick-img,.quick-card.team-plaj .quick-img{background-color:#182431}
+.quick-badge{width:34px!important;height:34px!important;bottom:-17px!important;border-radius:50%!important;background:#8f1117!important;border:2px solid #f2f5f8!important;box-shadow:0 3px 9px rgba(0,0,0,.4)!important}
+.quick-badge img{width:24px!important;height:24px!important;filter:none!important;image-rendering:auto!important}
+.quick-info{padding-top:24px!important}
+
+/* Üst konumlu, erişilebilir sol menü daraltma oku */
+.app-frame .sidebar{
+  padding-top:72px!important;
+}
+.app-frame .side-collapse.side-collapse-top{
+  position:absolute;
+  top:14px;
+  right:14px;
+  z-index:5;
+  width:44px!important;
+  height:44px!important;
+  min-height:44px!important;
+  margin:0!important;
+  padding:0!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1px solid #2b4054;
+  border-radius:12px;
+  background:#0b1927;
+  color:#d9e2ec;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease;
+}
+.app-frame .side-collapse.side-collapse-top:hover{
+  background:#122538;
+  border-color:#e02932;
+  color:#fff;
+  transform:translateY(-1px);
+}
+.app-frame .side-collapse.side-collapse-top:focus-visible{
+  outline:3px solid rgba(224,41,50,.35);
+  outline-offset:3px;
+}
+.side-collapse-top .collapse-arrow{
+  width:24px;
+  height:24px;
+  display:grid;
+  place-items:center;
+  transition:transform .22s ease;
+}
+.side-collapse-top .collapse-arrow svg{
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.sidebar.is-collapsed .side-collapse-top{
+  right:16px!important;
+}
+.sidebar.is-collapsed .side-collapse-top .collapse-arrow{
+  transform:rotate(180deg);
+}
+.sidebar.is-collapsed .side-accordion.contains-active>.side-group-btn{
+  background:#102235!important;
+  box-shadow:inset 3px 0 0 #e02932;
+  color:#fff!important;
+}
+body.light .app-frame .side-collapse.side-collapse-top{
+  background:#fff;
+  border-color:#cbd5df;
+  color:#435466;
+  box-shadow:0 4px 12px rgba(36,54,72,.1);
+}
+body.light .app-frame .side-collapse.side-collapse-top:hover{
+  border-color:#be1119;
+  color:#be1119;
+  background:#fff7f7;
+}
+body.light .sidebar.is-collapsed .side-accordion.contains-active>.side-group-btn{
+  background:#edf3f8!important;
+  box-shadow:inset 3px 0 0 #be1119;
+  color:#be1119!important;
+}
+.route-futbolcu-ara .sidebar{
+  padding-top:68px!important;
+}
+@media(max-width:900px){
+  .app-frame .sidebar{padding-top:16px!important}
+}
+
+/* =========================================================
+   A MİLLİ TAKIM — SADE TAKIM KONTROL PANELİ
+   ========================================================= */
+
+/* Maketteki hava durumu + menü oku yardımcı satırı */
+.app-frame .sidebar{
+  padding-top:14px!important;
+}
+.side-utility{
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+  padding:0 1px 0 5px;
+}
+.side-weather{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#eef3f8;
+}
+.side-weather div{display:grid;line-height:1.15}
+.side-weather b{font-size:14px}
+.side-weather small{margin-top:3px;color:#a9b6c4;font-size:12px}
+.app-frame .side-collapse.side-collapse-top{
+  position:static!important;
+  top:auto!important;
+  right:auto!important;
+  flex:0 0 44px;
+}
+.sidebar.is-collapsed .side-utility{
+  justify-content:center;
+  padding:0;
+}
+.sidebar.is-collapsed .side-weather{display:none!important}
+.sidebar.is-collapsed .side-collapse-top{right:auto!important}
+.route-futbolcu-ara .sidebar{padding-top:14px!important}
+body.light .side-weather{color:#263545}
+body.light .side-weather small{color:#68788a}
+
+/* Kompakt başlık, takım fotoğrafı ve hızlı bilgi kartları */
+.team-ref-header{
+  height:164px!important;
+  padding:22px 28px 0!important;
+  background:#07131f;
+}
+.team-ref-head-art{
+  inset:0 0 0 58%!important;
+  background-image:url("assets/hero.jpg")!important;
+  background-position:right center!important;
+  opacity:.82!important;
+  mask-image:linear-gradient(90deg,transparent 0%,#000 30%)!important;
+}
+.team-ref-header:after{
+  background:linear-gradient(90deg,#07131f 0%,rgba(7,19,31,.98) 42%,rgba(7,19,31,.68) 70%,rgba(7,19,31,.18) 100%)!important;
+}
+.team-ref-head-left{
+  position:absolute!important;
+  left:28px;
+  top:22px;
+  gap:15px!important;
+}
+.team-ref-flag{
+  width:58px!important;
+  height:58px!important;
+  padding:5px;
+  border-radius:50%;
+  background:#d71920;
+  box-shadow:0 0 0 2px #fff,0 7px 18px rgba(0,0,0,.25);
+}
+.team-ref-head-left h1{font-size:28px!important;line-height:1.12}
+.team-ref-head-left p{font-size:15px!important;margin-top:5px!important}
+.team-head-kpis{
+  position:absolute;
+  z-index:3;
+  left:360px;
+  top:23px;
+  display:flex;
+  gap:12px;
+}
+.team-head-kpi{
+  min-width:155px;
+  min-height:60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:8px 15px;
+  border:1px solid #294158;
+  border-radius:10px;
+  background:rgba(9,25,40,.88);
+  box-shadow:0 6px 20px rgba(0,0,0,.16);
+}
+.team-head-kpi span{color:#9eadbc;font-size:13px;line-height:1.2}
+.team-head-kpi b{margin-top:5px;color:#fff;font-size:15px;line-height:1.2;white-space:nowrap}
+.team-ref-tabs{
+  left:28px!important;
+  right:28px;
+  gap:24px!important;
+  border-top:1px solid rgba(120,147,174,.16);
+}
+.team-ref-tabs button{
+  min-height:52px!important;
+  height:52px!important;
+  padding:0 7px!important;
+  font-size:15px!important;
+}
+.team-ref-tabs button.active{border-bottom-width:3px!important}
+
+/* Ana kontrol paneli */
+.team-ref-content{padding:18px 22px 22px!important}
+.team-dashboard{display:grid;gap:16px;max-width:1500px;margin:0 auto}
+.team-match-grid,
+.team-dashboard-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.team-dashboard .ref-card{
+  padding:18px!important;
+  border-radius:12px!important;
+  border-color:#243a50!important;
+  background:linear-gradient(145deg,#0a1826,#081522)!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+.team-dashboard .ref-card h3{
+  margin:0 0 12px!important;
+  color:#f4f7fa;
+  font-size:18px!important;
+}
+.team-main-match{min-height:236px!important}
+.team-main-match .ref-muted{font-size:14px!important;color:#aebac7!important}
+.team-main-match .ref-scoreline{max-width:520px;margin:15px auto!important}
+.team-main-match .ref-scoreline>strong{font-size:40px!important;letter-spacing:.02em}
+.team-main-match .ref-scoreline .vs{font-size:28px!important;color:#f4f7fa!important}
+.team-main-match .ref-team{gap:8px!important;font-size:15px!important}
+.team-main-match .ref-team img{width:74px!important;height:49px!important;border-radius:5px!important;box-shadow:0 3px 10px rgba(0,0,0,.28)}
+.team-main-match .ref-wide-btn{
+  display:block;
+  width:210px!important;
+  min-height:42px!important;
+  margin:14px auto 0;
+  border-color:#6f879d!important;
+  background:#0d1d2d!important;
+  font-size:14px!important;
+  font-weight:700;
+}
+.team-main-match .ref-wide-btn:hover{border-color:#e02932!important;background:#14283a!important}
+
+/* Kadro özeti */
+.team-dashboard-row-middle{grid-template-columns:1.12fr .88fr}
+.team-position-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.team-position-summary button{
+  min-height:108px!important;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:8px;
+  border:1px solid #365069;
+  border-radius:10px;
+  background:#0c1b2a;
+  color:#fff;
+  cursor:pointer;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease;
+}
+.team-position-summary button:hover{transform:translateY(-2px);border-color:#e02932;background:#102337}
+.team-position-summary span{font-size:15px}
+.team-position-summary strong{font-size:31px;line-height:1}
+.team-position-summary .green strong{color:#55d58b}
+.team-position-summary .blue strong{color:#55b7ff}
+.team-position-summary .orange strong{color:#f5a443}
+.team-position-summary .red strong{color:#ff5961}
+
+/* Form kartı */
+.team-form-content{min-height:108px;display:grid;grid-template-columns:1fr 145px;align-items:center;gap:20px}
+.team-form-circles{display:flex;justify-content:center;gap:15px}
+.team-form-circles span{
+  width:50px;
+  height:50px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+  border:1px solid rgba(255,255,255,.4);
+  box-shadow:0 5px 13px rgba(0,0,0,.2);
+}
+.team-form-circles .win{background:#238744}
+.team-form-circles .draw{background:#6b737c}
+.team-form-circles .loss{background:#c72b24}
+.team-form-score{
+  min-height:100px;
+  padding-left:22px;
+  border-left:1px solid #365069;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.team-form-score span{color:#afbbc7;font-size:14px}
+.team-form-score strong{margin:3px 0;color:#58c56b;font-size:30px}
+.team-form-score svg{width:116px;height:35px;fill:none;stroke:#58c56b;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+/* Performans ve teknik ekip */
+.team-dashboard-row-bottom{grid-template-columns:1.12fr .88fr}
+.team-performance-grid{min-height:110px;display:grid;grid-template-columns:repeat(4,1fr);align-items:center}
+.team-performance-grid>div{
+  min-height:84px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-right:1px solid #365069;
+}
+.team-performance-grid>div:last-child{border-right:0}
+.team-performance-grid span{color:#afbbc7;font-size:14px;text-align:center}
+.team-performance-grid strong{margin-top:10px;color:#f5f7fa;font-size:31px;line-height:1}
+.team-performance-grid strong.blue{color:#55b7ff}
+.team-performance-grid strong.green{color:#58c56b}
+.team-staff-list{display:grid;gap:5px}
+.team-staff-list>div{
+  min-height:42px;
+  display:grid;
+  grid-template-columns:36px minmax(150px,1fr) minmax(130px,.8fr);
+  align-items:center;
+  gap:10px;
+  padding:4px 10px;
+  border:1px solid #365069;
+  border-radius:8px;
+}
+.team-staff-list>div>span{
+  width:30px;height:30px;display:grid;place-items:center;border:1px solid #587087;border-radius:50%;font-size:11px;font-weight:800
+}
+.team-staff-list b{font-size:14px}
+.team-staff-list small{color:#9eacba;font-size:13px}
+
+/* Açık tema */
+body.light .team-ref-header{background:#fff!important}
+body.light .team-ref-header:after{background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.98) 43%,rgba(255,255,255,.64) 72%,rgba(255,255,255,.18) 100%)!important}
+body.light .team-head-kpi{background:rgba(255,255,255,.9);border-color:#ccd8e3}
+body.light .team-head-kpi span{color:#69798a}
+body.light .team-head-kpi b{color:#172432}
+body.light .team-dashboard .ref-card{background:#fff!important;border-color:#d8e2eb!important;box-shadow:0 8px 20px rgba(38,57,76,.07)}
+body.light .team-dashboard .ref-card h3{color:#172432}
+body.light .team-position-summary button{background:#f7f9fb;color:#172432;border-color:#d5e0e9}
+body.light .team-position-summary button:hover{background:#fff5f5;border-color:#be1119}
+body.light .team-form-score{border-left-color:#d5e0e9}
+body.light .team-performance-grid>div{border-right-color:#d5e0e9}
+body.light .team-performance-grid strong{color:#172432}
+body.light .team-staff-list>div{border-color:#d5e0e9}
+
+/* Ekran uyarlamaları */
+@media(max-width:1400px){
+  .team-head-kpis{left:325px;gap:8px}
+  .team-head-kpi{min-width:135px;padding-left:12px;padding-right:12px}
+  .team-form-circles{gap:9px}
+  .team-form-circles span{width:44px;height:44px}
+}
+@media(max-width:1180px){
+  .team-ref-header{height:222px!important}
+  .team-head-kpis{left:28px;top:92px}
+  .team-ref-tabs{overflow-x:auto}
+  .team-dashboard-row-middle,.team-dashboard-row-bottom{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .side-utility{display:none}
+  .team-ref-header{height:245px!important}
+  .team-ref-head-art{inset:0!important;opacity:.35!important}
+  .team-head-kpis{right:18px;left:18px;overflow-x:auto}
+  .team-head-kpi{min-width:145px}
+  .team-ref-tabs{left:18px!important;right:18px;gap:10px!important}
+  .team-match-grid,.team-dashboard-row{grid-template-columns:1fr}
+  .team-position-summary,.team-performance-grid{grid-template-columns:repeat(2,1fr)}
+  .team-performance-grid>div:nth-child(2){border-right:0}
+  .team-performance-grid>div{border-bottom:1px solid #365069}
+  .team-performance-grid>div:nth-child(n+3){border-bottom:0}
+}
+@media(max-width:620px){
+  .team-ref-head-left h1{font-size:23px!important}
+  .team-ref-flag{width:50px!important;height:50px!important}
+  .team-form-content{grid-template-columns:1fr}
+  .team-form-score{padding:12px 0 0;border-left:0;border-top:1px solid #365069;align-items:center}
+  .team-staff-list>div{grid-template-columns:34px 1fr}
+  .team-staff-list small{grid-column:2}
+}
+
+/* A Milli Takım üst alanı — referans ayrıntıları */
+.team-ref-head-left{
+  min-width:295px;
+  align-items:center!important;
+}
+.team-ref-flag{
+  width:62px!important;
+  height:62px!important;
+  flex:0 0 62px;
+  padding:0!important;
+  object-fit:contain!important;
+  border-radius:50%!important;
+  background:transparent!important;
+  box-shadow:0 0 0 2px rgba(255,255,255,.9),0 7px 18px rgba(0,0,0,.28)!important;
+}
+.team-ref-head-left h1{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:0!important;
+  font-family:"Arial Narrow","Roboto Condensed","Segoe UI",Arial,sans-serif!important;
+  font-size:30px!important;
+  font-weight:850!important;
+  line-height:1.02!important;
+  letter-spacing:-.45px!important;
+  color:#f8fafc!important;
+}
+.team-ref-head-left .verified{
+  width:18px!important;
+  height:18px!important;
+  flex:0 0 18px;
+  font-size:10px!important;
+  box-shadow:0 2px 6px rgba(215,25,32,.35);
+}
+.team-ref-head-left p{
+  font-family:"Segoe UI",Arial,sans-serif!important;
+  font-size:15px!important;
+  font-weight:500!important;
+  line-height:1.25!important;
+  color:#b7c2cd!important;
+}
+.team-head-kpis{
+  left:375px!important;
+  top:22px!important;
+  gap:10px!important;
+}
+.team-head-kpi{
+  min-width:164px!important;
+  min-height:64px!important;
+  display:grid!important;
+  grid-template-columns:34px minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:10px!important;
+  padding:8px 13px!important;
+  border:1px solid #3b5871!important;
+  border-radius:10px!important;
+  background:rgba(10,28,44,.9)!important;
+}
+.team-head-kpi:first-child{min-width:210px!important}
+.team-head-kpi-icon{
+  width:32px!important;
+  height:32px!important;
+  display:grid!important;
+  place-items:center!important;
+  color:#eef4fa!important;
+  font-size:0!important;
+}
+.team-head-kpi-icon svg{
+  width:25px;
+  height:25px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.75;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.team-head-kpi-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.team-head-kpi-copy>span{
+  color:#aebbc8!important;
+  font-family:"Segoe UI",Arial,sans-serif;
+  font-size:13px!important;
+  font-weight:500;
+  line-height:1.15;
+}
+.team-head-kpi-copy>b{
+  margin-top:4px!important;
+  color:#fff!important;
+  font-family:"Segoe UI",Arial,sans-serif;
+  font-size:15px!important;
+  font-weight:750!important;
+  line-height:1.16;
+  white-space:nowrap;
+}
+.team-ref-tabs{
+  border-top:0!important;
+  box-shadow:none!important;
+}
+.team-ref-tabs button{
+  font-family:"Segoe UI",Arial,sans-serif!important;
+  font-weight:650!important;
+}
+.team-ref-tabs button.active{
+  color:#fff!important;
+  border-bottom-color:#f02a32!important;
+}
+body.light .team-ref-head-left h1{color:#172432!important}
+body.light .team-ref-head-left p{color:#68788a!important}
+body.light .team-head-kpi{background:rgba(255,255,255,.94)!important;border-color:#c6d4e0!important}
+body.light .team-head-kpi-icon{color:#3c5064!important}
+body.light .team-head-kpi-copy>span{color:#68788a!important}
+body.light .team-head-kpi-copy>b{color:#172432!important}
+body.light .team-ref-tabs{border-top:0!important;box-shadow:none!important}
+@media(max-width:1400px){
+  .team-ref-head-left{min-width:265px}
+  .team-ref-head-left h1{font-size:27px!important}
+  .team-head-kpis{left:340px!important}
+  .team-head-kpi{min-width:145px!important;padding-left:10px!important;padding-right:10px!important}
+  .team-head-kpi:first-child{min-width:188px!important}
+}
+@media(max-width:1180px){
+  .team-head-kpis{left:28px!important;top:94px!important}
+}
+@media(max-width:900px){
+  .team-head-kpis{left:18px!important;right:18px!important}
+}
+
+/* Milli Takımlar — sağ panelsiz tam genişlik kart düzeni */
+.milli-layout{display:block!important}
+.milli-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:14px!important}
+.milli-grid .quick-img{height:154px!important}
+.side-weather{gap:0!important;padding-left:3px}
+@media(max-width:1100px){
+  .milli-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media(max-width:850px){
+  .milli-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:520px){
+  .milli-grid{grid-template-columns:1fr!important}
+}
+
+/* =========================================================
+   KADRO V2 — fotoğraflı, erişilebilir oyuncu listesi
+   ========================================================= */
+.squad-v2-page{
+  max-width:1500px;
+  margin:0 auto;
+  padding:4px 0 22px;
+}
+.squad-v2-heading{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+.squad-v2-heading h2{
+  margin:0;
+  color:#f4f7fa;
+  font-size:28px;
+  line-height:1.15;
+}
+.squad-v2-heading p{
+  margin:5px 0 0;
+  color:#aab6c3;
+  font-size:15px;
+}
+.squad-v2-summary{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:16px;
+}
+.squad-v2-summary>div{
+  min-height:100px;
+  display:grid;
+  grid-template-columns:44px 1fr;
+  grid-template-rows:auto auto;
+  align-content:center;
+  column-gap:12px;
+  padding:15px 18px;
+  border:1px solid #2a4259;
+  border-radius:12px;
+  background:linear-gradient(145deg,#0b1a29,#081522);
+  box-shadow:0 8px 22px rgba(0,0,0,.12);
+}
+.squad-v2-summary>div>span{
+  grid-row:1/3;
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  align-self:center;
+  border:1px solid #36516b;
+  border-radius:12px;
+  color:#dce7f1;
+  background:#0d2031;
+  font-size:20px;
+}
+.squad-v2-summary strong{
+  color:#fff;
+  font-size:30px;
+  line-height:1;
+}
+.squad-v2-summary small{
+  align-self:end;
+  margin-top:7px;
+  color:#53bfff;
+  font-size:15px!important;
+  font-weight:750;
+}
+.squad-v2-controls{
+  display:grid;
+  grid-template-columns:minmax(270px,1fr) auto;
+  gap:14px;
+  align-items:center;
+  margin-bottom:20px;
+}
+.squad-v2-search{
+  min-height:50px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 16px;
+  border:1px solid #2a4259;
+  border-radius:10px;
+  background:#091725;
+  color:#a8b6c4;
+}
+.squad-v2-search>span{font-size:25px;line-height:1}
+.squad-v2-search input{
+  width:100%;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#f3f6fa;
+  font-size:16px!important;
+}
+.squad-v2-search input::placeholder{color:#8998a8}
+.squad-v2-filters{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.squad-v2-filters button{
+  min-width:92px;
+  min-height:48px!important;
+  padding:0 16px;
+  border:1px solid #2a4259;
+  border-radius:9px;
+  background:#0a1826;
+  color:#d5dde6;
+  font-size:15px!important;
+  font-weight:750;
+  cursor:pointer;
+}
+.squad-v2-filters button:hover{border-color:#e22a33;background:#102235}
+.squad-v2-filters button.active{
+  border-color:#f02a33;
+  background:linear-gradient(135deg,#ed2029,#c9151d);
+  color:#fff;
+  box-shadow:0 7px 18px rgba(215,25,32,.2);
+}
+.squad-v2-group{margin-top:19px}
+.squad-v2-group>h3{
+  margin:0 0 9px;
+  color:#f2f6fa;
+  font-size:20px;
+}
+.squad-v2-group>h3 span{color:#8294a6;font-weight:600}
+.squad-v2-list{
+  overflow:hidden;
+  border:1px solid #2b435a;
+  border-radius:12px;
+  background:#091725;
+}
+.squad-v2-player+ .squad-v2-player{border-top:1px solid #20364b}
+.squad-v2-row{
+  min-height:80px;
+  display:grid;
+  grid-template-columns:48px 60px minmax(180px,1fr) 118px 58px 92px 62px 86px 42px;
+  gap:12px;
+  align-items:center;
+  padding:9px 14px;
+}
+.squad-v2-number{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:8px;
+  background:linear-gradient(145deg,#ef2730,#c9151d);
+  color:#fff;
+  font-size:17px;
+  box-shadow:0 5px 12px rgba(215,25,32,.19);
+}
+.squad-v2-photo{
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:2px solid #425a70;
+  border-radius:50%;
+  background:linear-gradient(145deg,#d4dae0,#8c9aaa);
+  color:#172636;
+  font-size:17px;
+  font-weight:900;
+}
+.squad-v2-photo img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center 18%;
+}
+.squad-v2-identity{min-width:0}
+.squad-v2-identity b{
+  display:block;
+  overflow:hidden;
+  color:#f5f7fa;
+  font-size:18px;
+  line-height:1.2;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.squad-v2-identity span{
+  display:block;
+  margin-top:5px;
+  overflow:hidden;
+  color:#a8b5c2;
+  font-size:15px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.squad-v2-position{
+  justify-self:start;
+  padding:7px 10px;
+  border:1px solid #26739a;
+  border-radius:7px;
+  background:#0b2a3c;
+  color:#72cdf8;
+  font-size:14px;
+  font-weight:750;
+  white-space:nowrap;
+}
+.squad-v2-age,.squad-v2-stat{display:grid;gap:4px}
+.squad-v2-age span,.squad-v2-stat span{
+  color:#9fadb9;
+  font-size:13px;
+  white-space:nowrap;
+}
+.squad-v2-age b,.squad-v2-stat b{color:#fff;font-size:18px}
+.squad-v2-status{
+  justify-self:start;
+  padding:7px 10px;
+  border:1px solid #258454;
+  border-radius:7px;
+  background:#0e3b2a;
+  color:#70e4a2;
+  font-size:14px;
+  font-weight:750;
+  white-space:nowrap;
+}
+.squad-v2-expand{
+  width:40px;
+  height:40px;
+  min-height:40px!important;
+  display:grid;
+  place-items:center;
+  border:1px solid #334b62;
+  border-radius:9px;
+  background:#0c1d2d;
+  color:#f5f8fb;
+  font-size:20px!important;
+  cursor:pointer;
+}
+.squad-v2-expand:hover{border-color:#e22a33;background:#13283b}
+.squad-v2-details{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  padding:13px 16px 16px 146px;
+  border-top:1px solid #20364b;
+  background:#071522;
+}
+.squad-v2-details>div{
+  min-height:64px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:10px 13px;
+  border:1px solid #263e54;
+  border-radius:8px;
+  background:#0a1b2a;
+}
+.squad-v2-details span{color:#92a3b3;font-size:13px}
+.squad-v2-details b{margin-top:6px;color:#f3f6f9;font-size:15px}
+.squad-v2-empty{
+  min-height:180px;
+  margin-top:18px;
+  place-items:center;
+  border:1px dashed #385067;
+  border-radius:12px;
+  color:#a7b5c3;
+  font-size:17px;
+}
+.squad-v2-empty:not([hidden]){display:grid}
+body.light .squad-v2-heading h2,body.light .squad-v2-group>h3{color:#172432}
+body.light .squad-v2-heading p{color:#6f7d8c}
+body.light .squad-v2-summary>div,body.light .squad-v2-list{
+  border-color:#d7e1ea;
+  background:#fff;
+  box-shadow:0 7px 18px rgba(30,48,68,.06);
+}
+body.light .squad-v2-summary>div>span{border-color:#d5e0e9;background:#eef4f8;color:#344b60}
+body.light .squad-v2-summary strong,body.light .squad-v2-identity b,body.light .squad-v2-age b,body.light .squad-v2-stat b{color:#172432}
+body.light .squad-v2-summary small{color:#1177ad}
+body.light .squad-v2-search{border-color:#d6e0e9;background:#fff;color:#51657a}
+body.light .squad-v2-search input{color:#172432}
+body.light .squad-v2-filters button{border-color:#d4dfe8;background:#fff;color:#314256}
+body.light .squad-v2-filters button.active{border-color:#d71920;background:linear-gradient(135deg,#e4232c,#c8151d);color:#fff}
+body.light .squad-v2-player+ .squad-v2-player{border-top-color:#e1e8ee}
+body.light .squad-v2-identity span,body.light .squad-v2-age span,body.light .squad-v2-stat span{color:#6d7c8c}
+body.light .squad-v2-position{border-color:#abd4e7;background:#eaf6fb;color:#17678e}
+body.light .squad-v2-details{border-color:#dfe7ed;background:#f5f8fa}
+body.light .squad-v2-details>div{border-color:#d9e2ea;background:#fff}
+body.light .squad-v2-details span{color:#6d7c8c}
+body.light .squad-v2-details b{color:#172432}
+body.light .squad-v2-expand{border-color:#d1dce5;background:#f6f8fa;color:#24384c}
+@media(max-width:1250px){
+  .squad-v2-summary{grid-template-columns:repeat(5,1fr)}
+  .squad-v2-summary>div{grid-template-columns:1fr;text-align:center;padding:13px 8px}
+  .squad-v2-summary>div>span{display:none}
+  .squad-v2-row{grid-template-columns:46px 58px minmax(170px,1fr) 110px 56px 82px 58px 78px 40px;gap:8px;padding-left:10px;padding-right:10px}
+}
+@media(max-width:1050px){
+  .squad-v2-controls{grid-template-columns:1fr}
+  .squad-v2-filters{justify-content:flex-start}
+  .squad-v2-row{grid-template-columns:46px 58px minmax(170px,1fr) 105px 78px 58px 40px}
+  .squad-v2-age,.squad-v2-status{display:none}
+  .squad-v2-details{padding-left:14px}
+}
+@media(max-width:760px){
+  .squad-v2-summary{grid-template-columns:repeat(2,1fr)}
+  .squad-v2-summary>div:first-child{grid-column:1/-1}
+  .squad-v2-filters button{flex:1 1 120px}
+  .squad-v2-row{grid-template-columns:43px 54px minmax(130px,1fr) 70px 40px}
+  .squad-v2-position,.squad-v2-stat:last-of-type{display:none}
+  .squad-v2-details{grid-template-columns:1fr 1fr}
+  .squad-v2-photo{width:52px;height:52px}
+  .squad-v2-identity b{font-size:16px}
+  .squad-v2-identity span{font-size:13px}
+}
