@@ -351,6 +351,41 @@ function milli(){
  </div>`;
 }
 
+
+const aMilliPlayers=[
+ {no:"1",name:"Uğurcan Çakır",position:"Kaleci",group:"Kaleci",birth:"05.04.1996",age:30,club:"Trabzonspor",body:"191 / 78",foot:"Sağ",caps:18,goals:0,status:"Aktif"},
+ {no:"23",name:"Mert Günok",position:"Kaleci",group:"Kaleci",birth:"01.03.1989",age:37,club:"Beşiktaş",body:"196 / 92",foot:"Sağ",caps:34,goals:0,status:"Aktif"},
+ {no:"12",name:"Altay Bayındır",position:"Kaleci",group:"Kaleci",birth:"14.04.1998",age:28,club:"Manchester United",body:"198 / 88",foot:"Sağ",caps:10,goals:0,status:"Aktif"},
+ {no:"4",name:"Merih Demiral",position:"Stoper",group:"Defans",birth:"05.03.1998",age:28,club:"Al-Ahli",body:"192 / 90",foot:"Sağ",caps:45,goals:2,status:"Aktif"},
+ {no:"3",name:"Samet Akaydın",position:"Stoper",group:"Defans",birth:"13.03.1994",age:32,club:"Panathinaikos",body:"190 / 86",foot:"Sağ",caps:32,goals:1,status:"Aktif"},
+ {no:"14",name:"Abdülkerim Bardakcı",position:"Stoper",group:"Defans",birth:"07.09.1994",age:31,club:"Galatasaray",body:"185 / 81",foot:"Sol",caps:28,goals:2,status:"Aktif"},
+ {no:"18",name:"Mert Müldür",position:"Sağ Bek",group:"Defans",birth:"03.04.1999",age:27,club:"Fenerbahçe",body:"184 / 74",foot:"Sağ",caps:31,goals:2,status:"Aktif"},
+ {no:"20",name:"Ferdi Kadıoğlu",position:"Sol Bek",group:"Defans",birth:"07.10.1999",age:26,club:"Brighton",body:"174 / 68",foot:"Sağ",caps:24,goals:1,status:"Aktif"},
+ {no:"2",name:"Zeki Çelik",position:"Sağ Bek",group:"Defans",birth:"17.02.1997",age:29,club:"Roma",body:"180 / 78",foot:"Sağ",caps:50,goals:2,status:"Aktif"},
+ {no:"22",name:"Kaan Ayhan",position:"Stoper",group:"Defans",birth:"10.11.1994",age:31,club:"Galatasaray",body:"185 / 84",foot:"Sağ",caps:65,goals:5,status:"Aktif"},
+ {no:"5",name:"Çağlar Söyüncü",position:"Stoper",group:"Defans",birth:"23.05.1996",age:30,club:"Fenerbahçe",body:"185 / 82",foot:"Sağ",caps:55,goals:2,status:"Aktif"},
+ {no:"10",name:"Hakan Çalhanoğlu",position:"Orta Saha",group:"Orta Saha",birth:"08.02.1994",age:32,club:"Inter",body:"178 / 76",foot:"Sağ",caps:91,goals:19,status:"Aktif"},
+ {no:"6",name:"Orkun Kökçü",position:"Orta Saha",group:"Orta Saha",birth:"29.12.2000",age:25,club:"Benfica",body:"175 / 70",foot:"Sağ",caps:39,goals:3,status:"Aktif"},
+ {no:"8",name:"İsmail Yüksek",position:"Orta Saha",group:"Orta Saha",birth:"26.01.1999",age:27,club:"Fenerbahçe",body:"183 / 75",foot:"Sağ",caps:22,goals:1,status:"Aktif"},
+ {no:"15",name:"Salih Özcan",position:"Orta Saha",group:"Orta Saha",birth:"11.01.1998",age:28,club:"Borussia Dortmund",body:"180 / 76",foot:"Sağ",caps:22,goals:0,status:"Aktif"},
+ {no:"16",name:"İrfan Can Kahveci",position:"Orta Saha",group:"Orta Saha",birth:"15.07.1995",age:31,club:"Fenerbahçe",body:"176 / 71",foot:"Sol",caps:37,goals:4,status:"Aktif"},
+ {no:"17",name:"Yunus Akgün",position:"Sağ Kanat",group:"Hücum",birth:"07.07.2000",age:26,club:"Galatasaray",body:"173 / 65",foot:"Sol",caps:18,goals:3,status:"Aktif"},
+ {no:"11",name:"Kenan Yıldız",position:"Sol Kanat",group:"Hücum",birth:"04.05.2005",age:21,club:"Juventus",body:"185 / 80",foot:"Sağ",caps:21,goals:4,status:"Aktif"},
+ {no:"7",name:"Kerem Aktürkoğlu",position:"Sol Kanat",group:"Hücum",birth:"21.10.1998",age:27,club:"Benfica",body:"173 / 68",foot:"Sağ",caps:38,goals:9,status:"Aktif"},
+ {no:"21",name:"Barış Alper Yılmaz",position:"Sağ Kanat",group:"Hücum",birth:"23.05.2000",age:26,club:"Galatasaray",body:"186 / 80",foot:"Sağ",caps:29,goals:5,status:"Aktif"},
+ {no:"9",name:"Enes Ünal",position:"Santrafor",group:"Hücum",birth:"10.05.1997",age:29,club:"Bournemouth",body:"187 / 78",foot:"Sağ",caps:36,goals:5,status:"Aktif"},
+ {no:"19",name:"Semih Kılıçsoy",position:"Santrafor",group:"Hücum",birth:"15.08.2005",age:21,club:"Beşiktaş",body:"178 / 73",foot:"Sağ",caps:8,goals:1,status:"Aktif"}
+];
+
+const aMilliMatches=[
+ ["21 May 2026","Dünya Kupası Elemeleri","Türkiye","2 - 2","İspanya","assets/flag-tr.png","assets/flag-es.png"],
+ ["12 May 2026","UEFA Nations League","Macaristan","0 - 4","Türkiye","assets/flag-hu.png","assets/flag-tr.png"],
+ ["08 Haz 2026","Hazırlık Maçı","Türkiye","3 - 1","Portekiz","assets/flag-tr.png","assets/flag-es.png"],
+ ["01 Haz 2026","Hazırlık Maçı","Türkiye","1 - 1","ABD","assets/flag-tr.png","assets/flag-it.png"],
+ ["27 Mar 2026","Dünya Kupası Elemeleri","Türkiye","2 - 0","Bulgaristan","assets/flag-tr.png","assets/flag-hu.png"],
+ ["25 May 2026","Dünya Kupası Elemeleri","Türkiye","-","İtalya","assets/flag-tr.png","assets/flag-it.png"]
+];
+
 function teamShell(body){
  const tabs=[["overview","Genel Bakış"],["squad","Kadro"],["matches","Maçlar"],["videos","Videolar"],["stats","İstatistikler"],["team-reports","Raporlar"]];
  return `<div class="team-ref-page">

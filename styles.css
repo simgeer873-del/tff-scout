@@ -3109,3 +3109,8 @@ body.light .home-national-foot b{
 }
 
 
+/* A Milli: gerçek hash linki — sadece tıklama düzeltmesi */
+.home-national-card,
+.milli-ref5-card{
+  position:relative;
+}
