@@ -270,88 +270,23 @@ function home(){return `<div class="content"><div class="layout"><section class=
 <div class="section-head"><div class="section-title">Son Videolar</div><button class="linkbtn">Tümünü Gör &nbsp; →</button></div>
 <div class="video-grid">${vids.map(v=>`<article class="video-card"><div class="video-thumb" style="background-image:url('${v[0]}')"><div class="play">▶</div><div class="duration">${v[1]}</div></div><div class="video-title">${v[2]}</div><div class="video-sub">${v[3]}<br>${v[4]}</div></article>`).join("")}</div></section>
 <aside class="rail">${stats()}${upcoming()}${reports()}${quickActions()}</aside></div><footer>© 2026 Türkiye Futbol Federasyonu &nbsp; | &nbsp; Video Analiz ve Gözlem Sistemi</footer></div>`}
-const MILLI_CARD_LABELS={
- "a-milli":"A MİLLİ","a2":"A2","u21":"U21","u20":"U20","u19":"U19","u18":"U18","u17":"U17","u16":"U16","u15":"U15","u14":"U14",
- "kadin-a":"KADIN A","kadin-u23":"KADIN U23","kadin-u19":"KADIN U19","kiz-u18":"KIZ U18","kiz-u17":"KIZ U17","kiz-u15":"KIZ U15",
- "futsal":"FUTSAL","plaj":"PLAJ","ozel":"ÖZEL","karma":"KARMA"
-};
-const MILLI_CARD_NAMES={
- "a-milli":"A Milli","a2":"A2","u21":"U21","u20":"U20","u19":"U19","u18":"U18","u17":"U17","u16":"U16","u15":"U15","u14":"U14",
- "kadin-a":"Kadın A","kadin-u23":"Kadın U23","kadin-u19":"Kadın U19","kiz-u18":"Kız U18","kiz-u17":"Kız U17","kiz-u15":"Kız U15",
- "futsal":"Futsal","plaj":"Plaj","ozel":"Özel Sporcular","karma":"Karma Takımlar"
-};
-function milliTeamCard(x){
- const id=x[0], jerseyLabel=MILLI_CARD_LABELS[id]||String(x[1]||"").replace(/ Milli Takım| Milli/g,"").toUpperCase(), shortName=MILLI_CARD_NAMES[id]||String(x[1]||"").replace(/ Milli Takım| Milli/g,"");
- const dark=id==="futsal"||id==="plaj";
- const route=id==="a-milli"?"team-a-milli":"milli-takimlar";
- return `<article class="milli-jersey-card ${dark?"milli-jersey-dark":""}" data-route="${route}" aria-label="${shortName}">
-   <div class="milli-jersey-stage">
-    <svg class="milli-shirt" viewBox="0 0 420 260" aria-hidden="true">
-      <defs>
-        <linearGradient id="shirt-${id}" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="${dark?"#1b1d22":"#ef272f"}"/><stop offset=".55" stop-color="${dark?"#101216":"#b10e17"}"/><stop offset="1" stop-color="${dark?"#050608":"#710812"}"/>
-        </linearGradient>
-        <radialGradient id="glow-${id}" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#ff3940" stop-opacity=".34"/><stop offset="1" stop-color="#ff1d25" stop-opacity="0"/></radialGradient>
-        <pattern id="pattern-${id}" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M0 13 13 0 26 13 13 26Z" fill="none" stroke="#fff" stroke-opacity=".035" stroke-width="1"/></pattern>
-      </defs>
-      <ellipse cx="210" cy="235" rx="158" ry="20" fill="#000" opacity=".24"/>
-      <path d="M126 42 170 24h80l44 18 66 35-28 64-43-18v103H131V123l-43 18-28-64z" fill="url(#shirt-${id})" stroke="#ff3038" stroke-opacity=".62" stroke-width="2"/>
-      <path d="M170 24c7 25 73 25 80 0" fill="none" stroke="#f5d5d6" stroke-opacity=".42" stroke-width="5"/>
-      <path d="M126 42 170 24h80l44 18 66 35-28 64-43-18v103H131V123l-43 18-28-64z" fill="url(#pattern-${id})"/>
-      <ellipse cx="210" cy="112" rx="150" ry="105" fill="url(#glow-${id})"/>
-      <text x="210" y="139" text-anchor="middle" class="milli-shirt-label">${jerseyLabel}</text>
-    </svg>
-   </div>
-   <div class="milli-jersey-footer"><b>${shortName}</b><span aria-hidden="true">→</span></div>
-  </article>`;
-}
-function milli(){const teams=Array.isArray(D.teams)?D.teams:[]; const fallback=[["a-milli","A Milli","Erkek Milli Takım",42],["u21","U21 Milli","21 Yaş Altı",40],["u19","U19 Milli","19 Yaş Altı",36],["u17","U17 Milli","17 Yaş Altı",34],["kadin-a","Kadınlar A Milli","Kadın Milli Takım",28],["futsal","Futsal Milli","Futsal",24]]; const src=teams.length?teams:fallback;
- return `<div class="content milli-jersey-page"><div class="page-head"><div><h1>Milli Takımlar</h1><p>Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.</p></div><input class="input" placeholder="Milli takım ara..."></div><div class="milli-layout"><div class="milli-grid milli-jersey-grid">${src.map(milliTeamCard).join("")}</div></div></div>`}
-
-
-const aMilliPlayers=[
- {no:"1",name:"Uğurcan Çakır",position:"Kaleci",group:"Kaleci",birth:"05.04.1996",age:30,club:"Trabzonspor",body:"191 cm / 78 kg",foot:"Sağ",caps:18,goals:0,status:"Aktif",image:"assets/player-ugurcan-cakir.jpg"},
- {no:"23",name:"Mert Günok",position:"Kaleci",group:"Kaleci",birth:"01.03.1989",age:37,club:"Beşiktaş",body:"196 cm / 92 kg",foot:"Sağ",caps:34,goals:0,status:"Aktif",image:"assets/player-mert-gunok.jpg"},
- {no:"12",name:"Altay Bayındır",position:"Kaleci",group:"Kaleci",birth:"14.04.1998",age:28,club:"Manchester United",body:"198 cm / 88 kg",foot:"Sağ",caps:10,goals:0,status:"Aktif",image:"assets/player-altay-bayindir.jpg"},
- {no:"4",name:"Merih Demiral",position:"Stoper",group:"Defans",birth:"05.03.1998",age:28,club:"Al-Ahli",body:"192 cm / 90 kg",foot:"Sağ",caps:45,goals:2,status:"Aktif",image:""},
- {no:"3",name:"Samet Akaydın",position:"Stoper",group:"Defans",birth:"13.03.1994",age:32,club:"Panathinaikos",body:"190 cm / 86 kg",foot:"Sağ",caps:32,goals:1,status:"Aktif",image:""},
- {no:"14",name:"Abdülkerim Bardakcı",position:"Stoper",group:"Defans",birth:"07.09.1994",age:31,club:"Galatasaray",body:"185 cm / 81 kg",foot:"Sol",caps:28,goals:2,status:"Aktif",image:""},
- {no:"18",name:"Mert Müldür",position:"Sağ Bek",group:"Defans",birth:"03.04.1999",age:27,club:"Fenerbahçe",body:"184 cm / 74 kg",foot:"Sağ",caps:31,goals:2,status:"Aktif",image:""},
- {no:"20",name:"Ferdi Kadıoğlu",position:"Sol Bek",group:"Defans",birth:"07.10.1999",age:26,club:"Brighton",body:"174 cm / 68 kg",foot:"Sağ",caps:24,goals:1,status:"Aktif",image:"assets/player-ferdi-kadioglu.jpg"},
- {no:"2",name:"Eren Elmalı",position:"Sol Bek",group:"Defans",birth:"07.07.2000",age:26,club:"Galatasaray",body:"180 cm / 76 kg",foot:"Sol",caps:15,goals:0,status:"Aktif",image:"assets/player-eren-elmali.jpg"},
- {no:"10",name:"Hakan Çalhanoğlu",position:"Orta Saha",group:"Orta Saha",birth:"08.02.1994",age:32,club:"Inter",body:"178 cm / 76 kg",foot:"Sağ",caps:91,goals:19,status:"Aktif",image:""},
- {no:"6",name:"Orkun Kökçü",position:"Orta Saha",group:"Orta Saha",birth:"29.12.2000",age:25,club:"Benfica",body:"175 cm / 70 kg",foot:"Sağ",caps:39,goals:3,status:"Aktif",image:""},
- {no:"8",name:"İsmail Yüksek",position:"Orta Saha",group:"Orta Saha",birth:"26.01.1999",age:27,club:"Fenerbahçe",body:"183 cm / 75 kg",foot:"Sağ",caps:22,goals:1,status:"Aktif",image:""},
- {no:"5",name:"Arda Güler",position:"Orta Saha",group:"Orta Saha",birth:"25.02.2005",age:21,club:"Real Madrid",body:"175 cm / 70 kg",foot:"Sol",caps:37,goals:6,status:"Aktif",image:"assets/player-arda.jpg"},
- {no:"11",name:"Kenan Yıldız",position:"Sol Kanat",group:"Hücum",birth:"04.05.2005",age:21,club:"Juventus",body:"185 cm / 80 kg",foot:"Sağ",caps:21,goals:4,status:"Aktif",image:"assets/player-kenan.jpg"},
- {no:"7",name:"Kerem Aktürkoğlu",position:"Sol Kanat",group:"Hücum",birth:"21.10.1998",age:27,club:"Benfica",body:"173 cm / 68 kg",foot:"Sağ",caps:38,goals:9,status:"Aktif",image:""},
- {no:"21",name:"Barış Alper Yılmaz",position:"Sağ Kanat",group:"Hücum",birth:"23.05.2000",age:26,club:"Galatasaray",body:"186 cm / 80 kg",foot:"Sağ",caps:29,goals:5,status:"Aktif",image:"assets/player-baris-alper.jpg"},
- {no:"9",name:"Enes Ünal",position:"Santrafor",group:"Hücum",birth:"10.05.1997",age:29,club:"Bournemouth",body:"187 cm / 78 kg",foot:"Sağ",caps:36,goals:5,status:"Aktif",image:""}
-];
-
-const aMilliMatches=[
-["21 May 2026","Dünya Kupası Elemeleri","Türkiye","2 - 2","İspanya","assets/flag-tr.png","assets/flag-es.png"],
-["12 May 2026","UEFA Nations League","Macaristan","0 - 4","Türkiye","assets/flag-hu.png","assets/flag-tr.png"],
-["08 Haz 2026","Hazırlık Maçı","Türkiye","3 - 1","Portekiz","assets/flag-tr.png","assets/flag-es.png"],
-["01 Haz 2026","Hazırlık Maçı","Türkiye","1 - 1","ABD","assets/flag-tr.png","assets/flag-it.png"],
-["27 Mar 2026","Dünya Kupası Elemeleri","Türkiye","2 - 0","Bulgaristan","assets/flag-tr.png","assets/flag-hu.png"]
-];
-
-function teamShell(body){
- const tabs=[["overview","Genel Bakış"],["squad","Kadro"],["matches","Maçlar"],["videos","Videolar"],["stats","İstatistikler"],["team-reports","Raporlar"]];
- return `<div class="team-ref-page">
-  <section class="team-ref-header">
-    <div class="team-ref-head-left"><img src="assets/turkey-badge.png" class="team-ref-flag"><div><h1>A Milli Takım <span class="verified">✓</span></h1><p>Erkek Milli Takım</p></div></div>
-    <div class="team-head-kpis">
-      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5.5 20c.5-4 2.7-6 6.5-6s6 2 6.5 6"/></svg></span><div class="team-head-kpi-copy"><span>Teknik Direktör</span><b>Vincenzo Montella</b></div></div>
-      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 13v4M8 20h8M9 17h6"/></svg></span><div class="team-head-kpi-copy"><span>FIFA Sıralaması</span><b>36</b></div></div>
-      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3.5 20c.5-4 2.4-6 5.5-6s5 2 5.5 6M14 15c3.5 0 5.5 1.6 6 5"/></svg></span><div class="team-head-kpi-copy"><span>Kadro</span><b>33 Oyuncu</b></div></div>
-    </div>
-    <div class="team-ref-head-art"></div>
-    <nav class="team-ref-tabs">${tabs.map(x=>`<button class="${S.teamTab===x[0]?"active":""}" data-teamtab="${x[0]}">${x[1]}</button>`).join("")}</nav>
-  </section>
-  <div class="team-ref-content">${body}</div>
-  <footer>© 2026 Türkiye Futbol Federasyonu &nbsp; | &nbsp; Video Analiz ve Gözlem Sistemi</footer>
+function milli(){
+ const teams=[
+  {id:"a-milli",label:"A MİLLİ",img:"assets/milli-a.jpg",route:"team-a-milli"},
+  {id:"u21",label:"U21",img:"assets/milli-u21.jpg"},
+  {id:"u19",label:"U19",img:"assets/milli-u19.jpg"},
+  {id:"u17",label:"U17",img:"assets/milli-u17.jpg"},
+  {id:"kadin-a",label:"KADIN A",img:"assets/milli-kadin-a.jpg"},
+  {id:"futsal",label:"FUTSAL",img:"assets/milli-futsal.jpg"}
+ ];
+ return `<div class="content milli-exact-page">
+  <div class="milli-exact-title"><h1>Milli Takımlar</h1><span></span></div>
+  <div class="milli-exact-grid">
+   ${teams.map(t=>`<article class="milli-exact-card" data-route="${t.route||"milli-takimlar"}" aria-label="${t.label}">
+     <div class="milli-exact-art"><img src="${t.img}" alt="${t.label}"></div>
+     <div class="milli-exact-foot"><strong>${t.label}</strong><b aria-hidden="true">→</b></div>
+   </article>`).join("")}
+  </div>
  </div>`
 }
 
