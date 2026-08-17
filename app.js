@@ -15,6 +15,8 @@ let S={
  sidebarCollapsed:localStorage.getItem("tff-sidebar-collapsed")==="1",
  openMenuGroup:localStorage.getItem("tff-sidebar-group")||"ANALİZ & RAPORLAR",profileMenu:false,
  squadFilter:"Tümü",expandedSquadPlayer:"",
+ karmaCategory:"Tümü",karmaView:"grid",activeKarma:"trendyol-1",karmaTab:"overview",
+ karmaVideoFiles:[],
  playerFilters:{country:"Türkiye",league:"Tümü",season:"2025/2026",position:"Merkez Orta Saha",ageMin:18,ageMax:23,foot:"Sağ",category:"Tümü"},
  playerFiltersApplied:false,
  playerAgeChip:true,
@@ -40,8 +42,29 @@ const EN_TEXT={
  "OYUNCU KARŞILAŞTIRMA":"PLAYER COMPARISON","Oyuncu Karşılaştırma":"Player Comparison","İki futbolcu seçin":"Select two players","1. Oyuncu":"Player 1","2. Oyuncu":"Player 2","Karşılaştır":"Compare","KARŞILAŞTIRMA":"COMPARISON","Oyuncu Analizi":"Player Analysis","Yetenek Analizi":"Skill Analysis","Performans":"Performance","Isı Haritası":"Heat Map","Genel Puan":"Overall Rating","Yaş":"Age","Boy":"Height","Ayak":"Preferred Foot","Piyasa Değeri":"Market Value","Maç":"Matches","Gol / Asist":"Goals / Assists","Pas":"Passing","Şut":"Shooting","Dribbling":"Dribbling","Hız":"Pace","Fiziksel":"Physical","Lig Ortalaması":"League Average","İSTATİSTİK KARŞILAŞTIRMASI":"STATISTICAL COMPARISON","Özellik":"Attribute","PERFORMANS":"PERFORMANCE","Maç Sayısı":"Appearances","İlk 11":"Starts","Dakika":"Minutes","Gol":"Goals","Asist":"Assists","Sözleşme Bitiş":"Contract Expiry","Son 10 maç · Hücum yönü →":"Last 10 matches · Attacking direction →","Sol Kanat":"Left Winger","Sol Kanat / Forvet":"Left Winger / Forward","Merkez Ofansif Orta Saha":"Attacking Midfielder","Sol Bek":"Left Back","Sol Bek / Sağ Bek":"Left Back / Right Back","Sağ Bek":"Right Back","Sağ Kanat":"Right Winger","Sağ":"Right","Sol":"Left","Her İkisi":"Both","İki Ayak":"Both Feet","Türkiye":"Türkiye","Oyuncu seçilmedi":"No player selected",
  "Rapor Oluştur":"Create Report","YENİ RAPOR":"NEW REPORT","Rapor Türü":"Report Type","Gözlem Raporu":"Scouting Report","Maç Raporu":"Match Report","Genel Değerlendirme":"General Assessment","Vazgeç":"Cancel","Raporu Oluştur":"Create Report","Tüm İstatistikler":"All Statistics","Detaylı Analiz":"Detailed Analysis","Tümünü Temizle":"Clear All","Temizle":"Clear","Ülke":"Country","Lig":"League","Pozisyon":"Position","Tüm Ülkeler":"All Countries","Tüm Ligler":"All Leagues","Tüm Kulüpler":"All Clubs","Ara":"Search","Filtreler":"Filters","FİLTRELER":"FILTERS",
  "TÜRKİYE FUTBOL FEDERASYONU":"TURKISH FOOTBALL FEDERATION","Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.":"Access all national team groups and details here.","Tüm Videoları Gör":"View All Videos","2025/2026 A Milli Takım oyuncu havuzu":"2025/2026 senior national team player pool",
- "Bu ekran aynı ana tema ile geliştirilecek.":"This screen will be developed using the same main theme.","Hazırlanıyor":"Coming Soon","milli takimlar":"national teams","futbolcularim":"my players","populer":"popular players","kulupler":"clubs","istatistik":"statistics","raporlar":"reports","videolar":"videos","antrenman":"training","teknik":"technical tests","sakatlik":"injuries","mesaj":"messages","Dil seçimi":"Language selection"
+ "Lig, gelişim ve turnuva karmalarına buradan ulaşabilirsiniz.":"Access league, development and tournament representative teams here.","Karma veya organizasyon ara...":"Search representative team or competition...","Karma":"Representative Team","Profesyonel Ligler":"Professional Leagues","Gelişim Ligleri":"Development Leagues","Kadın Ligleri":"Women's Leagues","Bölgesel Ligler":"Regional Leagues","Kupalar":"Cups","Aktif Organizasyon":"Active Competitions","Scout Raporu":"Scout Reports","Karmayı Gör":"View Team","Son güncelleme":"Last updated","Takım":"Teams","Rapor":"Report","Karma Oyuncusu":"Squad Players","Karma Kadrosu":"Representative Squad","Son Eklenen Videolar":"Latest Videos","Son İzlenen Maçlar":"Recently Watched Matches","Son Scout Raporları":"Latest Scout Reports","Tüm Kadroyu Gör":"View Full Squad","Tüm Raporları Gör":"View All Reports","İzlendi":"Watched","İzleniyor":"In Review","Yeni Video":"New Video","Yeni Video Ekle":"Add New Video","Maç bilgilerini girin ve video dosyalarını yükleyin.":"Enter match details and upload video files.","Organizasyon":"Competition","Milli Takım Kategorisi":"National Team Category","Seçiniz (isteğe bağlı)":"Select (optional)","Video Tarihi":"Video Date","Ev Sahibi Takım":"Home Team","Misafir Takım":"Away Team","Ev Sahibi Skor":"Home Score","Misafir Skor":"Away Score","Video Dosyaları":"Video Files","Video dosyalarını buraya sürükleyin":"Drag video files here","veya bilgisayarınızdan dosya seçin":"or select files from your computer","Dosya Seç":"Choose Files","video seçildi":"videos selected","Yüklendi":"Uploaded","Açıklama":"Description","Video hakkında kısa bir açıklama ekleyin...":"Add a short description about the video...","Taslak Kaydet":"Save Draft","Videoyu Yükle":"Upload Video","Otomatik oluşturulacak":"Will be generated automatically","Yükleyen":"Uploaded by","Video No":"Video No","Maç Bilgileri":"Match Information","1. Yarı":"First Half","2. Yarı":"Second Half","Özet":"Highlights","Sezonu":"Season","Trendyol Süper Lig Karması":"Trendyol Super League Representative Team","Trendyol 1. Lig Karması":"Trendyol 1st League Representative Team","Nesine 2. Lig Karması":"Nesine 2nd League Representative Team","Bölgesel Amatör Lig Karması":"Regional Amateur League Representative Team","Kadınlar 1. Ligi Karması":"Women's 1st League Representative Team","U17 Gelişim Ligi Karması":"U17 Development League Representative Team","U19 Gelişim Ligi Karması":"U19 Development League Representative Team","Ziraat Türkiye Kupası Karması":"Turkish Cup Representative Team","İptal":"Cancel","Dosya kaldır":"Remove file","Tüm sonuçları görmek için filtreleri değiştirin.":"Change the filters to see all results.","Eşleşen karma bulunamadı":"No matching representative team found","Bu ekran aynı ana tema ile geliştirilecek.":"This screen will be developed using the same main theme.","Hazırlanıyor":"Coming Soon","milli takimlar":"national teams","futbolcularim":"my players","populer":"popular players","kulupler":"clubs","istatistik":"statistics","raporlar":"reports","videolar":"videos","antrenman":"training","teknik":"technical tests","sakatlik":"injuries","mesaj":"messages","Dil seçimi":"Language selection"
 };
+Object.assign(EN_TEXT,{
+ "Tüm lig ve organizasyon karmalarına göz atın":"Browse all league and competition representative teams",
+ "Karma ara...":"Search representative team...",
+ "Amatör Ligler":"Amateur Leagues",
+ "Kupa Organizasyonları":"Cup Competitions",
+ "Profesyonel Lig":"Professional League",
+ "Amatör Lig":"Amateur League",
+ "Katılım Ligleri":"Participation Leagues",
+ "Kupa Organizasyonu":"Cup Competition",
+ "Kart görünümü":"Card view",
+ "Liste görünümü":"List view",
+ "Kulüp":"Club",
+ "Grup":"Group"
+ ,"Seçilen organizasyona video ekleyin.":"Add videos to the selected competition."
+ ,"Video Başlığı":"Video Title"
+ ,"Video başlığını yazın...":"Enter video title..."
+ ,"Henüz video seçilmedi.":"No video selected yet."
+ ,"Bir veya birden fazla video dosyası seçebilirsiniz.":"You can select one or more video files."
+ ,"İsteğe bağlı açıklama":"Optional Description"
+ ,"Hazır":"Ready"
+});
 const EN_PARTIAL=Object.entries(EN_TEXT).filter(([key])=>key.length>=4).sort((a,b)=>b[0].length-a[0].length);
 const EN_REPLACE=[
  [/(\d+) Oyuncu/g,"$1 Players"], [/(\d+) Yaş Altı/g,"Under $1"], [/(\d+) Yaş/g,"Age $1"],
@@ -76,7 +99,7 @@ function applyLanguage(){
 }
 function go(r){location.hash="#/"+r}
 window.addEventListener("hashchange",()=>{const r=location.hash.replace("#/","")||"login";if(r!=="login"&&sessionStorage.getItem("tff-demo-auth")!=="1"){location.hash="#/login";return}S.route=r;render()});
-function active(id){if(S.route==="home")return id==="home";if(S.route==="team-a-milli")return id==="milli-takimlar";return S.route===id}
+function active(id){if(S.route==="home")return id==="home";if(S.route==="team-a-milli")return id==="milli-takimlar";if(["karma-detail","karma-video-new"].includes(S.route))return id==="karmalar";return S.route===id}
 
 function uiIcon(name){
  const icons={
@@ -111,6 +134,7 @@ function uiIcon(name){
 
 
 function groupForRoute(route){
+ if(["karma-detail","karma-video-new"].includes(route))route="karmalar";
  for(const [group,items] of navGroups){
   if(items.some(([id])=>id===route)) return group;
  }
@@ -246,8 +270,43 @@ function home(){return `<div class="content"><div class="layout"><section class=
 <div class="section-head"><div class="section-title">Son Videolar</div><button class="linkbtn">Tümünü Gör &nbsp; →</button></div>
 <div class="video-grid">${vids.map(v=>`<article class="video-card"><div class="video-thumb" style="background-image:url('${v[0]}')"><div class="play">▶</div><div class="duration">${v[1]}</div></div><div class="video-title">${v[2]}</div><div class="video-sub">${v[3]}<br>${v[4]}</div></article>`).join("")}</div></section>
 <aside class="rail">${stats()}${upcoming()}${reports()}${quickActions()}</aside></div><footer>© 2026 Türkiye Futbol Federasyonu &nbsp; | &nbsp; Video Analiz ve Gözlem Sistemi</footer></div>`}
-function milli(){const teams=Array.isArray(D.teams)?D.teams:[]; const fallback=[["a-milli","A Milli","Erkek Milli Takım",42],["u21","U21 Milli","21 Yaş Altı",40],["u19","U19 Milli","19 Yaş Altı",36],["kadin-a","Kadınlar A Milli","Kadın Milli Takım",28],["futsal","Futsal Milli","Futsal",24],["plaj","Plaj Milli","Plaj Futbolu",20]]; const src=teams.length?teams:fallback;
- return `<div class="content"><div class="page-head"><div><h1>Milli Takımlar</h1><p>Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.</p></div><input class="input" placeholder="Milli takım ara..."></div><div class="milli-layout"><div class="milli-grid">${src.map(x=>{let id=x[0], visual=TEAM_VISUALS[id]||TEAM_VISUALS["a-milli"]; return teamCard({id,name:x[1],sub:x[2],count:(x[3]??"")+" Oyuncu",...visual})}).join("")}</div></div></div>`}
+const MILLI_CARD_LABELS={
+ "a-milli":"A MİLLİ","a2":"A2","u21":"U21","u20":"U20","u19":"U19","u18":"U18","u17":"U17","u16":"U16","u15":"U15","u14":"U14",
+ "kadin-a":"KADIN A","kadin-u23":"KADIN U23","kadin-u19":"KADIN U19","kiz-u18":"KIZ U18","kiz-u17":"KIZ U17","kiz-u15":"KIZ U15",
+ "futsal":"FUTSAL","plaj":"PLAJ","ozel":"ÖZEL","karma":"KARMA"
+};
+const MILLI_CARD_NAMES={
+ "a-milli":"A Milli","a2":"A2","u21":"U21","u20":"U20","u19":"U19","u18":"U18","u17":"U17","u16":"U16","u15":"U15","u14":"U14",
+ "kadin-a":"Kadın A","kadin-u23":"Kadın U23","kadin-u19":"Kadın U19","kiz-u18":"Kız U18","kiz-u17":"Kız U17","kiz-u15":"Kız U15",
+ "futsal":"Futsal","plaj":"Plaj","ozel":"Özel Sporcular","karma":"Karma Takımlar"
+};
+function milliTeamCard(x){
+ const id=x[0], jerseyLabel=MILLI_CARD_LABELS[id]||String(x[1]||"").replace(/ Milli Takım| Milli/g,"").toUpperCase(), shortName=MILLI_CARD_NAMES[id]||String(x[1]||"").replace(/ Milli Takım| Milli/g,"");
+ const dark=id==="futsal"||id==="plaj";
+ const route=id==="a-milli"?"team-a-milli":"milli-takimlar";
+ return `<article class="milli-jersey-card ${dark?"milli-jersey-dark":""}" data-route="${route}" aria-label="${shortName}">
+   <div class="milli-jersey-stage">
+    <svg class="milli-shirt" viewBox="0 0 420 260" aria-hidden="true">
+      <defs>
+        <linearGradient id="shirt-${id}" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="${dark?"#1b1d22":"#ef272f"}"/><stop offset=".55" stop-color="${dark?"#101216":"#b10e17"}"/><stop offset="1" stop-color="${dark?"#050608":"#710812"}"/>
+        </linearGradient>
+        <radialGradient id="glow-${id}" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#ff3940" stop-opacity=".34"/><stop offset="1" stop-color="#ff1d25" stop-opacity="0"/></radialGradient>
+        <pattern id="pattern-${id}" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M0 13 13 0 26 13 13 26Z" fill="none" stroke="#fff" stroke-opacity=".035" stroke-width="1"/></pattern>
+      </defs>
+      <ellipse cx="210" cy="235" rx="158" ry="20" fill="#000" opacity=".24"/>
+      <path d="M126 42 170 24h80l44 18 66 35-28 64-43-18v103H131V123l-43 18-28-64z" fill="url(#shirt-${id})" stroke="#ff3038" stroke-opacity=".62" stroke-width="2"/>
+      <path d="M170 24c7 25 73 25 80 0" fill="none" stroke="#f5d5d6" stroke-opacity=".42" stroke-width="5"/>
+      <path d="M126 42 170 24h80l44 18 66 35-28 64-43-18v103H131V123l-43 18-28-64z" fill="url(#pattern-${id})"/>
+      <ellipse cx="210" cy="112" rx="150" ry="105" fill="url(#glow-${id})"/>
+      <text x="210" y="139" text-anchor="middle" class="milli-shirt-label">${jerseyLabel}</text>
+    </svg>
+   </div>
+   <div class="milli-jersey-footer"><b>${shortName}</b><span aria-hidden="true">→</span></div>
+  </article>`;
+}
+function milli(){const teams=Array.isArray(D.teams)?D.teams:[]; const fallback=[["a-milli","A Milli","Erkek Milli Takım",42],["u21","U21 Milli","21 Yaş Altı",40],["u19","U19 Milli","19 Yaş Altı",36],["u17","U17 Milli","17 Yaş Altı",34],["kadin-a","Kadınlar A Milli","Kadın Milli Takım",28],["futsal","Futsal Milli","Futsal",24]]; const src=teams.length?teams:fallback;
+ return `<div class="content milli-jersey-page"><div class="page-head"><div><h1>Milli Takımlar</h1><p>Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.</p></div><input class="input" placeholder="Milli takım ara..."></div><div class="milli-layout"><div class="milli-grid milli-jersey-grid">${src.map(milliTeamCard).join("")}</div></div></div>`}
 
 
 const aMilliPlayers=[
@@ -372,6 +431,114 @@ function teamDetail(){
  return teamOverview();
 }
 
+
+const KARMA_CATEGORIES=["Tümü","Profesyonel Ligler","Kadın Ligleri","Gelişim Ligleri","Amatör Ligler","Kupa Organizasyonları"];
+const KARMA_DATA=[
+ {id:"super-lig",name:"Trendyol Süper Lig",category:"Profesyonel Ligler",tag:"Profesyonel Lig",season:"2025/26",teams:20,teamLabel:"Kulüp",players:540,playerLabel:"Oyuncu",videos:48,reports:18,updated:"06.05.2025",tone:"red",logo:"tff"},
+ {id:"trendyol-1",name:"Trendyol 1. Lig",category:"Profesyonel Ligler",tag:"Profesyonel Lig",season:"2025/26",teams:18,teamLabel:"Kulüp",players:486,playerLabel:"Oyuncu",videos:46,reports:16,updated:"06.05.2025",tone:"red",logo:"one"},
+ {id:"trendyol-1-playoff",name:"Trendyol 1. Lig Play-Off Müsabakaları",category:"Profesyonel Ligler",tag:"Profesyonel Lig",season:"2025/26",teams:8,teamLabel:"Takım",players:220,playerLabel:"Oyuncu",videos:18,reports:8,updated:"06.05.2025",tone:"red",logo:"one-playoff"},
+ {id:"nesine-2",name:"Nesine 2. Lig",category:"Profesyonel Ligler",tag:"Profesyonel Lig",season:"2025/26",teams:36,teamLabel:"Kulüp",players:972,playerLabel:"Oyuncu",videos:38,reports:14,updated:"06.05.2025",tone:"red",logo:"nesine-two"},
+ {id:"nesine-3",name:"Nesine 3. Lig",category:"Profesyonel Ligler",tag:"Profesyonel Lig",season:"2025/26",teams:54,teamLabel:"Kulüp",players:1458,playerLabel:"Oyuncu",videos:34,reports:12,updated:"06.05.2025",tone:"red",logo:"nesine-three"},
+ {id:"nesine-3-playoff",name:"Nesine 3. Lig Play-Off Müsabakaları",category:"Profesyonel Ligler",tag:"Profesyonel Lig",season:"2025/26",teams:8,teamLabel:"Takım",players:216,playerLabel:"Oyuncu",videos:16,reports:8,updated:"05.05.2025",tone:"red",logo:"nesine-three-playoff"},
+ {id:"bal-baraj",name:"Bölgesel Amatör Lig Baraj Maçları",category:"Amatör Ligler",tag:"Amatör Lig",season:"2025/26",teams:196,teamLabel:"Takım",players:4320,playerLabel:"Oyuncu",videos:22,reports:10,updated:"04.05.2025",tone:"cyan",logo:"bal"},
+ {id:"bal-playoff",name:"Bölgesel Amatör Lig Play-Off",category:"Amatör Ligler",tag:"Amatör Lig",season:"2025/26",teams:64,teamLabel:"Takım",players:1408,playerLabel:"Oyuncu",videos:20,reports:9,updated:"04.05.2025",tone:"cyan",logo:"bal"},
+ {id:"kadin-1",name:"Kadınlar 1. Ligi",category:"Kadın Ligleri",tag:"Kadın Ligleri",season:"2025/26",teams:12,teamLabel:"Kulüp",players:288,playerLabel:"Oyuncu",videos:24,reports:12,updated:"06.05.2025",tone:"purple",logo:"tff"},
+ {id:"kadin-2",name:"Kadınlar 2. Ligi",category:"Kadın Ligleri",tag:"Kadın Ligleri",season:"2025/26",teams:14,teamLabel:"Kulüp",players:336,playerLabel:"Oyuncu",videos:22,reports:10,updated:"06.05.2025",tone:"purple",logo:"tff"},
+ {id:"kadin-1-playoff",name:"TFF Kadınlar 1. Ligi Play-Off",category:"Kadın Ligleri",tag:"Kadın Ligleri",season:"2025/26",teams:4,teamLabel:"Takım",players:96,playerLabel:"Oyuncu",videos:12,reports:6,updated:"05.05.2025",tone:"purple",logo:"tff"},
+ {id:"kadin-2-playoff",name:"TFF Kadınlar 2. Ligi Play-Off",category:"Kadın Ligleri",tag:"Kadın Ligleri",season:"2025/26",teams:4,teamLabel:"Takım",players:96,playerLabel:"Oyuncu",videos:12,reports:6,updated:"05.05.2025",tone:"purple",logo:"tff"},
+ {id:"kadin-super",name:"Turkcell Kadın Futbol Süper Ligi",category:"Kadın Ligleri",tag:"Kadın Ligleri",season:"2025/26",teams:8,teamLabel:"Kulüp",players:192,playerLabel:"Oyuncu",videos:26,reports:12,updated:"06.05.2025",tone:"orange",logo:"tff"},
+ {id:"u14-lig",name:"U14 Gelişim Ligi",category:"Gelişim Ligleri",tag:"Katılım Ligleri",season:"2025/26",teams:8,teamLabel:"Grup",players:192,playerLabel:"Takım",videos:30,reports:10,updated:"04.05.2025",tone:"neutral",logo:"tff"},
+ {id:"u15-playoff",name:"U15 Gelişim Ligi Play-Off",category:"Gelişim Ligleri",tag:"Katılım Ligleri",season:"2025/26",teams:8,teamLabel:"Takım",players:192,playerLabel:"Oyuncu",videos:28,reports:10,updated:"04.05.2025",tone:"orange",logo:"tff"},
+ {id:"ztk",name:"Ziraat Türkiye Kupası",category:"Kupa Organizasyonları",tag:"Kupa Organizasyonu",season:"2025/26",teams:124,teamLabel:"Takım",players:3100,playerLabel:"Oyuncu",videos:36,reports:12,updated:"06.05.2025",tone:"gold",logo:"tff"}
+];
+const KARMA_VIDEOS=[
+ {img:"assets/video-1.jpg",title:"Gaziantep FK 2–0 Bandırmaspor",date:"06.05.2025",duration:"14:32"},
+ {img:"assets/video-2.jpg",title:"Sakaryaspor 1–1 Boluspor",date:"05.05.2025",duration:"11:28"},
+ {img:"assets/video-3.jpg",title:"Erzurumspor FK 2–1 Çorum FK",date:"04.05.2025",duration:"13:45"},
+ {img:"assets/video-4.jpg",title:"Kocaelispor 3–1 Ümraniyespor",date:"02.05.2025",duration:"10:18"},
+ {img:"assets/video-5.jpg",title:"Iğdır FK 0–0 İstanbulspor",date:"30.04.2025",duration:"09:52"},
+ {img:"assets/hero.jpg",title:"Fatih Karagümrük 2–1 Gençlerbirliği",date:"27.04.2025",duration:"12:06"}
+];
+const KARMA_SQUAD=[
+ ["EG","Emre Gökdemir","Çorum FK","Forvet","7.85"],["OA","Oğuz Aydın","Eyüpspor","Kanat","7.62"],["YK","Yiğit Koç","Kocaelispor","Orta Saha","7.41"],["BÖ","Burak Öksüz","Gençlerbirliği","Stoper","7.32"],["AE","Atakan Efe","Boluspor","Sol Bek","7.18"],["ME","Mert Eren","Sakaryaspor","Kaleci","7.12"],["CD","Can Demir","Bandırmaspor","Sağ Bek","7.08"],["AK","Arda Kaya","Erzurumspor FK","Orta Saha","6.98"]
+];
+const KARMA_MATCHES=[
+ ["Gaziantep FK","2 – 0","Bandırmaspor","06.05.2025","İzlendi"],["Sakaryaspor","1 – 1","Boluspor","05.05.2025","İzlendi"],["Erzurumspor FK","2 – 1","Çorum FK","04.05.2025","İzleniyor"],["Kocaelispor","3 – 1","Ümraniyespor","02.05.2025","İzlendi"],["Iğdır FK","0 – 0","İstanbulspor","30.04.2025","İzlendi"]
+];
+const KARMA_REPORTS=[
+ ["EG","Emre Gökdemir","Çorum FK","Ahmet Yılmaz","06.05.2025","8.5"],["OA","Oğuz Aydın","Eyüpspor","Murat Demir","05.05.2025","8.0"],["YK","Yiğit Koç","Kocaelispor","Serkan Kaya","04.05.2025","7.5"],["BÖ","Burak Öksüz","Gençlerbirliği","Simge Er","02.05.2025","7.4"],["AE","Atakan Efe","Boluspor","Simge Er","30.04.2025","7.2"]
+];
+
+function karmaBadge(k,size="card"){return `<span class="karma-ref-logo logo-${k.logo||"tff"} ${size}" aria-hidden="true"></span>`}
+function karmaNumber(value){return Number(value).toLocaleString("tr-TR")}
+function karmaMiniIcon(type){return type==="team"?`<svg viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.2 8.2 8 10 4.8-1.8 8-5 8-10V6z"/></svg>`:`<svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5.5 20c.5-4 2.7-6 6.5-6s6 2 6.5 6"/></svg>`}
+function karmaCard(k){
+ return `<article class="karma-ref-card" role="button" tabindex="0" data-open-karma="${k.id}" data-karma-card data-karma-searchtext="${k.name} ${k.category} ${k.tag}">
+  <div class="karma-ref-main">${karmaBadge(k)}<div class="karma-ref-copy"><h2>${k.name}</h2><span class="karma-ref-tag tone-${k.tone}">${k.tag}</span><p>${k.season} Sezonu</p></div></div>
+  <div class="karma-ref-foot"><span>${karmaMiniIcon("team")}<b>${karmaNumber(k.teams)}</b> ${k.teamLabel}</span><span>${karmaMiniIcon("player")}<b>${karmaNumber(k.players)}</b> ${k.playerLabel}</span></div>
+ </article>`;
+}
+function karmalarPage(){
+ const visible=KARMA_DATA.filter(k=>S.karmaCategory==="Tümü"||k.category===S.karmaCategory);
+ return `<section class="karma-page karma-list-page">
+  <header class="karma-ref-title"><h1>Karmalar</h1><p>Tüm lig ve organizasyon karmalarına göz atın</p></header>
+  <div class="karma-ref-toolbar"><div class="karma-ref-filters">${KARMA_CATEGORIES.map(x=>`<button type="button" data-karma-category="${x}" class="${S.karmaCategory===x?"active":""}">${x}</button>`).join("")}</div><div class="karma-ref-actions"><label><input id="karmaSearch" type="search" placeholder="Karma ara..." autocomplete="off"><span>⌕</span></label><button type="button" data-karma-view="grid" class="${S.karmaView==="grid"?"active":""}" aria-label="Kart görünümü">▦</button><button type="button" data-karma-view="list" class="${S.karmaView==="list"?"active":""}" aria-label="Liste görünümü">☷</button></div></div>
+  <div class="karma-ref-grid ${S.karmaView==="list"?"is-list":""}" id="karmaGrid">${visible.map(karmaCard).join("")}</div>
+  <div class="karma-empty" id="karmaEmpty" hidden><b>Eşleşen karma bulunamadı</b><span>Tüm sonuçları görmek için filtreleri değiştirin.</span></div>
+ </section>`;
+}
+
+function karmaVideoCards(limit=KARMA_VIDEOS.length){return KARMA_VIDEOS.slice(0,limit).map(v=>`<article class="karma-video"><div class="karma-video-thumb" style="background-image:url('${v.img}')"><button type="button" class="karma-play" data-karma-play="${v.title}" aria-label="${v.title}">▶</button><b>${v.duration}</b></div><h3>${v.title}</h3><p>${v.date}</p><div><span>1. Yarı</span><span>2. Yarı</span></div></article>`).join("")}
+function karmaSquadRows(limit=KARMA_SQUAD.length){return KARMA_SQUAD.slice(0,limit).map(p=>`<div class="karma-squad-row"><i>${p[0]}</i><div><b>${p[1]}</b><small>${p[2]}</small></div><span>${p[3]}</span><strong>${p[4]}</strong></div>`).join("")}
+function karmaMatchRows(limit=KARMA_MATCHES.length){return KARMA_MATCHES.slice(0,limit).map((m,i)=>`<div class="karma-match-row"><i>${m[0].slice(0,2).toUpperCase()}</i><b>${m[0]}</b><strong>${m[1]}</strong><b>${m[2]}</b><span>${m[3]}</span><em class="${m[4]==="İzlendi"?"done":"watching"}">${m[4]}</em><button type="button" aria-label="Maç Detayı">›</button></div>`).join("")}
+function karmaReportRows(limit=KARMA_REPORTS.length){return KARMA_REPORTS.slice(0,limit).map(r=>`<div class="karma-report-row"><i>${r[0]}</i><div><b>${r[1]}</b><small>${r[2]}</small></div><span>${r[3]}</span><time>${r[4]}</time><strong>${r[5]}</strong></div>`).join("")}
+function karmaPanel(title,link,body,extra=""){const targets={"Tüm Videoları Gör":"videos","Tüm Kadroyu Gör":"squad","Tüm Maçları Gör":"matches","Tüm Raporları Gör":"reports"};return `<section class="karma-panel ${extra}"><header><h2>${title}</h2>${link?`<button type="button" data-karma-panel-target="${targets[link]||"overview"}">${link}</button>`:""}</header>${body}</section>`}
+function karmaTabContent(){
+ if(S.karmaTab==="squad")return karmaPanel("Karma Kadrosu","",`<div class="karma-squad-table full">${karmaSquadRows()}</div>`,"karma-wide");
+ if(S.karmaTab==="videos")return karmaPanel("Videolar","",`<div class="karma-videos full">${karmaVideoCards()}</div>`,"karma-wide");
+ if(S.karmaTab==="matches")return karmaPanel("Maçlar","",`<div class="karma-matches full">${karmaMatchRows()}</div>`,"karma-wide");
+ if(S.karmaTab==="reports")return karmaPanel("Raporlar","",`<div class="karma-reports full">${karmaReportRows()}</div>`,"karma-wide");
+ return `<div class="karma-dashboard">
+   ${karmaPanel("Son Eklenen Videolar","Tüm Videoları Gör",`<div class="karma-videos">${karmaVideoCards(3)}</div>`,"karma-videos-panel")}
+   ${karmaPanel("Karma Kadrosu","Tüm Kadroyu Gör",`<div class="karma-squad-table">${karmaSquadRows(5)}</div>`)}
+   ${karmaPanel("Son İzlenen Maçlar","Tüm Maçları Gör",`<div class="karma-matches">${karmaMatchRows(3)}</div>`)}
+   ${karmaPanel("Son Scout Raporları","Tüm Raporları Gör",`<div class="karma-reports">${karmaReportRows(3)}</div>`)}
+  </div>`;
+}
+function karmaDetailPage(){
+ const k=KARMA_DATA.find(x=>x.id===S.activeKarma)||KARMA_DATA[1];
+ const tabs=[["overview","Genel Bakış"],["squad","Karma Kadrosu"],["videos","Videolar"],["matches","Maçlar"],["reports","Raporlar"]];
+ return `<section class="karma-page karma-detail-page">
+  <nav class="karma-breadcrumb"><button data-route="karmalar">Karmalar</button><span>/</span><b>${k.name}</b></nav>
+  <header class="karma-detail-head"><div class="karma-detail-identity">${karmaBadge(k,"large")}<div><h1>${k.name} Karması</h1><p>${k.season} Sezonu <span>Aktif</span></p></div></div><button class="karma-primary" type="button" data-route="karma-video-new">＋ Yeni Video Ekle</button></header>
+  <div class="karma-summary detail">${[["♧",24,"Karma Oyuncusu"],["▷",k.videos,"Video"],["▤",k.reports,"Scout Raporu"],["▣",12,"İzlenen Maç"]].map(x=>`<article><span>${x[0]}</span><div><strong>${x[1]}</strong><small>${x[2]}</small></div></article>`).join("")}</div>
+  <div class="karma-tabs" role="tablist">${tabs.map(t=>`<button type="button" role="tab" aria-selected="${S.karmaTab===t[0]}" data-karma-tab="${t[0]}" class="${S.karmaTab===t[0]?"active":""}">${t[1]}</button>`).join("")}</div>
+  ${karmaTabContent()}
+ </section>`;
+}
+
+function escapeKarmaText(value){return String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
+function formatVideoSize(bytes){if(!Number.isFinite(bytes))return "—";const gb=bytes/1073741824;return gb>=1?`${gb.toFixed(2)} GB`:`${Math.max(1,Math.round(bytes/1048576))} MB`}
+function karmaFileRows(){return S.karmaVideoFiles.map((f,i)=>`<div class="karma-simple-file"><i>▧</i><b title="${escapeKarmaText(f.name)}">${escapeKarmaText(f.name)}</b><span>${escapeKarmaText(f.size)}</span><strong>Hazır ✓</strong><button type="button" data-remove-video="${i}" aria-label="Dosya kaldır">×</button></div>`).join("")}
+function karmaVideoForm(){
+ const k=KARMA_DATA.find(x=>x.id===S.activeKarma)||KARMA_DATA[0];
+ return `<section class="karma-page karma-simple-page">
+  <nav class="karma-breadcrumb"><button data-route="karmalar">Karmalar</button><span>/</span><b>${k.name}</b></nav>
+  <header class="karma-simple-head"><h1>Video Yükle</h1><p>Seçilen organizasyona video ekleyin.</p></header>
+  <div class="karma-simple-org">${karmaBadge(k,"large")}<div><span>Organizasyon</span><h2>${k.name}</h2><p>${k.season} Sezonu · <b>${k.tag}</b></p></div></div>
+  <form class="karma-simple-form" id="karmaVideoForm">
+   <div class="karma-simple-fields">
+    <label><span>Video Başlığı</span><input type="text" required placeholder="Video başlığını yazın..."></label>
+    <label><span>Video Tarihi</span><input type="date" value="2026-08-14"></label>
+   </div>
+   <div class="karma-dropzone" id="karmaDropzone"><span>↥</span><b>Video dosyalarını buraya sürükleyin</b><p>Bir veya birden fazla video dosyası seçebilirsiniz.</p><button type="button" id="karmaVideoChoose">Dosya Seç</button><input id="karmaVideoInput" type="file" accept="video/*" multiple hidden></div>
+   <div class="karma-simple-selected"><b>${S.karmaVideoFiles.length?`${S.karmaVideoFiles.length} video seçildi`:"Henüz video seçilmedi."}</b>${S.karmaVideoFiles.length?"":`<span>veya bilgisayarınızdan dosya seçin</span>`}</div>
+   <div class="karma-simple-file-list">${karmaFileRows()}</div>
+   <label class="karma-simple-description"><span>İsteğe bağlı açıklama</span><textarea placeholder="Video hakkında kısa bir açıklama ekleyin..."></textarea></label>
+   <footer class="karma-simple-actions"><button type="button" class="karma-secondary" data-route="karmalar">Vazgeç</button><button type="submit" class="karma-primary">Videoyu Yükle</button></footer>
+  </form>
+ </section>`;
+}
 
 function generic(){return `<div class="content"><div class="page-head"><div><h1>${S.route.replaceAll("-"," ")}</h1><p>Bu ekran aynı ana tema ile geliştirilecek.</p></div></div><div class="panel"><div class="panel-body" style="padding:55px;text-align:center;color:#91a0b2">Hazırlanıyor</div></div></div>`}
 
@@ -568,10 +735,39 @@ function playerSearchPage(){
  </div>`;
 }
 
-function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();if(S.route==="futbolcu-ara")return playerSearchPage();return generic()}
+function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();if(S.route==="karmalar")return karmalarPage();if(S.route==="karma-detail")return karmaDetailPage();if(S.route==="karma-video-new")return karmaVideoForm();if(S.route==="futbolcu-ara")return playerSearchPage();return generic()}
 function render(){if(S.route==="login"){if(location.hash!=="#/login")history.replaceState(null,"","#/login");document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame route-${S.route}">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}applyLanguage();bind()}
 function bind(){
  document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
+ document.querySelectorAll("[data-karma-category]").forEach(e=>e.addEventListener("click",()=>{S.karmaCategory=e.dataset.karmaCategory;render()}));
+ document.querySelectorAll("[data-open-karma]").forEach(e=>{
+   const openKarma=()=>{S.activeKarma=e.dataset.openKarma;S.karmaVideoFiles=[];go("karma-video-new")};
+   e.addEventListener("click",openKarma);
+   e.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();openKarma()}});
+ });
+ document.querySelectorAll("[data-karma-tab]").forEach(e=>e.addEventListener("click",()=>{S.karmaTab=e.dataset.karmaTab;render()}));
+ document.querySelectorAll("[data-karma-view]").forEach(e=>e.addEventListener("click",()=>{S.karmaView=e.dataset.karmaView;render()}));
+ document.querySelectorAll("[data-karma-panel-target]").forEach(e=>e.addEventListener("click",()=>{S.karmaTab=e.dataset.karmaPanelTarget;render()}));
+ document.querySelectorAll("[data-karma-play]").forEach(e=>e.addEventListener("click",()=>alert(S.lang==="en"?`Demo video opened: ${e.dataset.karmaPlay}`:`Demo video açıldı: ${e.dataset.karmaPlay}`)));
+ const karmaSearch=document.getElementById("karmaSearch");
+ if(karmaSearch)karmaSearch.addEventListener("input",()=>{
+   const query=karmaSearch.value.toLocaleLowerCase("tr-TR").trim();let visible=0;
+   document.querySelectorAll("[data-karma-card]").forEach(card=>{const show=!query||(card.dataset.karmaSearchtext||"").toLocaleLowerCase("tr-TR").includes(query);card.hidden=!show;if(show)visible++});
+   const empty=document.getElementById("karmaEmpty");if(empty)empty.hidden=visible!==0;
+ });
+ const setKarmaVideoFiles=files=>{S.karmaVideoFiles=[...files].filter(f=>!f.type||f.type.startsWith("video/")).map(f=>({name:f.name,size:formatVideoSize(f.size)}));render()};
+ const karmaVideoInput=document.getElementById("karmaVideoInput"),karmaVideoChoose=document.getElementById("karmaVideoChoose"),karmaDropzone=document.getElementById("karmaDropzone");
+ if(karmaVideoChoose&&karmaVideoInput)karmaVideoChoose.addEventListener("click",()=>karmaVideoInput.click());
+ if(karmaVideoInput)karmaVideoInput.addEventListener("change",()=>setKarmaVideoFiles(karmaVideoInput.files));
+ if(karmaDropzone){
+   ["dragenter","dragover"].forEach(type=>karmaDropzone.addEventListener(type,e=>{e.preventDefault();karmaDropzone.classList.add("is-dragging")}));
+   ["dragleave","drop"].forEach(type=>karmaDropzone.addEventListener(type,e=>{e.preventDefault();karmaDropzone.classList.remove("is-dragging")}));
+   karmaDropzone.addEventListener("drop",e=>setKarmaVideoFiles(e.dataTransfer.files));
+ }
+ document.querySelectorAll("[data-remove-video]").forEach(e=>e.addEventListener("click",()=>{S.karmaVideoFiles.splice(Number(e.dataset.removeVideo),1);render()}));
+ document.querySelectorAll("[data-video-tag]").forEach(e=>e.addEventListener("change",()=>{const file=S.karmaVideoFiles[Number(e.dataset.videoTag)];if(file)file.tag=e.value}));
+ const karmaDraft=document.getElementById("karmaDraft");if(karmaDraft)karmaDraft.addEventListener("click",()=>alert(S.lang==="en"?"Draft saved.":"Taslak kaydedildi."));
+ const karmaVideoFormEl=document.getElementById("karmaVideoForm");if(karmaVideoFormEl)karmaVideoFormEl.addEventListener("submit",e=>{e.preventDefault();if(!S.karmaVideoFiles.length){alert(S.lang==="en"?"Please select at least one video file.":"Lütfen en az bir video dosyası seçin.");return}alert(S.lang==="en"?"Videos uploaded successfully.":"Videolar başarıyla yüklendi.");S.karmaVideoFiles=[];go("karmalar")});
  document.querySelectorAll("[data-teamtab]").forEach(e=>e.addEventListener("click",()=>{S.teamTab=e.dataset.teamtab;render()}));
  document.querySelectorAll("[data-squad-filter]").forEach(e=>e.addEventListener("click",()=>{S.squadFilter=e.dataset.squadFilter;S.expandedSquadPlayer="";render()}));
  document.querySelectorAll("[data-squad-expand]").forEach(e=>e.addEventListener("click",()=>{S.expandedSquadPlayer=S.expandedSquadPlayer===e.dataset.squadExpand?"":e.dataset.squadExpand;render()}));
