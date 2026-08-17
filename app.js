@@ -231,14 +231,56 @@ const TEAM_VISUALS={
 "karma":{img:"assets/karma.jpg",focus:"50% 48%",fit:"cover"}
 };
 const homeTeams=[
-{id:"a-milli",name:"A Milli",shirt:"A MİLLİ",jersey:"assets/home-jersey-red.jpg",route:"team-a-milli"},
-{id:"u21",name:"U21",shirt:"U21",jersey:"assets/home-jersey-red.jpg",route:"milli-takimlar"},
-{id:"u19",name:"U19",shirt:"U19",jersey:"assets/home-jersey-red.jpg",route:"milli-takimlar"},
-{id:"kadin-a",name:"Kadın A",shirt:"KADIN A",jersey:"assets/home-jersey-red.jpg",route:"milli-takimlar"},
-{id:"futsal",name:"Futsal",shirt:"FUTSAL",jersey:"assets/home-jersey-black.jpg",route:"milli-takimlar"},
-{id:"plaj",name:"Plaj Milli",shirt:"PLAJ MİLLİ",jersey:"assets/home-jersey-red.jpg",route:"milli-takimlar"}
+{id:"a-milli",code:"A MİLLİ",name:"A Milli",tone:"red"},
+{id:"u21",code:"U21",name:"U21",tone:"red"},
+{id:"u19",code:"U19",name:"U19",tone:"red"},
+{id:"kadin-a",code:"KADINLAR A MİLLİ",name:"Kadınlar A Milli",tone:"red"},
+{id:"futsal",code:"FUTSAL",name:"Futsal",tone:"black"},
+{id:"plaj",code:"PLAJ MİLLİ",name:"Plaj Milli",tone:"black"}
 ];
-function homeTeamCard(t){return `<article class="home-team-card" data-route="${t.route||"milli-takimlar"}" aria-label="${t.name}"><div class="home-team-visual" style="background-image:url('${t.jersey}')"><strong>${t.shirt}</strong></div><div class="home-team-foot"><b>${t.name}</b><span aria-hidden="true">→</span></div></article>`}
+
+const milliTeams=[
+{id:"a-milli",code:"A MİLLİ",name:"A Milli",tone:"red"},
+{id:"a2",code:"A2",name:"A2 Milli",tone:"red"},
+{id:"u21",code:"U21",name:"U21 Milli",tone:"red"},
+{id:"u20",code:"U20",name:"U20 Milli",tone:"red"},
+{id:"u19",code:"U19",name:"U19 Milli",tone:"red"},
+{id:"u18",code:"U18",name:"U18 Milli",tone:"red"},
+{id:"u17",code:"U17",name:"U17 Milli",tone:"red"},
+{id:"u16",code:"U16",name:"U16 Milli",tone:"red"},
+{id:"u15",code:"U15",name:"U15 Milli",tone:"red"},
+{id:"u14",code:"U14",name:"U14 Milli",tone:"red"},
+{id:"kadin-a",code:"KADINLAR A MİLLİ",name:"Kadınlar A Milli",tone:"red"},
+{id:"kadin-u23",code:"KADINLAR U23",name:"Kadınlar U23 Milli",tone:"red"},
+{id:"kadin-u19",code:"KADINLAR U19",name:"Kadınlar U19 Milli",tone:"red"},
+{id:"kiz-u18",code:"KIZLAR U18",name:"Kızlar U18 Milli",tone:"red"},
+{id:"kiz-u17",code:"KIZLAR U17",name:"Kızlar U17 Milli",tone:"red"},
+{id:"kiz-u15",code:"KIZLAR U15",name:"Kızlar U15 Milli",tone:"red"},
+{id:"futsal",code:"FUTSAL",name:"Futsal Milli",tone:"black"},
+{id:"plaj",code:"PLAJ MİLLİ",name:"Plaj Milli",tone:"black"},
+{id:"ozel",code:"ÖZEL SPORCULAR",name:"Özel Sporcular",tone:"red"},
+{id:"karma-2018",code:"2018 KARMA",name:"2018 Karma",tone:"red"},
+{id:"karma-2019",code:"2019 KARMA",name:"2019 Karma",tone:"red"},
+{id:"u14-kulup",code:"U14 KULÜP SEÇMELERİ",name:"U14 Kulüp Seçmeleri",tone:"red"},
+{id:"kiz-u15-bolge",code:"KIZLAR U15 BÖLGE SEÇMELERİ",name:"Kızlar U15 Bölge Seçmeleri",tone:"red"}
+];
+
+function jerseyAsset(tone){return tone==="black"?"assets/milli-jersey-black.jpg":"assets/milli-jersey-red.jpg"}
+function homeNationalCard(t){
+ const route=t.id==="a-milli"?"team-a-milli":"milli-takimlar";
+ return `<article class="home-national-card" data-route="${route}">
+   <div class="home-national-art" style="background-image:url('${jerseyAsset(t.tone)}')"><strong>${t.code}</strong></div>
+   <div class="home-national-foot"><b>${t.name}</b><span>→</span></div>
+ </article>`
+}
+function milliJerseyCard(t){
+ const route=t.id==="a-milli"?"team-a-milli":"milli-takimlar";
+ return `<article class="milli-jersey-card" data-route="${route}" data-team="${t.id}">
+   <div class="milli-jersey-art" style="background-image:url('${jerseyAsset(t.tone)}')"><strong>${t.code}</strong></div>
+   <div class="milli-jersey-foot"><b>${t.name}</b><span>→</span></div>
+ </article>`
+}
+
 const vids=[
 ["assets/video-1.jpg","08:24","Türkiye 2–2 İspanya","Dünya Kupası Elemeleri","21.05.2026"],
 ["assets/video-2.jpg","06:18","Türkiye 4–0 Macaristan","UEFA Nations League","12.05.2026"],
@@ -246,7 +288,7 @@ const vids=[
 ["assets/video-4.jpg","04:45","Türkiye 1–1 ABD","Hazırlık Maçı","01.06.2026"],
 ["assets/video-5.jpg","05:32","A Milli Antrenman Özeti","Antalya Kampı","30.05.2026"]
 ];
-function teamCard(t){return `<article class="quick-card team-${t.id}" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}"><div class="quick-img" style="background-image:url('${t.img}');background-position:${t.focus||"center"};background-size:${t.fit||"cover"}"><div class="quick-badge"><img src="assets/crescent-star.png" alt="Türkiye"></div></div><div class="quick-info"><b>${t.name}</b><small>${t.sub}</small><span>${t.count}</span></div></article>`}
+function teamCard(t){return homeNationalCard(t)}
 function stats(){return panel("Genel İstatistikler",`<div class="stat-grid">${[["İzlenen Maç","18","↗ %12",""],["İzlenen Oyuncu","42","↗ %15",""],["Oluşturulan Rapor","23","↗ %8",""],["Yetenek Başvurusu","7","↘ %5","down"]].map(x=>`<div class="stat"><small>${x[0]}</small><strong>${x[1]}</strong><div class="trend ${x[3]}">${x[2]}</div></div>`).join("")}</div>`,`<span style="font-size:10px;color:#9da9b7">Bu Ay⌄</span>`)}
 function upcoming(){
  const matches=[
@@ -267,12 +309,16 @@ function reports(){
 function quickActions(){return panel("Hızlı İşlemler",`<div class="qgrid"><button class="qbtn q1">▷ &nbsp; Maç Analizine Başla</button><button class="qbtn q2">⌕ &nbsp; Oyuncu Ara</button><button class="qbtn q3">▤ &nbsp; Yeni Rapor Oluştur</button><button class="qbtn q4">☆ &nbsp; Yetenek Başvuruları</button></div>`)}
 function home(){return `<div class="content"><div class="layout"><section class="center"><div class="welcome"><h1>Hoş Geldiniz, Simge Er</h1><p>TFF Video Analiz ve Gözlem Sistemi</p></div><div class="hero"></div>
 <div class="section-head"><div class="section-title">Hızlı Erişim</div><button class="linkbtn" data-route="milli-takimlar">Tümünü Gör &nbsp; →</button></div>
-<div class="quick-grid home-team-grid">${homeTeams.map(homeTeamCard).join("")}</div>
+<div class="quick-grid home-national-grid">${homeTeams.map(homeNationalCard).join("")}</div>
 <div class="section-head"><div class="section-title">Son Videolar</div><button class="linkbtn">Tümünü Gör &nbsp; →</button></div>
 <div class="video-grid">${vids.map(v=>`<article class="video-card"><div class="video-thumb" style="background-image:url('${v[0]}')"><div class="play">▶</div><div class="duration">${v[1]}</div></div><div class="video-title">${v[2]}</div><div class="video-sub">${v[3]}<br>${v[4]}</div></article>`).join("")}</div></section>
 <aside class="rail">${stats()}${upcoming()}${reports()}${quickActions()}</aside></div><footer>© 2026 Türkiye Futbol Federasyonu &nbsp; | &nbsp; Video Analiz ve Gözlem Sistemi</footer></div>`}
-function milli(){const teams=Array.isArray(D.teams)?D.teams:[]; const fallback=[["a-milli","A Milli","Erkek Milli Takım",42],["u21","U21 Milli","21 Yaş Altı",40],["u19","U19 Milli","19 Yaş Altı",36],["kadin-a","Kadınlar A Milli","Kadın Milli Takım",28],["futsal","Futsal Milli","Futsal",24],["plaj","Plaj Milli","Plaj Futbolu",20]]; const src=teams.length?teams:fallback;
- return `<div class="content"><div class="page-head"><div><h1>Milli Takımlar</h1><p>Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.</p></div><input class="input" placeholder="Milli takım ara..."></div><div class="milli-layout"><div class="milli-grid">${src.map(x=>{let id=x[0], visual=TEAM_VISUALS[id]||TEAM_VISUALS["a-milli"]; return teamCard({id,name:x[1],sub:x[2],count:(x[3]??"")+" Oyuncu",...visual})}).join("")}</div></div></div>`}
+function milli(){
+ return `<div class="content milli-new-page">
+   <div class="page-head milli-new-head"><div><h1>Milli Takımlar</h1><p>Tüm milli takım gruplarına ve detaylarına buradan ulaşabilirsiniz.</p></div><input class="input" placeholder="Milli takım ara..."></div>
+   <div class="milli-layout"><div class="milli-grid milli-jersey-grid">${milliTeams.map(milliJerseyCard).join("")}</div></div>
+ </div>`
+}
 
 
 const aMilliPlayers=[
