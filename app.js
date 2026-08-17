@@ -259,7 +259,7 @@ function homeNationalCard(t){
   "plaj":"PLAJ MİLLİ"
  }[t.id]||t.name.toUpperCase();
 
- return `<article class="home-national-card" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}">
+ return `<article class="home-national-card" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}" ${t.id==="a-milli"?'data-open-a-milli="1"':""}>
    <div class="home-national-art" style="background-image:url('${jersey}')">
      <strong>${code}</strong>
    </div>
@@ -337,7 +337,7 @@ function milli(){
    ${teams.map(([id,code,label,color])=>{
     const route=id==="a-milli"?"team-a-milli":"milli-takimlar";
     const longCode=code.length>14?" long-code":"";
-    return `<article class="milli-ref5-card" data-route="${route}" data-team="${id}">
+    return `<article class="milli-ref5-card" data-route="${route}" data-team="${id}" ${id==="a-milli"?'data-open-a-milli="1"':""}>
       <div class="milli-ref5-art" style="background-image:url('${imgFor(color)}')">
        <strong class="${longCode}">${code}</strong>
       </div>
@@ -735,6 +735,13 @@ function page(){if(S.route==="login")return loginPage();if(S.route==="home")retu
 function render(){if(S.route==="login"){if(location.hash!=="#/login")history.replaceState(null,"","#/login");document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame route-${S.route}">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}applyLanguage();bind()}
 function bind(){
  document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
+ document.querySelectorAll('[data-open-a-milli="1"]').forEach(e=>{
+   e.addEventListener("click",(ev)=>{
+     ev.preventDefault();
+     ev.stopPropagation();
+     go("team-a-milli");
+   });
+ });
  document.querySelectorAll("[data-karma-category]").forEach(e=>e.addEventListener("click",()=>{S.karmaCategory=e.dataset.karmaCategory;render()}));
  document.querySelectorAll("[data-open-karma]").forEach(e=>{
    const openKarma=()=>{S.activeKarma=e.dataset.openKarma;S.karmaVideoFiles=[];go("karma-video-new")};
