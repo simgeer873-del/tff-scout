@@ -2864,98 +2864,180 @@ body.light .karma-ref-title p{color:#6c7b8a}body.light .karma-ref-filters button
 body.light .karma-simple-org,body.light .karma-simple-form{border-color:#d7e1e9;background:#fff}body.light .karma-simple-org h2,body.light .karma-simple-fields label>span,body.light .karma-simple-description>span,body.light .karma-simple-file>b{color:#172432}body.light .karma-simple-fields input,body.light .karma-simple-description textarea{border-color:#cbd8e3;background:#fff;color:#172432}body.light .karma-simple-file-list,body.light .karma-simple-file,body.light .karma-simple-actions{border-color:#dfe7ee}body.light .karma-simple-selected b{color:#25384a}
 @media(max-width:760px){.karma-simple-page{padding-top:20px}.karma-simple-head h1{font-size:28px}.karma-simple-org{align-items:flex-start;padding:14px}.karma-simple-org>.karma-ref-logo.large{width:74px;height:68px;transform:scale(.82);transform-origin:left top}.karma-simple-org h2{font-size:18px}.karma-simple-form{padding:17px}.karma-simple-fields{grid-template-columns:1fr}.karma-simple-form .karma-dropzone{min-height:190px}.karma-simple-selected{align-items:flex-start;flex-direction:column;gap:5px}.karma-simple-file{grid-template-columns:32px minmax(100px,1fr) 30px}.karma-simple-file>span,.karma-simple-file>strong{display:none}.karma-simple-actions{display:grid;grid-template-columns:1fr 1fr}.karma-simple-actions button{width:100%}}
 
+/* ===== 2026-08 Milli Takımlar / Ana Sayfa Forma Kartları =====
+   Yalnızca ana sayfadaki hızlı erişim kartlarını ve Milli Takımlar liste ekranını etkiler.
+   Sidebar, topbar, hero, sağ paneller ve diğer sayfalar korunur. */
+.home-national-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.home-national-card{
+  min-width:0;overflow:hidden;cursor:pointer;border:1px solid rgba(215,25,32,.58);
+  border-radius:11px;background:#09131f;box-shadow:none;transition:.18s ease;
+}
+.home-national-card:hover{transform:translateY(-2px);border-color:#ef2a32;box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.home-national-art{
+  height:150px;position:relative;background-position:center;background-size:cover;background-repeat:no-repeat;
+}
+.home-national-art::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,8,14,.04) 10%,rgba(3,8,14,.08) 62%,rgba(3,8,14,.34) 100%);
+}
+.home-national-art strong{
+  position:absolute;z-index:2;left:50%;top:54%;transform:translate(-50%,-50%);width:92%;
+  color:#f7f4f1;text-align:center;font-size:20px;font-weight:850;line-height:1.05;letter-spacing:.01em;
+  text-shadow:0 2px 7px rgba(0,0,0,.62);
+}
+.home-national-foot{
+  min-height:43px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 11px;
+  border-top:1px solid rgba(255,255,255,.035);background:#08131f;
+}
+.home-national-foot b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#f5f7f9;font-size:11.5px;font-weight:750}
+.home-national-foot span{flex:0 0 auto;color:#ed1c24;font-size:19px;line-height:1}
 
-/* =========================================================
-   MILLI TAKIMLAR — APPROVED JERSEY REFERENCE
-   Isolated styles: does not alter home quick cards.
-   ========================================================= */
-.milli-pro-page{
-  max-width:none!important;
-  padding:18px 22px 28px!important;
+.milli-new-page{max-width:none!important}
+.milli-new-head{margin-bottom:18px!important}
+.milli-new-head h1{position:relative;padding-bottom:15px}
+.milli-new-head h1::after{content:"";position:absolute;left:0;bottom:0;width:62px;height:3px;border-radius:3px;background:#e31d25}
+.milli-jersey-grid{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;
 }
-.milli-pro-head{
-  margin:4px 0 16px;
+.milli-jersey-card{
+  min-width:0;overflow:hidden;cursor:pointer;border:1px solid rgba(215,25,32,.58);
+  border-radius:11px;background:#09131f;box-shadow:none;transition:.18s ease;
 }
-.milli-pro-head h1{
-  margin:0;
-  font-size:34px;
-  line-height:1.1;
-  font-weight:800;
-  letter-spacing:-.7px;
+.milli-jersey-card:hover{transform:translateY(-2px);border-color:#f12a32;box-shadow:0 12px 28px rgba(0,0,0,.25)}
+.milli-jersey-art{
+  height:210px;position:relative;background-position:center;background-size:cover;background-repeat:no-repeat;
 }
-.milli-pro-underline{
-  display:block;
-  width:94px;
-  height:3px;
-  margin-top:17px;
-  border-radius:99px;
-  background:linear-gradient(90deg,#ed1c24 0 66%,rgba(237,28,36,.12) 66% 100%);
+.milli-jersey-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,11,.03),rgba(2,6,11,.08) 65%,rgba(2,6,11,.28))}
+.milli-jersey-art strong{
+  position:absolute;z-index:2;left:50%;top:52%;transform:translate(-50%,-50%);width:90%;
+  color:#f4f1ed;text-align:center;font-size:28px;font-weight:850;line-height:1.03;letter-spacing:.01em;
+  text-shadow:0 2px 9px rgba(0,0,0,.7);
 }
-.milli-pro-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:18px 22px;
+.milli-jersey-foot{
+  min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 15px;
+  border-top:1px solid rgba(255,255,255,.035);background:#07121e;
 }
-.milli-pro-card{
-  min-width:0;
-  overflow:hidden;
-  border:1px solid rgba(220,31,39,.62);
-  border-radius:13px;
-  background:#07121e;
-  box-shadow:none;
-  transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+.milli-jersey-foot b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#f7f8fa;font-size:13px;font-weight:800}
+.milli-jersey-foot span{flex:0 0 auto;color:#ed1c24;font-size:20px}
+
+body.light .home-national-card,body.light .milli-jersey-card{background:#fff;border-color:#d34a50}
+body.light .home-national-foot,body.light .milli-jersey-foot{background:#fff}
+body.light .home-national-foot b,body.light .milli-jersey-foot b{color:#172432}
+
+@media(max-width:1250px){
+  .home-national-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .milli-jersey-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 }
-.milli-pro-card[data-route]{cursor:pointer}
-.milli-pro-card:hover{
-  border-color:#ef2630;
-  transform:translateY(-2px);
-  box-shadow:0 10px 26px rgba(0,0,0,.20);
+@media(max-width:900px){
+  .home-national-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .milli-jersey-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
-.milli-pro-art{
-  height:247px;
-  background-position:center;
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-color:#090f17;
+@media(max-width:560px){
+  .home-national-grid,.milli-jersey-grid{grid-template-columns:1fr!important}
+  .home-national-art{height:180px}.milli-jersey-art{height:220px}
 }
-.milli-pro-foot{
-  height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  padding:0 24px;
-  background:linear-gradient(180deg,#07111b,#06101a);
-  border-top:1px solid rgba(255,255,255,.025);
+
+/* ===== MILLI TAKIMLAR — ONAYLI REFERANS TIPOGRAFI / BOYUT ===== */
+/* Sol menü, topbar ve diğer sayfalar değişmez. Bu blok yalnızca yeni forma kartlarını etkiler. */
+.milli-jersey-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
 }
-.milli-pro-foot strong{
-  color:#f6f7f9;
-  font-size:15px;
-  font-weight:800;
-  letter-spacing:.01em;
+.milli-jersey-card{
+  border-color:rgba(214,25,32,.72)!important;
+  border-radius:10px!important;
+  background:#07111c!important;
 }
-.milli-pro-arrow{
-  color:#ed1c24;
-  font-size:25px;
-  font-weight:300;
-  line-height:1;
-  transform:translateY(-1px);
+.milli-jersey-art{
+  height:260px!important;
+  background-position:center 48%!important;
+  background-size:cover!important;
 }
-body.light .milli-pro-card{
-  background:#fff;
-  border-color:rgba(215,25,32,.42);
+.milli-jersey-art::after{
+  background:linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.05) 64%,rgba(3,8,14,.34) 100%)!important;
 }
-body.light .milli-pro-foot{
-  background:#fff;
-  border-top-color:#e5e9ee;
+.milli-jersey-art strong{
+  position:absolute!important;
+  z-index:2!important;
+  left:50%!important;
+  top:51%!important;
+  width:92%!important;
+  transform:translate(-50%,-50%) scaleX(.88)!important;
+  transform-origin:center!important;
+  color:#ddd8d2!important;
+  font-family:"Arial Narrow","Roboto Condensed","Segoe UI Condensed",Arial,sans-serif!important;
+  font-size:58px!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  line-height:.96!important;
+  letter-spacing:.005em!important;
+  text-transform:uppercase!important;
+  text-align:center!important;
+  white-space:normal!important;
+  text-shadow:0 2px 2px rgba(0,0,0,.72),0 0 1px rgba(255,255,255,.28)!important;
 }
-body.light .milli-pro-foot strong{color:#142130}
-@media(max-width:1180px){
-  .milli-pro-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.milli-jersey-foot{
+  min-height:54px!important;
+  padding:0 17px!important;
+  background:#06111d!important;
 }
-@media(max-width:760px){
-  .milli-pro-page{padding:14px!important}
-  .milli-pro-grid{grid-template-columns:1fr;gap:14px}
-  .milli-pro-art{height:230px}
-  .milli-pro-head h1{font-size:29px}
+.milli-jersey-foot b{
+  color:#f3f3f1!important;
+  font-size:15px!important;
+  font-weight:750!important;
+  letter-spacing:.01em!important;
+}
+.milli-jersey-foot span{
+  color:#ed1c24!important;
+  font-size:24px!important;
+  font-weight:400!important;
+}
+
+/* Referanstaki uzun isimlerde boyut yine büyük kalır, sadece karta sığacak kadar daralır. */
+.milli-jersey-card[data-team="kadin-a"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kadin-u23"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kadin-u19"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kiz-u18"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kiz-u17"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kiz-u15"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="ozel"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="karma-2018"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="karma-2019"] .milli-jersey-art strong{
+  font-size:46px!important;
+  line-height:.98!important;
+}
+.milli-jersey-card[data-team="u14-kulup"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kiz-u15-bolge"] .milli-jersey-art strong{
+  font-size:36px!important;
+  line-height:1!important;
+  width:88%!important;
+}
+
+/* Ana sayfadaki kısayol formaları da aynı renk / yazı karakterinde, mevcut kart ölçüsünü bozmadan. */
+.home-national-art strong{
+  transform:translate(-50%,-50%) scaleX(.88)!important;
+  color:#ddd8d2!important;
+  font-family:"Arial Narrow","Roboto Condensed","Segoe UI Condensed",Arial,sans-serif!important;
+  font-size:27px!important;
+  font-weight:700!important;
+  line-height:.96!important;
+  letter-spacing:.005em!important;
+  text-transform:uppercase!important;
+  text-shadow:0 2px 2px rgba(0,0,0,.72),0 0 1px rgba(255,255,255,.28)!important;
+}
+
+@media(max-width:1250px){
+  .milli-jersey-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .milli-jersey-art{height:225px!important}
+  .milli-jersey-art strong{font-size:49px!important}
+}
+@media(max-width:900px){
+  .milli-jersey-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .milli-jersey-art strong{font-size:45px!important}
+}
+@media(max-width:560px){
+  .milli-jersey-grid{grid-template-columns:1fr!important}
+  .milli-jersey-art{height:235px!important}
 }
