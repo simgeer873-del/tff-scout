@@ -260,7 +260,6 @@ function homeNationalCard(t){
  }[t.id]||t.name.toUpperCase();
 
  return `<article class="home-national-card" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}">
-   ${t.id==="a-milli"?'<a class="a-milli-real-link" href="#/team-a-milli" aria-label="A Milli Takım detayını aç"></a>':""}
    <div class="home-national-art" style="background-image:url('${jersey}')">
      <strong>${code}</strong>
    </div>
@@ -339,7 +338,6 @@ function milli(){
     const route=id==="a-milli"?"team-a-milli":"milli-takimlar";
     const longCode=code.length>14?" long-code":"";
     return `<article class="milli-ref5-card" data-route="${route}" data-team="${id}">
-      ${id==="a-milli"?'<a class="a-milli-real-link" href="#/team-a-milli" aria-label="A Milli Takım detayını aç"></a>':""}
       <div class="milli-ref5-art" style="background-image:url('${imgFor(color)}')">
        <strong class="${longCode}">${code}</strong>
       </div>
@@ -351,6 +349,24 @@ function milli(){
    }).join("")}
   </div>
  </div>`;
+}
+
+function teamShell(body){
+ const tabs=[["overview","Genel Bakış"],["squad","Kadro"],["matches","Maçlar"],["videos","Videolar"],["stats","İstatistikler"],["team-reports","Raporlar"]];
+ return `<div class="team-ref-page">
+  <section class="team-ref-header">
+    <div class="team-ref-head-left"><img src="assets/turkey-badge.png" class="team-ref-flag"><div><h1>A Milli Takım <span class="verified">✓</span></h1><p>Erkek Milli Takım</p></div></div>
+    <div class="team-head-kpis">
+      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5.5 20c.5-4 2.7-6 6.5-6s6 2 6.5 6"/></svg></span><div class="team-head-kpi-copy"><span>Teknik Direktör</span><b>Vincenzo Montella</b></div></div>
+      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 13v4M8 20h8M9 17h6"/></svg></span><div class="team-head-kpi-copy"><span>FIFA Sıralaması</span><b>36</b></div></div>
+      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3.5 20c.5-4 2.4-6 5.5-6s5 2 5.5 6M14 15c3.5 0 5.5 1.6 6 5"/></svg></span><div class="team-head-kpi-copy"><span>Kadro</span><b>33 Oyuncu</b></div></div>
+    </div>
+    <div class="team-ref-head-art"></div>
+    <nav class="team-ref-tabs">${tabs.map(x=>`<button class="${S.teamTab===x[0]?"active":""}" data-teamtab="${x[0]}">${x[1]}</button>`).join("")}</nav>
+  </section>
+  <div class="team-ref-content">${body}</div>
+  <footer>© 2026 Türkiye Futbol Federasyonu &nbsp; | &nbsp; Video Analiz ve Gözlem Sistemi</footer>
+ </div>`
 }
 
 function flagTeam(flag,name){return `<span class="ref-team"><img src="${flag}"><b>${name}</b></span>`}
