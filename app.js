@@ -11,7 +11,7 @@ let S={
  route:sessionStorage.getItem("tff-demo-auth")==="1"?(location.hash.replace("#/","")||"home"):"login",
  theme:localStorage.getItem("tff-theme")||"dark",
  lang:localStorage.getItem("tff-language")==="en"?"en":"tr",
- teamTab:"overview",
+ teamTab:"overview",statsTab:"general",statsFilters:{league:"Tüm Ligler",season:"2025/2026",team:"A Milli Takım",position:"Tümü"},
  sidebarCollapsed:localStorage.getItem("tff-sidebar-collapsed")==="1",
  openMenuGroup:localStorage.getItem("tff-sidebar-group")||"ANALİZ & RAPORLAR",profileMenu:false,
  squadFilter:"Tümü",expandedSquadPlayer:"",
@@ -980,9 +980,77 @@ function playerSearchPage(){
  </div>`;
 }
 
-function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();if(S.route==="karmalar")return karmalarPage();if(S.route==="karma-detail")return karmaDetailPage();if(S.route==="karma-video-new")return karmaVideoForm();if(S.route==="futbolcu-ara")return playerSearchPage();return generic()}
+
+const STATS_PLAYERS=[
+{name:"Hakan Çalhanoğlu",team:"A Milli Takım",league:"Serie A",position:"MDO",age:31,match:23,min:1987,goal:4,assist:7,yellow:2,red:0,score:7.85},
+{name:"Kenan Yıldız",team:"A Milli Takım",league:"Serie A",position:"SLA",age:21,match:21,min:1642,goal:6,assist:5,yellow:1,red:0,score:7.62},
+{name:"İsmail Yüksek",team:"A Milli Takım",league:"Süper Lig",position:"MDO",age:27,match:22,min:1812,goal:2,assist:3,yellow:3,red:0,score:7.48},
+{name:"Barış Alper Yılmaz",team:"A Milli Takım",league:"Süper Lig",position:"SĞA",age:26,match:20,min:1580,goal:7,assist:2,yellow:2,red:0,score:7.41},
+{name:"Arda Güler",team:"A Milli Takım",league:"La Liga",position:"OOS",age:21,match:18,min:1276,goal:3,assist:6,yellow:1,red:0,score:7.36},
+{name:"Abdülkerim Bardakcı",team:"A Milli Takım",league:"Süper Lig",position:"STP",age:31,match:21,min:1890,goal:1,assist:1,yellow:2,red:0,score:7.28},
+{name:"Kerem Aktürkoğlu",team:"A Milli Takım",league:"Primeira Liga",position:"SLA",age:27,match:19,min:1605,goal:5,assist:4,yellow:2,red:0,score:7.22},
+{name:"Orkun Kökçü",team:"A Milli Takım",league:"Primeira Liga",position:"MDO",age:25,match:22,min:1760,goal:2,assist:5,yellow:2,red:0,score:7.18},
+{name:"Merih Demiral",team:"A Milli Takım",league:"Saudi League",position:"STP",age:28,match:20,min:1800,goal:3,assist:0,yellow:2,red:0,score:7.12},
+{name:"Yusuf Yazıcı",team:"A Milli Takım",league:"Ligue 1",position:"OOS",age:29,match:17,min:1123,goal:2,assist:4,yellow:1,red:0,score:7.05},
+{name:"Victor Osimhen",team:"Galatasaray",league:"Süper Lig",position:"SAN",age:27,match:28,min:2388,goal:26,assist:5,yellow:3,red:0,score:8.64}
+];
+
+function statisticsPage(){
+ const leagues=["Tüm Ligler","Süper Lig","1. Lig","Bundesliga","Premier League","Serie A","La Liga","Ligue 1","Primeira Liga","Saudi League"];
+ const seasons=["2025/2026","2024/2025","2023/2024"];
+ const teams=["Tüm Takımlar","A Milli Takım","Galatasaray","Fenerbahçe","Beşiktaş","Trabzonspor"];
+ const positions=["Tümü","Kaleci","STP","SĞB","SLB","MDO","OOS","SĞA","SLA","SAN"];
+ const tabs=[["general","Genel"],["attack","Hücum"],["defence","Savunma"],["setpiece","Duran Top"],["goalkeeper","Kaleci"]];
+ const f=S.statsFilters||{};
+ const rows=STATS_PLAYERS.filter(p=>
+  (!f.league||f.league==="Tüm Ligler"||p.league===f.league)&&
+  (!f.team||f.team==="Tüm Takımlar"||p.team===f.team)&&
+  (!f.position||f.position==="Tümü"||p.position===f.position)
+ );
+ const cols={
+  general:["Maç","Dakika","Gol","Asist","Sarı Kart","Kırmızı Kart","Puan"],
+  attack:["Maç","Gol","Asist","Şut","İsabetli Şut","Puan"],
+  defence:["Maç","Müdahale","Top Kazanma","Uzaklaştırma","Hava Topu","Puan"],
+  setpiece:["Maç","Korner","Serbest Vuruş","Duran Top Golü","Puan"],
+  goalkeeper:["Maç","Kurtarış","Gol Yeme","Clean Sheet","Kurtarış %","Puan"]
+ }[S.statsTab]||["Maç","Dakika","Gol","Asist","Sarı Kart","Kırmızı Kart","Puan"];
+ const val=(p,k)=>({
+  "Maç":p.match,"Dakika":p.min.toLocaleString("tr-TR"),"Gol":p.goal,"Asist":p.assist,
+  "Sarı Kart":p.yellow,"Kırmızı Kart":p.red,"Puan":p.score.toFixed(2),
+  "Şut":p.goal*3+p.assist+6,"İsabetli Şut":p.goal*2+Math.max(1,p.assist),
+  "Müdahale":8+(p.match%7),"Top Kazanma":20+(p.match%13),"Uzaklaştırma":5+(p.match%9),"Hava Topu":6+(p.match%8),
+  "Korner":Math.max(0,p.assist-1),"Serbest Vuruş":Math.max(0,p.goal-1),"Duran Top Golü":p.goal>4?2:1,
+  "Kurtarış":0,"Gol Yeme":0,"Clean Sheet":0,"Kurtarış %":"%0"
+ }[k]??"-");
+
+ return `<div class="content stats-clean-page">
+  <div class="stats-clean-title"><h1>İstatistikler</h1><p>Takım ve oyuncu performans istatistiklerini görüntüleyin.</p></div>
+  <section class="stats-clean-filterbar">
+   <label>Lig<select id="statsLeague">${leagues.map(x=>`<option ${f.league===x?"selected":""}>${x}</option>`).join("")}</select></label>
+   <label>Sezon<select id="statsSeason">${seasons.map(x=>`<option ${f.season===x?"selected":""}>${x}</option>`).join("")}</select></label>
+   <label>Takım<select id="statsTeam">${teams.map(x=>`<option ${f.team===x?"selected":""}>${x}</option>`).join("")}</select></label>
+   <label>Pozisyon<select id="statsPosition">${positions.map(x=>`<option ${f.position===x?"selected":""}>${x}</option>`).join("")}</select></label>
+   <button id="statsApply" class="stats-clean-apply">⌁ &nbsp; Filtrele</button>
+  </section>
+  <nav class="stats-clean-tabs">${tabs.map(x=>`<button class="${S.statsTab===x[0]?"active":""}" data-stats-tab="${x[0]}">${x[1]}</button>`).join("")}</nav>
+  <div class="stats-clean-toolbar"><b>Sonuç: ${rows.length} oyuncu</b><div><button>▣ PDF</button><button>▤ Excel</button></div></div>
+  <section class="stats-clean-tablewrap">
+   <div class="stats-clean-tablehead"><span>#</span><span>Oyuncu</span><span>Takım</span><span>Pozisyon</span><span>Yaş</span>${cols.map(x=>`<span>${x}</span>`).join("")}</div>
+   <div class="stats-clean-rows">${rows.map((p,i)=>`<div class="stats-clean-row"><span>${i+1}</span><b>${p.name}</b><span>${p.team}</span><span>${p.position}</span><span>${p.age}</span>${cols.map(x=>`<span class="${x==="Puan"?"score":""}">${val(p,x)}</span>`).join("")}</div>`).join("")||`<div class="stats-clean-empty">Bu filtrelere uygun oyuncu bulunamadı.</div>`}</div>
+  </section>
+  <div class="stats-clean-pagination"><span>Sayfa başına <select><option>10</option><option>25</option><option>50</option></select></span><div><button>‹</button><button class="active">1</button><button>2</button><button>3</button><button>›</button></div></div>
+ </div>`;
+}
+function page(){if(S.route==="login")return loginPage();if(S.route==="home")return home();if(S.route==="milli-takimlar")return milli();if(S.route==="team-a-milli")return teamDetail();if(S.route==="karmalar")return karmalarPage();if(S.route==="karma-detail")return karmaDetailPage();if(S.route==="karma-video-new")return karmaVideoForm();if(S.route==="futbolcu-ara")return playerSearchPage();if(S.route==="istatistik")return statisticsPage();return generic()}
 function render(){if(S.route==="login"){if(location.hash!=="#/login")history.replaceState(null,"","#/login");document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame route-${S.route}">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}applyLanguage();bind()}
 function bind(){
+ document.querySelectorAll("[data-stats-tab]").forEach(e=>e.addEventListener("click",()=>{S.statsTab=e.dataset.statsTab;render()}));
+ const statsApply=document.getElementById("statsApply");
+ if(statsApply)statsApply.addEventListener("click",()=>{
+  const v=id=>document.getElementById(id)?.value||"";
+  S.statsFilters={league:v("statsLeague"),season:v("statsSeason"),team:v("statsTeam"),position:v("statsPosition")};
+  render();
+ });
  document.querySelectorAll("[data-route]").forEach(e=>e.addEventListener("click",()=>go(e.dataset.route)));
  document.querySelectorAll("[data-karma-category]").forEach(e=>e.addEventListener("click",()=>{S.karmaCategory=e.dataset.karmaCategory;render()}));
  document.querySelectorAll("[data-open-karma]").forEach(e=>{
