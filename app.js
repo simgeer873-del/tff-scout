@@ -259,7 +259,8 @@ function homeNationalCard(t){
   "plaj":"PLAJ MİLLİ"
  }[t.id]||t.name.toUpperCase();
 
- return `<article class="home-national-card" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}" ${t.id==="a-milli"?'onclick="go(\'team-a-milli\')"':""}>
+ return `<article class="home-national-card" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}">
+   ${t.id==="a-milli"?'<a class="a-milli-real-link" href="#/team-a-milli" aria-label="A Milli Takım detayını aç"></a>':""}
    <div class="home-national-art" style="background-image:url('${jersey}')">
      <strong>${code}</strong>
    </div>
@@ -337,7 +338,8 @@ function milli(){
    ${teams.map(([id,code,label,color])=>{
     const route=id==="a-milli"?"team-a-milli":"milli-takimlar";
     const longCode=code.length>14?" long-code":"";
-    return `<article class="milli-ref5-card" data-route="${route}" data-team="${id}" ${id==="a-milli"?'onclick="go(\'team-a-milli\')"':""}>
+    return `<article class="milli-ref5-card" data-route="${route}" data-team="${id}">
+      ${id==="a-milli"?'<a class="a-milli-real-link" href="#/team-a-milli" aria-label="A Milli Takım detayını aç"></a>':""}
       <div class="milli-ref5-art" style="background-image:url('${imgFor(color)}')">
        <strong class="${longCode}">${code}</strong>
       </div>

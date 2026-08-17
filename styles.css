@@ -3107,3 +3107,18 @@ body.light .home-national-foot{
 body.light .home-national-foot b{
   color:#172432;
 }
+
+
+/* A Milli: gerçek hash linki — sadece tıklama düzeltmesi */
+.home-national-card,
+.milli-ref5-card{
+  position:relative;
+}
+.a-milli-real-link{
+  position:absolute;
+  inset:0;
+  z-index:30;
+  display:block;
+  cursor:pointer;
+  text-decoration:none;
+}
