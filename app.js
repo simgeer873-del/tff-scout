@@ -387,41 +387,114 @@ const aMilliMatches=[
 ];
 
 function teamShell(body){
- const tabs=[["overview","Genel Bakış"],["squad","Kadro"],["matches","Maçlar"],["videos","Videolar"],["stats","İstatistikler"],["team-reports","Raporlar"]];
- return `<div class="team-ref-page">
-  <section class="team-ref-header">
-    <div class="team-ref-head-left"><img src="assets/turkey-badge.png" class="team-ref-flag"><div><h1>A Milli Takım <span class="verified">✓</span></h1><p>Erkek Milli Takım</p></div></div>
-    <div class="team-head-kpis">
-      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5.5 20c.5-4 2.7-6 6.5-6s6 2 6.5 6"/></svg></span><div class="team-head-kpi-copy"><span>Teknik Direktör</span><b>Vincenzo Montella</b></div></div>
-      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 13v4M8 20h8M9 17h6"/></svg></span><div class="team-head-kpi-copy"><span>FIFA Sıralaması</span><b>36</b></div></div>
-      <div class="team-head-kpi"><span class="team-head-kpi-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3.5 20c.5-4 2.4-6 5.5-6s5 2 5.5 6M14 15c3.5 0 5.5 1.6 6 5"/></svg></span><div class="team-head-kpi-copy"><span>Kadro</span><b>33 Oyuncu</b></div></div>
-    </div>
-    <div class="team-ref-head-art"></div>
-    <nav class="team-ref-tabs">${tabs.map(x=>`<button class="${S.teamTab===x[0]?"active":""}" data-teamtab="${x[0]}">${x[1]}</button>`).join("")}</nav>
+ const tabs=[
+  ["overview","Genel Bakış"],
+  ["matches","Maçlar"],
+  ["squad","Kadro"],
+  ["goalkeepers","Kaleciler"],
+  ["set-pieces","Duran Toplar"],
+  ["compare-team","Karşılaştır"],
+  ["fitness","Fitness"]
+ ];
+ return `<div class="team-sb-page">
+  <section class="team-sb-titlebar">
+   <div>
+    <h1>A Milli Takım</h1>
+    <p>Türkiye A Milli Futbol Takımı maç, oyuncu ve performans analizleri.</p>
+   </div>
+   <button class="team-sb-report">▣ &nbsp; Rapor Oluştur</button>
   </section>
-  <div class="team-ref-content">${body}</div>
-  <footer>© 2026 Türkiye Futbol Federasyonu &nbsp; | &nbsp; Video Analiz ve Gözlem Sistemi</footer>
+
+  <section class="team-sb-profile">
+   <div class="team-sb-profile-main">
+    <img src="assets/flag-tr.png" alt="Türkiye">
+    <div><h2>Türkiye</h2><b>A Milli Takım</b><span>Türkiye Futbol Federasyonu</span></div>
+   </div>
+   <div class="team-sb-profile-stat"><span>Kuruluş</span><b>1923</b></div>
+   <div class="team-sb-profile-stat"><span>FIFA Sıralaması</span><b>38</b></div>
+   <div class="team-sb-profile-stat"><span>Konfederasyon</span><b>UEFA</b></div>
+   <div class="team-sb-profile-stat"><span>Teknik Direktör</span><b>Vincenzo Montella</b></div>
+  </section>
+
+  <nav class="team-sb-tabs">
+   ${tabs.map(x=>`<button class="${S.teamTab===x[0]?"active":""}" data-teamtab="${x[0]}">${x[1]}</button>`).join("")}
+  </nav>
+
+  <div class="team-sb-content">${body}</div>
  </div>`
 }
 
 function flagTeam(flag,name){return `<span class="ref-team"><img src="${flag}"><b>${name}</b></span>`}
 
 function teamOverview(){
+ const attackRows=[
+  ["Goller","22"],["Pozisyonlar","54"],["Kontratak","18"],["Duran Top Organizasyonları","24"],
+  ["Köşe Vuruşu","16"],["Penaltı","4"],["1'e 1 Durumlar","12"],["Şutlar","31"]
+ ];
+ const defendRows=[
+  ["Goller","17"],["Pozisyonlar","48"],["Kontratak","15"],["Duran Top Savunmaları","21"],
+  ["Köşe Vuruşu","14"],["Penaltı","3"],["1'e 1 Durumlar","10"],["Şutlar","28"]
+ ];
+ const stats=[
+  ["Maç","10","–","12."],
+  ["Galibiyet","7","70.0%","8."],
+  ["Beraberlik","2","20.0%","15."],
+  ["Mağlubiyet","1","10.0%","18."]
+ ];
  return teamShell(`
- <div class="team-dashboard">
-  <div class="team-match-grid">
-   <section class="ref-card ref-match-card team-main-match"><h3>Son Maç</h3><p class="ref-muted center">Dünya Kupası Elemeleri</p><div class="ref-scoreline">${flagTeam("assets/flag-tr.png","Türkiye")}<strong>2 <span>–</span> 2</strong>${flagTeam("assets/flag-es.png","İspanya")}</div><p class="ref-muted center">21 Mayıs 2026 · 21:45<br>Atatürk Olimpiyat Stadyumu</p><button class="ref-wide-btn" data-teamtab="matches">Maç Detayları &nbsp; →</button></section>
-   <section class="ref-card ref-match-card team-main-match"><h3>Sıradaki Maç</h3><p class="ref-muted center">Dünya Kupası Elemeleri</p><div class="ref-scoreline">${flagTeam("assets/flag-tr.png","Türkiye")}<strong class="vs">VS</strong>${flagTeam("assets/flag-it.png","İtalya")}</div><p class="ref-muted center">25 Mayıs 2026 · 20:00<br>Konya Büyükşehir Stadyumu</p><button class="ref-wide-btn" data-teamtab="matches">Maç Detayları &nbsp; →</button></section>
-  </div>
-  <div class="team-dashboard-row team-dashboard-row-middle">
-   <section class="ref-card team-squad-card"><h3>Kadro Özeti</h3><div class="team-position-summary">${[["Kaleci","3","green"],["Defans","9","blue"],["Orta Saha","11","orange"],["Forvet","10","red"]].map(x=>`<button data-teamtab="squad" class="${x[2]}"><span>${x[0]}</span><strong>${x[1]}</strong></button>`).join("")}</div></section>
-   <section class="ref-card team-form-card"><h3>Son 5 Maç Formu</h3><div class="team-form-content"><div class="team-form-circles"><span class="win">G</span><span class="draw">B</span><span class="win">G</span><span class="loss">M</span><span class="win">G</span></div><div class="team-form-score"><span>Form</span><strong>%74</strong><svg viewBox="0 0 130 45" aria-hidden="true"><polyline points="3,38 29,25 52,31 78,14 102,24 126,5"/><path d="m115 5 11 0 0 11"/></svg></div></div></section>
-  </div>
-  <div class="team-dashboard-row team-dashboard-row-bottom">
-   <section class="ref-card team-performance-card"><h3>Performans Özeti</h3><div class="team-performance-grid">${[["Topla Oynama","%56","blue"],["Şut","15",""],["İsabetli Şut","7",""],["Pas Başarısı","%87","green"]].map(x=>`<div><span>${x[0]}</span><strong class="${x[2]}">${x[1]}</strong></div>`).join("")}</div></section>
-   <section class="ref-card team-staff-card"><h3>Teknik Ekip</h3><div class="team-staff-list">${[["VM","Vincenzo Montella","Teknik Direktör"],["DB","D. Di Battista","Yardımcı Antrenör"],["AR","A. Rimedio","Kaleci Antrenörü"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b><small>${x[2]}</small></div>`).join("")}</div></section>
-  </div>
- </div>`)
+  <div class="team-sb-overview">
+   <section class="team-sb-card team-sb-goals">
+    <div class="team-sb-card-head"><h3>Gol Tipleri</h3><select><option>2025/26</option></select></div>
+    <div class="team-sb-donuts">
+     <div class="team-sb-donut-block">
+      <h4>Atılan Goller</h4>
+      <div class="team-sb-donut scored"><span><b>22</b><small>Toplam</small></span></div>
+      <div class="team-sb-legend">
+       <span><i class="l1"></i>Duran Top <b>%36 (8)</b></span>
+       <span><i class="l2"></i>Kontratak <b>%27 (6)</b></span>
+       <span><i class="l3"></i>Oyun İçi <b>%27 (6)</b></span>
+       <span><i class="l4"></i>Penaltı <b>%9 (2)</b></span>
+      </div>
+     </div>
+     <div class="team-sb-donut-block">
+      <h4>Yenilen Goller</h4>
+      <div class="team-sb-donut conceded"><span><b>17</b><small>Toplam</small></span></div>
+      <div class="team-sb-legend">
+       <span><i class="l1"></i>Duran Top <b>%41 (7)</b></span>
+       <span><i class="l2"></i>Oyun İçi <b>%29 (5)</b></span>
+       <span><i class="l3"></i>Kontratak <b>%18 (3)</b></span>
+       <span><i class="l4"></i>Penaltı <b>%12 (2)</b></span>
+      </div>
+     </div>
+    </div>
+    <div class="team-sb-note">ⓘ Seçili sezondaki tüm maçlara göre hesaplanmıştır.</div>
+   </section>
+
+   <section class="team-sb-card team-sb-clips">
+    <div class="team-sb-card-head"><h3>Video Kırpıntıları</h3><select><option>Son 10 Maç</option></select></div>
+    <div class="team-sb-clip-cols">
+     <div><h4>Hücumda</h4>${attackRows.map(x=>`<button><span>◉ &nbsp; ${x[0]}</span><b>${x[1]}</b></button>`).join("")}<button class="all">Tümünü Görüntüle <b>→</b></button></div>
+     <div><h4>Rakip Hücumda</h4>${defendRows.map(x=>`<button><span>◉ &nbsp; ${x[0]}</span><b>${x[1]}</b></button>`).join("")}<button class="all">Tümünü Görüntüle <b>→</b></button></div>
+    </div>
+   </section>
+
+   <section class="team-sb-card team-sb-table">
+    <div class="team-sb-subtabs"><b>İstatistikler</b><span>Oyuncular</span></div>
+    <div class="team-sb-table-head"><span>İstatistik</span><span>Toplam</span><span>Maç Başı</span><span>Avrupa Sıralaması</span></div>
+    ${stats.map(x=>`<div class="team-sb-table-row"><b>${x[0]}</b><span>${x[1]}</span><span>${x[2]}</span><span>${x[3]}</span></div>`).join("")}
+   </section>
+
+   <section class="team-sb-card team-sb-lastmatch">
+    <h3>Son Maç</h3>
+    <div class="team-sb-lastmeta"><span>21 Mayıs 2026 · Dünya Kupası Elemeleri</span><span>İstanbul</span></div>
+    <div class="team-sb-score">
+     <div><img src="assets/flag-tr.png"><b>Türkiye</b></div>
+     <strong>2 - 2<small>Beraberlik</small></strong>
+     <div><img src="assets/flag-es.png"><b>İspanya</b></div>
+    </div>
+    <button class="team-sb-wide">Maç Raporu &nbsp; ▣</button>
+   </section>
+  </div>`)
 }
 
 function teamSquad(){
@@ -471,12 +544,33 @@ function teamReports(){
  return teamShell(`<section class="ref-card tab-card"><div class="ref-card-head"><div><h2>Raporlar</h2><p class="ref-muted">A Milli Takım için oluşturulan analiz ve gözlem raporları</p></div><button class="upload-btn">＋ Yeni Rapor</button></div><div class="report-table"><div class="rt-head"><span>RAPOR</span><span>KONU</span><span>HAZIRLAYAN</span><span>TARİH</span><span>PUAN</span></div>${rr.map(x=>`<div class="rt-row"><b>${x[0]}</b><span>${x[1]}</span><span>${x[2]}</span><span>${x[3]}</span><strong>${x[4]}</strong></div>`).join("")}</div></section>`)
 }
 
+
+function teamGoalkeepers(){
+ const keepers=aMilliPlayers.filter(p=>p.group==="Kaleci");
+ return teamShell(`<section class="team-sb-card team-sb-simple"><div class="team-sb-simple-head"><div><h3>Kaleciler</h3><p>A Milli Takım kaleci havuzu</p></div><span>${keepers.length} Oyuncu</span></div>
+  <div class="team-sb-simple-table"><div class="head"><span>Oyuncu</span><span>Kulüp</span><span>Millî Maç</span><span>Gol</span></div>
+  ${keepers.map(p=>`<div><b>${p.name}</b><span>${p.club}</span><span>${p.caps}</span><span>${p.goals}</span></div>`).join("")}</div></section>`)
+}
+function teamSetPieces(){
+ return teamShell(`<section class="team-sb-card team-sb-simple"><div class="team-sb-simple-head"><div><h3>Duran Toplar</h3><p>Son 10 maç üzerinden duran top özeti</p></div><span>2025/26</span></div>
+  <div class="team-sb-metric-line">${[["Korner","64"],["Serbest Vuruş","38"],["Duran Top Golü","8"],["Duran Top Golü Yenilen","7"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join("")}</div></section>`)
+}
+function teamCompareTeam(){
+ return teamShell(`<section class="team-sb-card team-sb-simple"><div class="team-sb-simple-head"><div><h3>Karşılaştır</h3><p>A Milli Takım performansını rakiplerle karşılaştırın.</p></div></div>
+  <div class="team-sb-metric-line">${[["Hücum","82"],["Savunma","76"],["Pas Oyunu","88"],["Pres","84"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join("")}</div></section>`)
+}
+function teamFitness(){
+ return teamShell(`<section class="team-sb-card team-sb-simple"><div class="team-sb-simple-head"><div><h3>Fitness</h3><p>Takım fiziksel performans özeti</p></div><span>Son 10 Maç</span></div>
+  <div class="team-sb-metric-line">${[["Ort. Mesafe","108.4 km"],["Yüksek Şiddetli Koşu","12.8 km"],["Sprint","146"],["Toparlanma","%91"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join("")}</div></section>`)
+}
+
 function teamDetail(){
  if(S.teamTab==="squad")return teamSquad();
  if(S.teamTab==="matches")return teamMatches();
- if(S.teamTab==="videos")return teamVideos();
- if(S.teamTab==="stats")return teamStats();
- if(S.teamTab==="team-reports")return teamReports();
+ if(S.teamTab==="goalkeepers")return teamGoalkeepers();
+ if(S.teamTab==="set-pieces")return teamSetPieces();
+ if(S.teamTab==="compare-team")return teamCompareTeam();
+ if(S.teamTab==="fitness")return teamFitness();
  return teamOverview();
 }
 
