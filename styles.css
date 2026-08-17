@@ -2938,3 +2938,47 @@ body.light .home-national-foot b,body.light .milli-jersey-foot b{color:#172432}
   .home-national-grid,.milli-jersey-grid{grid-template-columns:1fr!important}
   .home-national-art{height:180px}.milli-jersey-art{height:220px}
 }
+
+/* ===== Milli Takımlar forma yazısı — onaylı referans ölçüsü =====
+   Kart düzenini değiştirmez; yalnızca forma üzerindeki takım kodu tipografisini düzenler. */
+.home-national-art strong,
+.milli-jersey-art strong{
+  font-family:"Arial Narrow","Roboto Condensed","Segoe UI Condensed","Arial",sans-serif!important;
+  font-style:normal!important;
+  font-weight:700!important;
+  text-transform:uppercase!important;
+  letter-spacing:.015em!important;
+  line-height:.96!important;
+  color:#f1eee9!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+  text-shadow:0 2px 7px rgba(0,0,0,.58)!important;
+}
+
+/* Ana sayfadaki küçük kısayol kartları */
+.home-national-art strong{
+  font-size:clamp(18px,1.35vw,23px)!important;
+  width:88%!important;
+  top:53%!important;
+}
+
+/* Milli Takımlar liste ekranı */
+.milli-jersey-art strong{
+  font-size:clamp(25px,2vw,34px)!important;
+  width:86%!important;
+  top:51.5%!important;
+}
+
+/* Uzun takım isimlerinde referanstaki gibi kontrollü küçültme */
+.milli-jersey-card[data-team="kadin-a"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kadin-u23"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kadin-u19"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kiz-u18"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kiz-u17"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kiz-u15"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="ozel"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="u14-kulup"] .milli-jersey-art strong,
+.milli-jersey-card[data-team="kiz-u15-bolge"] .milli-jersey-art strong{
+  font-size:clamp(20px,1.55vw,28px)!important;
+  line-height:1.02!important;
+}
