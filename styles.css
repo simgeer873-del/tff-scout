@@ -3350,3 +3350,10 @@ body.light .team-sb-tabs button.active{color:#172432}
 .stats-clean-row{min-height:50px;border-top:1px solid #27374a;color:#e8edf3;font-size:13px}.stats-clean-row:hover{background:#132235}.stats-clean-row b{font-size:13.5px;color:#fff}.stats-clean-row .score{color:#ff343c;font-weight:800}.stats-clean-rows{overflow-x:auto}.stats-clean-empty{padding:30px;text-align:center;color:#8f9bac;font-size:13px}
 .stats-clean-pagination{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding:12px 14px;border:1px solid #26374a;border-radius:9px;background:#0d1826;color:#aab5c3;font-size:12px}.stats-clean-pagination select{height:34px;margin-left:8px;background:#111f2f;color:#fff;border:1px solid #34465b;border-radius:7px;padding:0 9px}.stats-clean-pagination>div{margin-left:auto;display:flex;gap:6px}.stats-clean-pagination button{width:34px;height:34px;border:1px solid #34465b;background:#111f2f;color:#dfe6ee;border-radius:7px}.stats-clean-pagination button.active{background:#d71920;border-color:#d71920;color:#fff}
 @media(max-width:1100px){.stats-clean-filterbar{grid-template-columns:1fr 1fr}.stats-clean-apply{grid-column:1/-1}}@media(max-width:650px){.stats-clean-filterbar{grid-template-columns:1fr}.stats-clean-tabs{gap:18px;overflow-x:auto}}
+
+.stats-clean-apply{
+ display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;
+ letter-spacing:.01em
+}
+.stats-clean-toolbar button{cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.stats-clean-toolbar button:hover{border-color:#d71920;background:#152438}

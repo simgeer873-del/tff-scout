@@ -995,6 +995,108 @@ const STATS_PLAYERS=[
 {name:"Victor Osimhen",team:"Galatasaray",league:"Süper Lig",position:"SAN",age:27,match:28,min:2388,goal:26,assist:5,yellow:3,red:0,score:8.64}
 ];
 
+
+function getStatsExportData(){
+ const f=S.statsFilters||{};
+ const rows=STATS_PLAYERS.filter(p=>
+  (!f.league||f.league==="Tüm Ligler"||p.league===f.league)&&
+  (!f.team||f.team==="Tüm Takımlar"||p.team===f.team)&&
+  (!f.position||f.position==="Tümü"||p.position===f.position)
+ );
+ const cols={
+  general:["Maç","Dakika","Gol","Asist","Sarı Kart","Kırmızı Kart","Puan"],
+  attack:["Maç","Gol","Asist","Şut","İsabetli Şut","Puan"],
+  defence:["Maç","Müdahale","Top Kazanma","Uzaklaştırma","Hava Topu","Puan"],
+  setpiece:["Maç","Korner","Serbest Vuruş","Duran Top Golü","Puan"],
+  goalkeeper:["Maç","Kurtarış","Gol Yeme","Clean Sheet","Kurtarış %","Puan"]
+ }[S.statsTab]||["Maç","Dakika","Gol","Asist","Sarı Kart","Kırmızı Kart","Puan"];
+
+ const val=(p,k)=>({
+  "Maç":p.match,
+  "Dakika":p.min.toLocaleString("tr-TR"),
+  "Gol":p.goal,
+  "Asist":p.assist,
+  "Sarı Kart":p.yellow,
+  "Kırmızı Kart":p.red,
+  "Puan":p.score.toFixed(2),
+  "Şut":p.goal*3+p.assist+6,
+  "İsabetli Şut":p.goal*2+Math.max(1,p.assist),
+  "Müdahale":8+(p.match%7),
+  "Top Kazanma":20+(p.match%13),
+  "Uzaklaştırma":5+(p.match%9),
+  "Hava Topu":6+(p.match%8),
+  "Korner":Math.max(0,p.assist-1),
+  "Serbest Vuruş":Math.max(0,p.goal-1),
+  "Duran Top Golü":p.goal>4?2:1,
+  "Kurtarış":0,
+  "Gol Yeme":0,
+  "Clean Sheet":0,
+  "Kurtarış %":"%0"
+ }[k]??"-");
+
+ return {
+  rows,
+  cols,
+  val,
+  filters:{
+   Lig:f.league||"Tüm Ligler",
+   Sezon:f.season||"2025/2026",
+   Takım:f.team||"A Milli Takım",
+   Pozisyon:f.position||"Tümü"
+  },
+  tab:({"general":"Genel","attack":"Hücum","defence":"Savunma","setpiece":"Duran Top","goalkeeper":"Kaleci"}[S.statsTab]||"Genel")
+ };
+}
+
+function exportStatsExcel(){
+ const d=getStatsExportData();
+ const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+ const headers=["#","Oyuncu","Takım","Pozisyon","Yaş",...d.cols];
+ const trs=d.rows.map((p,i)=>`<tr><td>${i+1}</td><td>${esc(p.name)}</td><td>${esc(p.team)}</td><td>${esc(p.position)}</td><td>${p.age}</td>${d.cols.map(c=>`<td>${esc(d.val(p,c))}</td>`).join("")}</tr>`).join("");
+ const filterText=Object.entries(d.filters).map(([k,v])=>`${k}: ${v}`).join(" | ");
+ const doc=`<!doctype html><html><head><meta charset="UTF-8"></head><body>
+  <h2>TFF Scout - İstatistikler</h2>
+  <p>${esc(filterText)} | Sekme: ${esc(d.tab)}</p>
+  <table border="1"><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${trs}</tbody></table>
+ </body></html>`;
+ const blob=new Blob(["\ufeff",doc],{type:"application/vnd.ms-excel;charset=utf-8;"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download=`TFF_Scout_Istatistikler_${new Date().toISOString().slice(0,10)}.xls`;
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),500);
+}
+
+function exportStatsPdf(){
+ const d=getStatsExportData();
+ const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+ const headers=["#","Oyuncu","Takım","Pozisyon","Yaş",...d.cols];
+ const rows=d.rows.map((p,i)=>`<tr><td>${i+1}</td><td>${esc(p.name)}</td><td>${esc(p.team)}</td><td>${esc(p.position)}</td><td>${p.age}</td>${d.cols.map(c=>`<td>${esc(d.val(p,c))}</td>`).join("")}</tr>`).join("");
+ const filterText=Object.entries(d.filters).map(([k,v])=>`${k}: ${v}`).join(" • ");
+ const w=window.open("","_blank","width=1200,height=800");
+ if(!w){alert("PDF görünümü için açılır pencereye izin verin.");return}
+ w.document.write(`<!doctype html><html lang="tr"><head><meta charset="UTF-8"><title>TFF Scout İstatistikler</title>
+ <style>
+  *{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#111;margin:28px}
+  h1{font-size:24px;margin:0 0 6px}.meta{font-size:12px;color:#555;margin-bottom:20px}
+  table{width:100%;border-collapse:collapse;font-size:11px}
+  th,td{border:1px solid #bbb;padding:7px 8px;text-align:left}
+  th{background:#f0f2f5;font-weight:700}
+  .foot{margin-top:14px;font-size:10px;color:#666}
+  @page{size:landscape;margin:12mm}
+ </style></head><body>
+ <h1>TFF Scout — İstatistikler</h1>
+ <div class="meta">${esc(filterText)} • Sekme: ${esc(d.tab)} • Sonuç: ${d.rows.length} oyuncu</div>
+ <table><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table>
+ <div class="foot">Türkiye Futbol Federasyonu — Video Analiz ve Gözlem Sistemi</div>
+ <script>window.onload=()=>setTimeout(()=>window.print(),250);<\/script>
+ </body></html>`);
+ w.document.close();
+}
+
 function statisticsPage(){
  const leagues=["Tüm Ligler","Süper Lig","1. Lig","Bundesliga","Premier League","Serie A","La Liga","Ligue 1","Primeira Liga","Saudi League"];
  const seasons=["2025/2026","2024/2025","2023/2024"];
@@ -1030,10 +1132,10 @@ function statisticsPage(){
    <label>Sezon<select id="statsSeason">${seasons.map(x=>`<option ${f.season===x?"selected":""}>${x}</option>`).join("")}</select></label>
    <label>Takım<select id="statsTeam">${teams.map(x=>`<option ${f.team===x?"selected":""}>${x}</option>`).join("")}</select></label>
    <label>Pozisyon<select id="statsPosition">${positions.map(x=>`<option ${f.position===x?"selected":""}>${x}</option>`).join("")}</select></label>
-   <button id="statsApply" class="stats-clean-apply">⌁ &nbsp; Filtrele</button>
+   <button id="statsApply" class="stats-clean-apply">⏷ &nbsp; Filtrele</button>
   </section>
   <nav class="stats-clean-tabs">${tabs.map(x=>`<button class="${S.statsTab===x[0]?"active":""}" data-stats-tab="${x[0]}">${x[1]}</button>`).join("")}</nav>
-  <div class="stats-clean-toolbar"><b>Sonuç: ${rows.length} oyuncu</b><div><button>▣ PDF</button><button>▤ Excel</button></div></div>
+  <div class="stats-clean-toolbar"><b>Sonuç: ${rows.length} oyuncu</b><div><button id="statsPdfBtn">▣ PDF</button><button id="statsExcelBtn">▤ Excel</button></div></div>
   <section class="stats-clean-tablewrap">
    <div class="stats-clean-tablehead"><span>#</span><span>Oyuncu</span><span>Takım</span><span>Pozisyon</span><span>Yaş</span>${cols.map(x=>`<span>${x}</span>`).join("")}</div>
    <div class="stats-clean-rows">${rows.map((p,i)=>`<div class="stats-clean-row"><span>${i+1}</span><b>${p.name}</b><span>${p.team}</span><span>${p.position}</span><span>${p.age}</span>${cols.map(x=>`<span class="${x==="Puan"?"score":""}">${val(p,x)}</span>`).join("")}</div>`).join("")||`<div class="stats-clean-empty">Bu filtrelere uygun oyuncu bulunamadı.</div>`}</div>
@@ -1045,6 +1147,10 @@ function page(){if(S.route==="login")return loginPage();if(S.route==="home")retu
 function render(){if(S.route==="login"){if(location.hash!=="#/login")history.replaceState(null,"","#/login");document.getElementById("app").innerHTML=loginPage()}else{document.getElementById("app").innerHTML=`<div class="app-frame route-${S.route}">${topbar()}<div class="shell ${S.sidebarCollapsed?"sidebar-collapsed":""}">${sidebar()}<main class="main">${page()}</main></div></div>`}applyLanguage();bind()}
 function bind(){
  document.querySelectorAll("[data-stats-tab]").forEach(e=>e.addEventListener("click",()=>{S.statsTab=e.dataset.statsTab;render()}));
+ const statsPdfBtn=document.getElementById("statsPdfBtn");
+ if(statsPdfBtn)statsPdfBtn.addEventListener("click",exportStatsPdf);
+ const statsExcelBtn=document.getElementById("statsExcelBtn");
+ if(statsExcelBtn)statsExcelBtn.addEventListener("click",exportStatsExcel);
  const statsApply=document.getElementById("statsApply");
  if(statsApply)statsApply.addEventListener("click",()=>{
   const v=id=>document.getElementById(id)?.value||"";
