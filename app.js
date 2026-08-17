@@ -245,6 +245,31 @@ const vids=[
 ["assets/video-4.jpg","04:45","Türkiye 1–1 ABD","Hazırlık Maçı","01.06.2026"],
 ["assets/video-5.jpg","05:32","A Milli Antrenman Özeti","Antalya Kampı","30.05.2026"]
 ];
+
+function homeNationalCard(t){
+ const jersey=t.id==="futsal"?"assets/milli-jersey-black.jpg":
+              t.id==="plaj"?"assets/milli-jersey-white.jpg":
+              "assets/milli-jersey-red.jpg";
+ const code={
+  "a-milli":"A MİLLİ",
+  "u21":"U21",
+  "u19":"U19",
+  "kadin-a":"KADINLAR A",
+  "futsal":"FUTSAL",
+  "plaj":"PLAJ MİLLİ"
+ }[t.id]||t.name.toUpperCase();
+
+ return `<article class="home-national-card" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}">
+   <div class="home-national-art" style="background-image:url('${jersey}')">
+     <strong>${code}</strong>
+   </div>
+   <div class="home-national-foot">
+     <b>${t.id==="kadin-a"?"Kadınlar A Milli":t.name}</b>
+     <span aria-hidden="true">→</span>
+   </div>
+ </article>`;
+}
+
 function teamCard(t){return `<article class="quick-card team-${t.id}" data-route="${t.id==="a-milli"?"team-a-milli":"milli-takimlar"}"><div class="quick-img" style="background-image:url('${t.img}');background-position:${t.focus||"center"};background-size:${t.fit||"cover"}"><div class="quick-badge"><img src="assets/crescent-star.png" alt="Türkiye"></div></div><div class="quick-info"><b>${t.name}</b><small>${t.sub}</small><span>${t.count}</span></div></article>`}
 function stats(){return panel("Genel İstatistikler",`<div class="stat-grid">${[["İzlenen Maç","18","↗ %12",""],["İzlenen Oyuncu","42","↗ %15",""],["Oluşturulan Rapor","23","↗ %8",""],["Yetenek Başvurusu","7","↘ %5","down"]].map(x=>`<div class="stat"><small>${x[0]}</small><strong>${x[1]}</strong><div class="trend ${x[3]}">${x[2]}</div></div>`).join("")}</div>`,`<span style="font-size:10px;color:#9da9b7">Bu Ay⌄</span>`)}
 function upcoming(){
@@ -266,7 +291,7 @@ function reports(){
 function quickActions(){return panel("Hızlı İşlemler",`<div class="qgrid"><button class="qbtn q1">▷ &nbsp; Maç Analizine Başla</button><button class="qbtn q2">⌕ &nbsp; Oyuncu Ara</button><button class="qbtn q3">▤ &nbsp; Yeni Rapor Oluştur</button><button class="qbtn q4">☆ &nbsp; Yetenek Başvuruları</button></div>`)}
 function home(){return `<div class="content"><div class="layout"><section class="center"><div class="welcome"><h1>Hoş Geldiniz, Simge Er</h1><p>TFF Video Analiz ve Gözlem Sistemi</p></div><div class="hero"></div>
 <div class="section-head"><div class="section-title">Hızlı Erişim</div><button class="linkbtn" data-route="milli-takimlar">Tümünü Gör &nbsp; →</button></div>
-<div class="quick-grid">${homeTeams.map(teamCard).join("")}</div>
+<div class="quick-grid home-national-grid">${homeTeams.map(homeNationalCard).join("")}</div>
 <div class="section-head"><div class="section-title">Son Videolar</div><button class="linkbtn">Tümünü Gör &nbsp; →</button></div>
 <div class="video-grid">${vids.map(v=>`<article class="video-card"><div class="video-thumb" style="background-image:url('${v[0]}')"><div class="play">▶</div><div class="duration">${v[1]}</div></div><div class="video-title">${v[2]}</div><div class="video-sub">${v[3]}<br>${v[4]}</div></article>`).join("")}</div></section>
 <aside class="rail">${stats()}${upcoming()}${reports()}${quickActions()}</aside></div><footer>© 2026 Türkiye Futbol Federasyonu &nbsp; | &nbsp; Video Analiz ve Gözlem Sistemi</footer></div>`}

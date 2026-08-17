@@ -2996,3 +2996,114 @@ body.light .milli-ref5-foot b{color:#172432}
   .milli-ref5-grid{grid-template-columns:1fr}
   .milli-ref5-search{width:100%!important}
 }
+
+
+/* =========================================================
+   ANA SAYFA — HIZLI ERISIM MILLI TAKIM KARTLARI
+   Sadece home-national-* siniflarini etkiler.
+   Milli Takımlar sayfasi, sidebar, topbar, hero ve sag paneller degismez.
+   ========================================================= */
+
+.home-national-grid{
+  /* mevcut quick-grid sütun yapısını korur */
+}
+
+.home-national-card{
+  min-width:0;
+  overflow:hidden;
+  border:1px solid #223348;
+  border-radius:11px;
+  background:#0a1420;
+  box-shadow:none;
+  transition:border-color .16s ease,transform .16s ease;
+}
+
+.home-national-card:hover{
+  transform:translateY(-2px);
+  border-color:#d71920;
+}
+
+.home-national-art{
+  height:138px;
+  position:relative;
+  overflow:hidden;
+  background-position:center center;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+
+.home-national-art:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(2,7,12,.02) 0%,rgba(2,7,12,.04) 64%,rgba(2,7,12,.28) 100%);
+  pointer-events:none;
+}
+
+.home-national-art strong{
+  position:absolute;
+  z-index:2;
+  left:6px;
+  right:6px;
+  top:57%;
+  transform:translateY(-50%);
+  text-align:center;
+  color:#e4e1dc;
+  font-family:"Arial Narrow","Roboto Condensed","Segoe UI",Arial,sans-serif;
+  font-size:21px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.035em;
+  text-transform:uppercase;
+  text-shadow:0 2px 3px rgba(0,0,0,.75),0 0 1px rgba(255,255,255,.25);
+  white-space:nowrap;
+}
+
+.home-national-foot{
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:0 10px;
+  background:#08121d;
+  border-top:1px solid rgba(255,255,255,.03);
+}
+
+.home-national-foot b{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#f2f4f7;
+  font-size:11px;
+  font-weight:700;
+}
+
+.home-national-foot span{
+  flex:0 0 auto;
+  color:#ee2028;
+  font-size:19px;
+  line-height:1;
+}
+
+/* Eski quick-card özel stilleri bu kartları etkilemesin */
+.home-national-grid .home-national-card .quick-img,
+.home-national-grid .home-national-card .quick-info,
+.home-national-grid .home-national-card .quick-badge{
+  display:none!important;
+}
+
+body.light .home-national-card{
+  background:#fff;
+  border-color:#dfe6ef;
+}
+
+body.light .home-national-foot{
+  background:#fff;
+  border-top-color:#e6ebf0;
+}
+
+body.light .home-national-foot b{
+  color:#172432;
+}
