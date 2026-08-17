@@ -2864,101 +2864,96 @@ body.light .karma-ref-title p{color:#6c7b8a}body.light .karma-ref-filters button
 body.light .karma-simple-org,body.light .karma-simple-form{border-color:#d7e1e9;background:#fff}body.light .karma-simple-org h2,body.light .karma-simple-fields label>span,body.light .karma-simple-description>span,body.light .karma-simple-file>b{color:#172432}body.light .karma-simple-fields input,body.light .karma-simple-description textarea{border-color:#cbd8e3;background:#fff;color:#172432}body.light .karma-simple-file-list,body.light .karma-simple-file,body.light .karma-simple-actions{border-color:#dfe7ee}body.light .karma-simple-selected b{color:#25384a}
 @media(max-width:760px){.karma-simple-page{padding-top:20px}.karma-simple-head h1{font-size:28px}.karma-simple-org{align-items:flex-start;padding:14px}.karma-simple-org>.karma-ref-logo.large{width:74px;height:68px;transform:scale(.82);transform-origin:left top}.karma-simple-org h2{font-size:18px}.karma-simple-form{padding:17px}.karma-simple-fields{grid-template-columns:1fr}.karma-simple-form .karma-dropzone{min-height:190px}.karma-simple-selected{align-items:flex-start;flex-direction:column;gap:5px}.karma-simple-file{grid-template-columns:32px minmax(100px,1fr) 30px}.karma-simple-file>span,.karma-simple-file>strong{display:none}.karma-simple-actions{display:grid;grid-template-columns:1fr 1fr}.karma-simple-actions button{width:100%}}
 
-/* ===== MILLI TAKIMLAR — USER APPROVED EXACT JERSEY GRID ===== */
-.milli-exact-page{
-  max-width:none!important;
-  padding:22px 26px 28px!important;
+/* ===== ANA SAYFA / MİLLİ TAKIMLAR HIZLI ERİŞİM =====
+   Sadece ana sayfadaki milli takım kartlarını etkiler.
+   Sidebar, topbar, hero, rail ve diğer ekranlara dokunmaz. */
+.home-team-grid{
+  gap:10px !important;
 }
-.milli-exact-title{
-  margin:1px 0 18px;
-}
-.milli-exact-title h1{
-  margin:0;
-  font-size:32px;
-  line-height:1.08;
-  font-weight:800;
-  letter-spacing:-.02em;
-  color:var(--text);
-}
-.milli-exact-title span{
-  display:block;
-  width:64px;
-  height:3px;
-  margin-top:14px;
-  border-radius:999px;
-  background:linear-gradient(90deg,#ed1c24 0 62%,rgba(237,28,36,.15) 62% 100%);
-}
-.milli-exact-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:18px 22px;
-}
-.milli-exact-card{
+.home-team-card{
   min-width:0;
   overflow:hidden;
-  border:1px solid rgba(223,25,33,.76);
+  border:1px solid rgba(215,25,32,.58);
   border-radius:11px;
-  background:#07111c;
+  background:#08131f;
   box-shadow:none;
   cursor:pointer;
-  transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
 }
-.milli-exact-card:hover{
+.home-team-card:hover{
   transform:translateY(-2px);
-  border-color:#f0262e;
-  box-shadow:0 12px 28px rgba(0,0,0,.22),0 0 0 1px rgba(239,28,36,.08);
+  border-color:#ef2931;
+  box-shadow:0 10px 24px rgba(0,0,0,.22);
 }
-.milli-exact-art{
+.home-team-visual{
+  height:150px;
   position:relative;
-  width:100%;
-  aspect-ratio:400/246;
   overflow:hidden;
-  background:#090d13;
+  background-position:center 44%;
+  background-size:cover;
+  background-repeat:no-repeat;
 }
-.milli-exact-art img{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  object-position:center;
+.home-team-visual::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(2,7,12,.03) 42%,rgba(2,7,12,.16) 100%);
+  pointer-events:none;
 }
-.milli-exact-foot{
-  height:52px;
+.home-team-visual strong{
+  position:absolute;
+  z-index:2;
+  left:50%;
+  top:55%;
+  transform:translate(-50%,-50%);
+  width:92%;
+  text-align:center;
+  color:#f2f2f2;
+  font-size:22px;
+  line-height:1;
+  font-weight:850;
+  letter-spacing:.01em;
+  text-shadow:0 2px 6px rgba(0,0,0,.55);
+  white-space:nowrap;
+}
+.home-team-foot{
+  min-height:42px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 20px 0 18px;
-  background:linear-gradient(180deg,#07111b 0%,#06101a 100%);
-  border-top:1px solid rgba(255,255,255,.018);
+  gap:8px;
+  padding:0 11px;
+  border-top:1px solid rgba(255,255,255,.04);
+  background:linear-gradient(180deg,#08131f,#07111c);
 }
-.milli-exact-foot strong{
-  font-size:15px;
-  line-height:1;
+.home-team-foot b{
+  min-width:0;
+  overflow:hidden;
+  color:#f3f6f8;
+  font-size:11px;
   font-weight:750;
-  letter-spacing:.01em;
-  color:#f5f7fa;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
-.milli-exact-foot b{
-  color:#ed1c24;
-  font-size:23px;
+.home-team-foot span{
+  flex:0 0 auto;
+  color:#ef2029;
+  font-size:19px;
   line-height:1;
-  font-weight:400;
-  transform:translateY(-1px);
 }
-body.light .milli-exact-card{
+body.light .home-team-card{
+  border-color:rgba(215,25,32,.42);
   background:#fff;
-  border-color:rgba(215,25,32,.62);
 }
-body.light .milli-exact-foot{
+body.light .home-team-foot{
   background:#fff;
-  border-top-color:#e7ebf0;
+  border-top-color:#e8edf2;
 }
-body.light .milli-exact-foot strong{color:#172432}
-@media(max-width:1180px){
-  .milli-exact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+body.light .home-team-foot b{color:#172432}
+@media(max-width:1280px){
+  .home-team-visual{height:144px}
+  .home-team-visual strong{font-size:20px}
 }
-@media(max-width:760px){
-  .milli-exact-page{padding:16px!important}
-  .milli-exact-title h1{font-size:27px}
-  .milli-exact-grid{grid-template-columns:1fr;gap:14px}
+@media(max-width:850px){
+  .home-team-visual{height:150px}
 }
