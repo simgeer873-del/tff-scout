@@ -390,13 +390,14 @@ function teamShell(body){
  const tabs=[
   ["overview","Genel Bakış"],
   ["matches","Maçlar"],
-  ["squad","Kadro"],
+  ["players","Oyuncular"],
   ["goalkeepers","Kaleciler"],
   ["set-pieces","Duran Toplar"],
+  ["episodes","Pozisyon Arama"],
   ["compare-team","Karşılaştır"],
   ["fitness","Fitness"]
  ];
- return `<div class="team-sb-page">
+ return `<div class="team-sb-page team-sb-readable">
   <section class="team-sb-titlebar">
    <div>
     <h1>A Milli Takım</h1>
@@ -425,6 +426,30 @@ function teamShell(body){
 }
 
 function flagTeam(flag,name){return `<span class="ref-team"><img src="${flag}"><b>${name}</b></span>`}
+
+
+const teamPlayerStats=[
+ {no:8,name:"Arda Güler",age:21,birth:"2005",ht:176,wt:67,nat:"Türkiye",min:739,pos:"OOS",gm:8,ast:1,goals:2,shots:6,pass:89,club:"Real Madrid"},
+ {no:14,name:"Abdülkerim Bardakcı",age:31,birth:"1994",ht:190,wt:81,nat:"Türkiye",min:731,pos:"STP",gm:8,ast:0,goals:1,shots:4,pass:86,club:"Galatasaray"},
+ {no:11,name:"Kenan Yıldız",age:21,birth:"2005",ht:185,wt:77,nat:"Türkiye",min:613,pos:"SLK",gm:8,ast:1,goals:2,shots:10,pass:84,club:"Juventus"},
+ {no:16,name:"İsmail Yüksek",age:27,birth:"1999",ht:183,wt:73,nat:"Türkiye",min:600,pos:"MDO",gm:8,ast:0,goals:0,shots:3,pass:88,club:"Fenerbahçe"},
+ {no:10,name:"Hakan Çalhanoğlu",age:32,birth:"1994",ht:178,wt:76,nat:"Türkiye",min:583,pos:"MDO",gm:8,ast:2,goals:1,shots:5,pass:91,club:"Inter"},
+ {no:2,name:"Zeki Çelik",age:29,birth:"1997",ht:180,wt:78,nat:"Türkiye",min:550,pos:"SĞB",gm:8,ast:1,goals:0,shots:3,pass:87,club:"Roma"},
+ {no:21,name:"Barış Alper Yılmaz",age:26,birth:"2000",ht:186,wt:80,nat:"Türkiye",min:525,pos:"SĞK",gm:7,ast:2,goals:3,shots:8,pass:82,club:"Galatasaray"},
+ {no:6,name:"Orkun Kökçü",age:25,birth:"2000",ht:175,wt:68,nat:"Türkiye",min:528,pos:"OOS",gm:7,ast:3,goals:1,shots:8,pass:90,club:"Benfica"},
+ {no:20,name:"Ferdi Kadıoğlu",age:26,birth:"1999",ht:175,wt:68,nat:"Türkiye",min:521,pos:"SLB",gm:7,ast:1,goals:1,shots:6,pass:88,club:"Brighton"},
+ {no:7,name:"Kerem Aktürkoğlu",age:27,birth:"1998",ht:173,wt:68,nat:"Türkiye",min:514,pos:"SLK",gm:7,ast:2,goals:1,shots:9,pass:81,club:"Benfica"},
+ {no:3,name:"Merih Demiral",age:28,birth:"1998",ht:191,wt:86,nat:"Türkiye",min:511,pos:"STP",gm:7,ast:0,goals:2,shots:4,pass:84,club:"Al-Ahli"}
+];
+
+const teamFitnessRows=[
+ ["25.06.26","ABD","3-2","123885","61733","62147","4079","4514","1957","1163","795","840","1.82"],
+ ["19.06.26","Paraguay","0-1","122787","59950","62835","4134","4086","1975","1068","906","784","1.81"],
+ ["13.06.26","Avustralya","2-0","119876","60178","59699","3813","3876","1799","1053","744","746","1.88"],
+ ["07.06.26","Venezuela","1-2","114674","56842","57834","4157","3772","1807","882","923","928","1.84"],
+ ["01.06.26","K. Makedonya","4-0","113650","56674","56975","3540","3755","1861","775","1084","692","1.87"],
+ ["31.03.26","Kosova","0-1","117616","59050","58564","7515","3763","1731","858","873","717","1.95"]
+];
 
 function teamOverview(){
  const attackRows=[
@@ -547,28 +572,105 @@ function teamReports(){
 
 function teamGoalkeepers(){
  const keepers=aMilliPlayers.filter(p=>p.group==="Kaleci");
- return teamShell(`<section class="team-sb-card team-sb-simple"><div class="team-sb-simple-head"><div><h3>Kaleciler</h3><p>A Milli Takım kaleci havuzu</p></div><span>${keepers.length} Oyuncu</span></div>
-  <div class="team-sb-simple-table"><div class="head"><span>Oyuncu</span><span>Kulüp</span><span>Millî Maç</span><span>Gol</span></div>
-  ${keepers.map(p=>`<div><b>${p.name}</b><span>${p.club}</span><span>${p.caps}</span><span>${p.goals}</span></div>`).join("")}</div></section>`)
+ return teamShell(`<section class="team-sb-card team-sb-data-page">
+  <div class="team-sb-data-head"><div><h2>Kaleciler</h2><p>A Milli Takım kaleci performans verileri</p></div><span class="team-sb-count">${keepers.length} Oyuncu</span></div>
+  <div class="team-sb-table-scroll"><table class="team-sb-bigtable">
+   <thead><tr><th>Oyuncu</th><th>Kulüp</th><th>Yaş</th><th>Millî Maç</th><th>Boy / Kilo</th><th>Durum</th></tr></thead>
+   <tbody>${keepers.map(p=>`<tr><td><b>${p.name}</b></td><td>${p.club}</td><td>${p.age}</td><td>${p.caps}</td><td>${p.body}</td><td><span class="team-sb-status">● ${p.status}</span></td></tr>`).join("")}</tbody>
+  </table></div>
+ </section>`)
 }
 function teamSetPieces(){
- return teamShell(`<section class="team-sb-card team-sb-simple"><div class="team-sb-simple-head"><div><h3>Duran Toplar</h3><p>Son 10 maç üzerinden duran top özeti</p></div><span>2025/26</span></div>
-  <div class="team-sb-metric-line">${[["Korner","64"],["Serbest Vuruş","38"],["Duran Top Golü","8"],["Duran Top Golü Yenilen","7"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join("")}</div></section>`)
+ return teamShell(`<section class="team-sb-card team-sb-setpiece-page">
+  <div class="team-sb-data-head">
+   <div><h2>Duran Top Analizi</h2><p>Son 10 maç · Hücum ve savunma duran top organizasyonları</p></div>
+   <div class="team-sb-filter-row"><select><option>Son 10 Maç</option></select><span class="team-sb-count">176 Pozisyon</span></div>
+  </div>
+  <div class="team-sb-setpiece-grid">
+   <aside class="team-sb-setpiece-filter">
+    <h3>Duran Top Türü</h3>
+    ${["Korner","Serbest Vuruş","Taç","Penaltı"].map(x=>`<label><input type="checkbox"> ${x}</label>`).join("")}
+    <h3>Sonuç</h3>
+    ${["Gol","Şut","Şutsuz"].map(x=>`<label><input type="checkbox"> ${x}</label>`).join("")}
+    <h3>Topun Dönüşü</h3>
+    ${["İçeri kıvrılan","Dışarı kıvrılan"].map(x=>`<label><input type="checkbox"> ${x}</label>`).join("")}
+   </aside>
+   <div class="team-sb-pitch-panel">
+    <div class="team-sb-subtabs"><b>Takım Duran Topları</b><span>Rakip Duran Topları</span></div>
+    <div class="team-sb-direction-tabs"><button class="active">Yönler</button><button>Şut Konumları</button><button>Bitiş Noktaları</button></div>
+    <div class="team-sb-pitch">
+      <div class="team-sb-pitch-box"></div>
+      ${[
+        [15,18,62,47],[18,25,55,40],[20,35,50,42],[75,20,54,47],[82,30,55,42],
+        [10,70,55,49],[86,72,53,48],[40,15,52,48],[60,17,48,46],[25,80,53,50],
+        [70,82,52,50],[35,65,48,48],[55,68,49,49],[45,85,51,48]
+      ].map((p,i)=>`<i class="team-sb-arrow" style="left:${p[0]}%;top:${p[1]}%;width:${Math.max(40,Math.abs(p[2]-p[0])*3)}px;transform:rotate(${(p[2]-p[0])*0.55}deg)"></i>`).join("")}
+      <span class="team-sb-target t1"></span><span class="team-sb-target t2"></span><span class="team-sb-target t3"></span>
+    </div>
+   </div>
+  </div>
+ </section>`)
 }
 function teamCompareTeam(){
- return teamShell(`<section class="team-sb-card team-sb-simple"><div class="team-sb-simple-head"><div><h3>Karşılaştır</h3><p>A Milli Takım performansını rakiplerle karşılaştırın.</p></div></div>
-  <div class="team-sb-metric-line">${[["Hücum","82"],["Savunma","76"],["Pas Oyunu","88"],["Pres","84"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join("")}</div></section>`)
+ return teamShell(`<section class="team-sb-card team-sb-data-page">
+  <div class="team-sb-data-head">
+   <div><h2>Takım Karşılaştırması</h2><p>Türkiye ile seçilen rakibi temel performans başlıklarında karşılaştırın.</p></div>
+   <div class="team-sb-filter-row"><select><option>2025/26</option></select><select><option>İspanya</option><option>İtalya</option><option>Portekiz</option></select></div>
+  </div>
+  <div class="team-sb-compare-head"><div><img src="assets/flag-tr.png"><b>Türkiye</b></div><span>VS</span><div><img src="assets/flag-es.png"><b>İspanya</b></div></div>
+  <div class="team-sb-compare-list">${[
+   ["Gol",22,24],["Başarılı Pozisyon %",29,33],["Faul",106,98],["Sarı Kart",22,18],["Şut",131,140],["İsabetli Şut",54,61]
+  ].map(x=>`<div><span>${x[1]}</span><b>${x[0]}</b><span>${x[2]}</span><div class="team-sb-compare-bar"><i style="width:${Math.min(100,x[1]/Math.max(x[1],x[2])*50)}%"></i><em style="width:${Math.min(100,x[2]/Math.max(x[1],x[2])*50)}%"></em></div></div>`).join("")}</div>
+ </section>`)
 }
 function teamFitness(){
- return teamShell(`<section class="team-sb-card team-sb-simple"><div class="team-sb-simple-head"><div><h3>Fitness</h3><p>Takım fiziksel performans özeti</p></div><span>Son 10 Maç</span></div>
-  <div class="team-sb-metric-line">${[["Ort. Mesafe","108.4 km"],["Yüksek Şiddetli Koşu","12.8 km"],["Sprint","146"],["Toparlanma","%91"]].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join("")}</div></section>`)
+ return teamShell(`<section class="team-sb-card team-sb-data-page">
+  <div class="team-sb-data-head">
+   <div><h2>Fitness Ana İstatistikler</h2><p>Son maçlarda takım fiziksel performans özeti</p></div>
+   <div class="team-sb-filter-row"><select><option>Son 10 Maç</option></select><label class="team-sb-switch"><input type="checkbox"><span></span> Rakip verisi</label></div>
+  </div>
+  <div class="team-sb-subtabs"><b>Takım Fitness</b><span>Oyuncu Fitness</span></div>
+  <div class="team-sb-table-scroll"><table class="team-sb-bigtable team-sb-fitness-table">
+   <thead><tr><th>Tarih</th><th>Rakip</th><th>Skor</th><th>Toplam Mesafe</th><th>1. Yarı</th><th>2. Yarı</th><th>Yüksek Hız</th><th>Sprint</th><th>Toparlanma</th><th>Ort. Hız</th></tr></thead>
+   <tbody>${teamFitnessRows.map(r=>`<tr><td>${r[0]}</td><td><b>${r[1]}</b></td><td>${r[2]}</td><td>${r[3]} m</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td><td>${r[7]}</td><td>${r[11]}</td><td>${r[12]}</td></tr>`).join("")}</tbody>
+  </table></div>
+ </section>`)
 }
 
+function teamPlayers(){
+ return teamShell(`<section class="team-sb-card team-sb-data-page">
+  <div class="team-sb-data-head">
+   <div><h2>Oyuncu İstatistikleri</h2><p>Son 10 maç · A Milli Takım oyuncu performans tablosu</p></div>
+   <div class="team-sb-filter-row">
+    <select><option>Son 10 Maç</option><option>2025/26</option></select>
+    <select><option>Tüm Pozisyonlar</option></select>
+    <label class="team-sb-switch"><input type="checkbox"><span></span> Profil verisini göster</label>
+   </div>
+  </div>
+  <div class="team-sb-table-scroll">
+   <table class="team-sb-bigtable">
+    <thead><tr><th>No</th><th>Oyuncu</th><th>Yaş</th><th>Boy</th><th>Kilo</th><th>Kulüp</th><th>Dakika</th><th>Poz.</th><th>Maç</th><th>Gol</th><th>Asist</th><th>Şut</th><th>Pas %</th></tr></thead>
+    <tbody>${teamPlayerStats.map(p=>`<tr><td>${p.no}</td><td><b>${p.name}</b></td><td>${p.age}</td><td>${p.ht}</td><td>${p.wt}</td><td>${p.club}</td><td>${p.min}</td><td>${p.pos}</td><td>${p.gm}</td><td>${p.goals}</td><td>${p.ast}</td><td>${p.shots}</td><td>${p.pass}%</td></tr>`).join("")}</tbody>
+   </table>
+  </div>
+ </section>`)
+}
+function teamEpisodes(){
+ const groups=[
+  ["Hücumda",["Goller","Pozisyonel Hücumlar","Kontrataklar","Baskı Altında Oyun","Oyun Kurulumu","Serbest Vuruşlar","Kornerler","Penaltılar","1'e 1 Pozisyonlar"]],
+  ["Rakip Hücumda",["Goller","Pozisyonel Hücumlar","Kontrataklar","Baskı Altında Oyun","Oyun Kurulumu","Serbest Vuruşlar","Kornerler","Penaltılar","1'e 1 Pozisyonlar"]]
+ ];
+ return teamShell(`<section class="team-sb-card team-sb-data-page">
+  <div class="team-sb-data-head"><div><h2>Pozisyon Arama</h2><p>Maç videolarında belirli aksiyon ve pozisyonları hızlıca bulun.</p></div><select><option>Son 10 Maç</option></select></div>
+  <div class="team-sb-episode-grid">${groups.map(g=>`<div><h3>${g[0]}</h3>${g[1].map((x,i)=>`<button><span>▶ &nbsp; ${x}</span><b>${[22,54,18,31,40,16,24,4,12][i]}</b></button>`).join("")}</div>`).join("")}</div>
+ </section>`)
+}
 function teamDetail(){
- if(S.teamTab==="squad")return teamSquad();
  if(S.teamTab==="matches")return teamMatches();
+ if(S.teamTab==="players")return teamPlayers();
  if(S.teamTab==="goalkeepers")return teamGoalkeepers();
  if(S.teamTab==="set-pieces")return teamSetPieces();
+ if(S.teamTab==="episodes")return teamEpisodes();
  if(S.teamTab==="compare-team")return teamCompareTeam();
  if(S.teamTab==="fitness")return teamFitness();
  return teamOverview();
